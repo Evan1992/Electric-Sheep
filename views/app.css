@@ -1,0 +1,12 @@
+.HelloWorld {
+    margin: 0px;
+    font-family: monospace;
+    white-space: pre;
+    user-select: none;
+    font-size: 12px;
+    line-height: 14px;
+    color: rgba(var(--grey-9-rgb), 1);
+    max-height: 100px;
+    overflow: auto;
+    text-align: center;
+}
