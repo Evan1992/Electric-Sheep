@@ -5,6 +5,8 @@ const express = require("express"),
 Set path in order to use external files
 */
 app.use(express.static(__dirname+"/views"));
+app.use(express.static(__dirname+"/public/pictures/books"))
+app.use(express.static(__dirname+"/public/pictures/dramas"))
 
 /*
 Require routes

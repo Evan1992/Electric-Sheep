@@ -24,9 +24,6 @@ body {
     margin-bottom: 15px;
 }
 
-.card_head {
-    border-bottom: 1px solid #e8e8e8;
-}
 .card_head_title {
     font-size: 14px;
     font-weight: 500;
@@ -35,14 +32,23 @@ body {
 .card_head_wrapper {
     align-items: center;
     padding: 8px;
+    border-bottom: 1px solid #e8e8e8;
 }
 
 .card_body_wrapper {
     padding: 12px;
     display: flex;
+    border-bottom: 1px solid #e8e8e8;
 }
 
-.user_picture {
+.card_tail_wrapper {
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.user_img {
     width: 60px;
     border-radius: 6px;
 }
@@ -59,4 +65,39 @@ body {
 .user_saySomething {
     font-size: 14px;
     font: Helvetica,Arial,sans-serif;
+}
+
+.link_wrapper {
+    line-height: 1.2;
+    padding: 0 0 8px 0;
+}
+
+.sort {
+    padding: 0 0 12px 0;
+}
+
+.sort_title {
+    width: 250px;
+    display: flex;
+    flex-grow:4;
+    align-items: center;
+}
+.sort_title_name {
+    flex-basis: 80px;
+}
+
+.book_img {
+    width: 90px;
+}
+
+/* selector  based on id*/
+#right_container{
+    padding: 0;
+}
+#right_row{
+    padding: 0 0 12px 0;
+}
+
+#right_row_title {
+    line-height: 120px;
 }
