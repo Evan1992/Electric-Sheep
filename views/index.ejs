@@ -13,6 +13,7 @@
     
         <!-- Custom CSS -->
         <link rel="stylesheet" href="app.css">
+        <link rel="stylesheet" href="weather.css">
 
         <title>Electric Sheep</title>
     </head>
@@ -88,6 +89,37 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    
+                    <!-- card of weather -->
+                    <div class="card">
+                        <div class="card_head">
+                            <div class="card_head_wrapper">
+                                <div class="card_head_title">Weather</div>
+                            </div>
+                        </div>
+                        <div class="card_body">
+                            <div class="card_body_wrapper">
+                                <div class="notification"> </div>
+                                <div class="weather-container">
+                                    <div class="weather-icon">
+                                        <img src="unknown.png" alt="">
+                                    </div>
+                                    <div class="location">
+                                        <p>-</p>
+                                    </div>
+                                    <div class="temperature-description">
+                                        <p> - </p>
+                                    </div>
+                                    <div class="temperature-value">
+                                        <p>- °<span>C</span></p>
+                                    </div>
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <!-- card of tools -->
@@ -165,11 +197,47 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="sort" id="music">
+                        <div class="sort_title">
+                            <h5 class="sort_title_name">Music</h5>
+                            <!-- <span class="pl">
+                                <a href="">will do</a>
+                                &nbsp;&nbsp;
+                                <a href="">doing</a>
+                                &nbsp;&nbsp; 
+                                <a href="">done</a>
+                            </span> -->
+                        </div>
+
+                        <div class="sort_body">
+                            <div class="container" id="right_container">
+                                <!-- Reading row -->
+                                <div class="row" id="right_row">
+                                    <div class="col-2" id="right_row_title">Listened</div>
+                                    <div class="col-2"><img src="2020111401.jpg" class="book_img"></div>
+                                    <div class="col-2"><img src="2020111402.jpg" class="book_img"></div>
+                                    <div class="col-2"><img src="2020111403.jpg" class="book_img"></div>
+                                </div>
+                                <!-- Wish List row -->
+                                <div class="row" id="right_row">
+                                    <div class="col-2" id="right_row_title">Wish List</div>
+                                    <div class="col-2"><img src="2020111404.jpg" class="book_img"></div>
+                                    <div class="col-2"><img src="2020111405.jpg" class="book_img"></div>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="footer">
+                <div class="footer-wrapper">
+                    <span class="copyright">Copyright © 2020 Electric Sheep</span>
                 </div>
             </div>
         </div>
+        
+        <script src="client.js"></script>
     </body>
 </html>
-
-
-
