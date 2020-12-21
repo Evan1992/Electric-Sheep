@@ -86,8 +86,15 @@ body {
     flex-basis: 80px;
 }
 
-.book_img {
+.item-img {
     width: 90px;
+}
+
+.add-icon {
+    width: 20px;
+    left: 40%;
+    top: 40%;
+    position: absolute;
 }
 
 .footer-wrapper {
@@ -99,7 +106,7 @@ body {
     color: #757575 
 }
 
-/* selector  based on id*/
+/* selector based on id*/
 #right_container{
     padding: 0;
 }
