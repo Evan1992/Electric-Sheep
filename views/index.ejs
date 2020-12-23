@@ -16,6 +16,8 @@
         <link rel="stylesheet" href="app.css">
         <link rel="stylesheet" href="weather.css">
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
+
         <title>Electric Sheep</title>
     </head>
 
@@ -91,6 +93,27 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- card of useful tools -->
+                    <div class="card">
+                        <div class="card_head">
+                            <div class="card_head_wrapper">
+                                <div class="card_head_title">Tools</div>
+                            </div>
+                        </div>
+                        <div class="card_body">
+                            <div class="card_body_wrapper">
+                                <div class="links">
+                                    <div class="link_wrapper">
+                                        <div class="link_title">Time Logger</div>
+                                    </div>
+                                    <div class="link_wrapper">
+                                        <div class="link_title">Smart Cart</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     
                     <!-- card of weather -->
                     <div class="card">
@@ -143,20 +166,22 @@
 
                         <div class="sort_body">
                             <div class="container" id="right_container">
-                                <!-- Reading row -->
+                                <!-- Read row -->
                                 <div class="row" id="right_row">
-                                    <div class="col-2" id="right_row_title">Reading</div>
-                                    <div class="col-2"><a href="/"><img src="2020110506.jpg" class="item-img"></a></div>
+                                    <div class="col-2" id="right_row_title">Read</div>
+                                    <div class="col-2"><img src="2020110506.jpg" class="item-img"></div>
                                     <div class="col-2"><img src="2020110507.jpg" class="item-img"></div>
                                     <div class="col-2"><img src="2020110508.jpg" class="item-img"></div>
                                 </div>
                                 <!-- Wish List row -->
                                 <div class="row" id="right_row">
                                     <div class="col-2" id="right_row_title">Wish List</div>
-                                    <div class="col-2"><img src="2020110501.jpg" class="item-img"></div>
-                                    <div class="col-2"><img src="2020110502.jpg" class="item-img"></div>
-                                    <div class="col-2"><img src="2020110503.jpg" class="item-img"></div>
-                                    <div class="col-2"><img src="2020110505.jpg" class="item-img"></div>
+                                    <!-- Retrieve books' cover from the database and display it -->
+                                    <% Books.forEach(function(book) { %>
+                                        <div class="col-2">
+                                            <img src="data:book/<%=book.cover.contentType%>;base64, <%=book.cover.img_data.toString('base64')%>" class="item-img">
+                                        </div>
+                                    <% }) %>
                                     <div class="col-2"><a href="/add-book"><img src="add_icon.png"   class="add-icon"></a></div>
                                 </div>  
                             </div>
@@ -177,7 +202,7 @@
 
                         <div class="sort_body">
                             <div class="container" id="right_container">
-                                <!-- Reading row -->
+                                <!-- Watched row -->
                                 <div class="row" id="right_row">
                                     <div class="col-2" id="right_row_title">Watched</div>
                                     <div class="col-2"><img src="2020110901.webp" class="item-img"></div>

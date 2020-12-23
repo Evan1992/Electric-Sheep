@@ -1,9 +1,21 @@
-const express = require("express"),
-      router  = express.Router()
+const { defaultProxyHeaderExclusiveList } = require("request/request");
 
-// Root Route
-router.get("/", (req, res)=>{
-    res.render("index.ejs");
+const express = require("express"),
+      router  = express.Router(),
+      Book    = require("../models/book")
+
+
+/* Root Route 
+ * 
+ * async & await
+ *  querying the database takes time, we need wait for the result 
+ *  back from the database, then execute remaining code
+ *
+ */
+router.get("/", async (req, res) => {
+    // Find all books stored in the database
+    const books = await Book.find({})
+    res.render("index", {Books: books})
 })
 
 module.exports = router;

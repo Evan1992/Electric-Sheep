@@ -41,7 +41,7 @@ router.post('/add-book', upload.single('cover'), (req, res)=>{
         ISBN:    req.body.ISBN,
         cover: {
             img_data: fs.readFileSync(req.file.path),
-            contentType: 'image/png'
+            contentType: String
         }
     }
     Book.create(data, (err, book)=>{
@@ -54,14 +54,7 @@ router.post('/add-book', upload.single('cover'), (req, res)=>{
     res.redirect("/add-book");
 })
 
-/*
- * Retrieve the data from mongodb and display it
- * 
- * 
- */
 router.get("/add-book", (req, res)=>{
-    // find the most recent 4 books
-    Book.find({}, (err, items))
     res.render("addBook.ejs")
 });
 
