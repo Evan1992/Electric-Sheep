@@ -67,7 +67,16 @@ app.use(itemRoutes);
 /*
  * Connect to database MongoDB Atlas
  */
-const dbUrl = process.env.DB_URL
+// const dbUrl = process.env.DB_URL
+// mongoose.connect(dbUrl, {
+//     useNewUrlParser: true,
+//     useCreateIndex: true,
+//     useUnifiedTopology: true,
+//     useFindAndModify: false
+// }, err=>{
+//     console.log("Connected to the database");
+// });
+const dbUrl = "mongodb+srv://Yi:824219@cluster0.frtp9.mongodb.net/<dbname>?retryWrites=true&w=majority"
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useCreateIndex: true,
