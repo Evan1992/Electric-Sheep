@@ -4,13 +4,16 @@ var BookSchema = new mongoose.Schema({
     name:    String,
     author:  String,
     press:   String,
+    year:    String,
     ISBN:    String,
     cover:   {
         img_data: Buffer,
         contentType: String
     },
     star:    Number,
-    Comment: String
+    Comment: String,
+    haveRead: Boolean,
+    extract: Array
 })
 
 module.exports = mongoose.model("Book", BookSchema);

@@ -15,7 +15,7 @@ const express = require("express"),
 router.get("/", async (req, res) => {
     // Find all books stored in the database
     const books = await Book.find({})
-    res.render("index", {Books: books})
+    res.render("index", {books: books})
 })
 
 module.exports = router;

@@ -1,0 +1,18 @@
+.book-name {
+    font-size: 25px;
+    font-weight: 500;
+    margin: 15px 0;
+}
+
+.edit-tag {
+    margin: auto auto
+}
+
+.book-cover {
+    width: 160px;
+}
+
+.extracts, .comments {
+    font-size: 20px;
+    margin-top: 15px;
+}

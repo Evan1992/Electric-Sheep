@@ -1,14 +1,21 @@
 /*  
  * This is a server file to handle the logic of interaction with the server
  * 
+ * Packages
+ * - method-override
+ *      form only has two methods: GET and POST,
+ *      to put, patch, and delete, we can use the 
+ *      method-override 
+ * 
  */
-const express    = require("express"),
-      app        = express(),
-      request    = require("request"),
-      bodyParser = require("body-parser"),
-      path       = require("path"),
-      mongoose   = require("mongoose"),
-      dotenv     = require("dotenv").config()
+const express        = require("express"),
+      app            = express(),
+      request        = require("request"),
+      bodyParser     = require("body-parser"),
+      path           = require("path"),
+      mongoose       = require("mongoose"),
+      dotenv         = require("dotenv").config(),
+      methodOverride = require("method-override")
 
 /*
  * Set EJS as the templating engine with Express.
@@ -31,12 +38,13 @@ app.set('views', viewPath);
 
 /*
  * Set path in order to use external files
+ * 
+ * Difference between 
+ *  app.use(express.static(__dirname+"/public"))
+ *  app.use(express.static(path.join(__diranme, "public")))
  */
-app.use(express.static(__dirname+"/views"))
-app.use(express.static(__dirname+"/public/pictures"))
-app.use(express.static(__dirname+"/public/pictures/books"))
-app.use(express.static(__dirname+"/public/pictures/dramas"))
-app.use(express.static(__dirname+"/public/pictures/music"))
+app.use(express.static(__dirname + "/views"))
+app.use(express.static(path.join(__dirname, "public")))
 app.use(express.static(__dirname+"/public/pictures/weather_icons"))
 
 /*
@@ -45,11 +53,14 @@ app.use(express.static(__dirname+"/public/pictures/weather_icons"))
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
+/* */
+app.use(methodOverride('_method'));
+
 /*
  * Require routes
  */
 const indexRoutes = require("./routes/index");
-const itemRoutes  = require("./routes/item")
+const itemRoutes  = require("./routes/item");
 app.use(indexRoutes);
 app.use(itemRoutes);
 

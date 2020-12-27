@@ -13,10 +13,8 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     
         <!-- Custom CSS -->
-        <link rel="stylesheet" href="app.css">
-        <link rel="stylesheet" href="weather.css">
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
+        <link rel="stylesheet" href="/stylesheets/app.css">
+        <link rel="stylesheet" href="/stylesheets/weather.css">
 
         <title>Electric Sheep</title>
     </head>
@@ -44,7 +42,7 @@
                         </div>
                         <div class="card_body">
                             <div class="card_body_wrapper">
-                                <img src="user_img.png" class="user_img">
+                                <img src="/pictures/user_img.png" class="user_img">
                                 <div class="user_info">
                                     <div class="user_name">
                                         <span>Evan</span>    
@@ -141,7 +139,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <!-- card of tools -->
@@ -169,20 +166,22 @@
                                 <!-- Read row -->
                                 <div class="row" id="right_row">
                                     <div class="col-2" id="right_row_title">Read</div>
-                                    <div class="col-2"><img src="2020110506.jpg" class="item-img"></div>
-                                    <div class="col-2"><img src="2020110507.jpg" class="item-img"></div>
-                                    <div class="col-2"><img src="2020110508.jpg" class="item-img"></div>
+                                    <div class="col-2"><img src="/pictures/books/2020110506.jpg" class="item-img"></div>
+                                    <div class="col-2"><img src="/pictures/books/2020110507.jpg" class="item-img"></div>
+                                    <div class="col-2"><img src="/pictures/books/2020110508.jpg" class="item-img"></div>
                                 </div>
                                 <!-- Wish List row -->
                                 <div class="row" id="right_row">
                                     <div class="col-2" id="right_row_title">Wish List</div>
                                     <!-- Retrieve books' cover from the database and display it -->
-                                    <% Books.forEach(function(book) { %>
+                                    <% books.forEach(function(book) { %>
                                         <div class="col-2">
-                                            <img src="data:book/<%=book.cover.contentType%>;base64, <%=book.cover.img_data.toString('base64')%>" class="item-img">
+                                            <a href="/book/<%= book._id %>/show">
+                                                <img src="data:book/<%= book.cover.contentType%>;base64, <%= book.cover.img_data.toString('base64')%>" class="item-img">
+                                            </a>
                                         </div>
                                     <% }) %>
-                                    <div class="col-2"><a href="/add-book"><img src="add_icon.png"   class="add-icon"></a></div>
+                                    <div class="col-2"><a href="/book/new"><img src="/pictures/add_icon.png"   class="add-icon"></a></div>
                                 </div>  
                             </div>
                         </div>
@@ -205,18 +204,18 @@
                                 <!-- Watched row -->
                                 <div class="row" id="right_row">
                                     <div class="col-2" id="right_row_title">Watched</div>
-                                    <div class="col-2"><img src="2020110901.webp" class="item-img"></div>
-                                    <div class="col-2"><img src="2020110902.webp" class="item-img"></div>
-                                    <div class="col-2"><img src="2020110903.webp" class="item-img"></div>
-                                    <div class="col-2"><img src="2020110904.webp" class="item-img"></div>
+                                    <div class="col-2"><img src="pictures/dramas/2020110901.webp" class="item-img"></div>
+                                    <div class="col-2"><img src="pictures/dramas/2020110902.webp" class="item-img"></div>
+                                    <div class="col-2"><img src="pictures/dramas/2020110903.webp" class="item-img"></div>
+                                    <div class="col-2"><img src="pictures/dramas/2020110904.webp" class="item-img"></div>
                                 </div>
                                 <!-- Wish List row -->
                                 <div class="row" id="right_row">
                                     <div class="col-2" id="right_row_title">Wish List</div>
-                                    <div class="col-2"><img src="2020110905.webp" class="item-img"></div>
-                                    <div class="col-2"><img src="2020110906.webp" class="item-img"></div>
-                                    <div class="col-2"><img src="2020110907.webp" class="item-img"></div>
-                                    <div class="col-2"><img src="2020110908.webp" class="item-img"></div>
+                                    <div class="col-2"><img src="pictures/dramas/2020110905.webp" class="item-img"></div>
+                                    <div class="col-2"><img src="pictures/dramas/2020110906.webp" class="item-img"></div>
+                                    <div class="col-2"><img src="pictures/dramas/2020110907.webp" class="item-img"></div>
+                                    <div class="col-2"><img src="pictures/dramas/2020110908.webp" class="item-img"></div>
                                 </div>  
                             </div>
                         </div>
@@ -239,15 +238,15 @@
                                 <!-- Reading row -->
                                 <div class="row" id="right_row">
                                     <div class="col-2" id="right_row_title">Listened</div>
-                                    <div class="col-2"><img src="2020111401.jpg" class="item-img"></div>
-                                    <div class="col-2"><img src="2020111402.jpg" class="item-img"></div>
-                                    <div class="col-2"><img src="2020111403.jpg" class="item-img"></div>
+                                    <div class="col-2"><img src="pictures/music/2020111401.jpg" class="item-img"></div>
+                                    <div class="col-2"><img src="pictures/music/2020111402.jpg" class="item-img"></div>
+                                    <div class="col-2"><img src="pictures/music/2020111403.jpg" class="item-img"></div>
                                 </div>
                                 <!-- Wish List row -->
                                 <div class="row" id="right_row">
                                     <div class="col-2" id="right_row_title">Wish List</div>
-                                    <div class="col-2"><img src="2020111404.jpg" class="item-img"></div>
-                                    <div class="col-2"><img src="2020111405.jpg" class="item-img"></div>
+                                    <div class="col-2"><img src="pictures/music/2020111404.jpg" class="item-img"></div>
+                                    <div class="col-2"><img src="pictures/music/2020111405.jpg" class="item-img"></div>
                                 </div>  
                             </div>
                         </div>

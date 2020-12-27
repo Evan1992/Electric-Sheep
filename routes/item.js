@@ -1,13 +1,21 @@
 /*
- * 
+ * Packages
+ *  multer
+ *      Multer is a node.js middleware for handling multipart/form-data,
+ *      which is primarily used for uploading files. It is written on top
+ *      of busboy for maximum efficiency.
+ *      NOTE: Multer will not process any form which is not multipart(multipart/form-data)
+ *      In case you need to handle a text-only multipart form, you should use the .none() method,
+ *      like upload.none()
+ *      
  */
-const express = require("express"),
-      router  = express.Router(),
-      Book    = require("../models/book"),
-      fs      = require("fs"),
-      multer  = require("multer"),
-      upload  = multer({dest: 'uploads/'})
-
+const express        = require("express"),
+      router         = express.Router(),
+      Book           = require("../models/book"),
+      fs             = require("fs"),
+      multer         = require("multer"),
+      upload         = multer({dest: 'uploads/'})
+      
 /*
  * Upload the image to mongodb
  *
@@ -28,7 +36,7 @@ const express = require("express"),
  *          to prevent EMFILE errors. It should be a drop in the replacement for fs
  *      
  */
-router.post('/add-book', upload.single('cover'), (req, res)=>{
+router.post('/book/new', upload.single('cover'), (req, res)=>{
     // req.file is the 'cover' file
     // req.body will hold the text fields, if there were any
     console.log(req.body);
@@ -51,11 +59,42 @@ router.post('/add-book', upload.single('cover'), (req, res)=>{
             console.log(book)
         }
     })
-    res.redirect("/add-book");
+    res.redirect("/book/new");
+})
+router.get("/book/new", (req, res)=>{
+    res.render("book/new")
 })
 
-router.get("/add-book", (req, res)=>{
-    res.render("addBook.ejs")
-});
 
-module.exports = router;
+/* 
+ * 
+ */
+router.get("/book/index", async (req, res)=>{
+    allBooks = await Book.find({})
+    res.render("book/index", {allBooks})
+})
+
+router.get("/book/:id/show", async (req, res) =>{
+    book = await Book.findById(req.params.id)
+    res.render("book/show", {book})
+})
+
+router.get("/book/:id/edit", async (req, res) =>{
+    book = await Book.findById(req.params.id)
+    res.render("book/edit", {book})
+})
+
+/*
+ * Note
+ *  Don't forget to add upload, otherwise, req.body is empty.
+ *      
+ */
+router.put("/book/:id", upload.single('cover'), async (req, res)=>{
+    const { id } = req.params
+    console.log(id)
+    console.log(req.body)
+    const book = await Book.findByIdAndUpdate(id, req.body)
+    res.redirect(`/book/${book._id}/show`)
+})
+
+module.exports = router
