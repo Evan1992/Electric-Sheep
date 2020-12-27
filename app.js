@@ -77,7 +77,7 @@ app.use(itemRoutes);
 //     console.log("Connected to the database");
 // });
 const dbUrl = "mongodb+srv://Yi:824219@cluster0.frtp9.mongodb.net/<dbname>?retryWrites=true&w=majority"
-mongoose.connect(dbUrl, {
+mongoose.connect("mongodb+srv://Yi:824219@cluster0.frtp9.mongodb.net/<dbname>?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
