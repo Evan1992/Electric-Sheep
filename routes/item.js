@@ -1,5 +1,5 @@
-/*
- * Packages
+/** 
+ * @Packages
  *  multer
  *      Multer is a node.js middleware for handling multipart/form-data,
  *      which is primarily used for uploading files. It is written on top
@@ -16,10 +16,10 @@ const express        = require("express"),
       multer         = require("multer"),
       upload         = multer({dest: 'uploads/'})
       
-/*
- * Upload the image to mongodb
+/**
+ * @brief Upload the image to mongodb
  *
- * Packages
+ * @Packages
  *  Multer
  *      Introduction
  *          Multer is a node.js middleware for handling multipart/form-data, which is
@@ -50,7 +50,11 @@ router.post('/book/new', upload.single('cover'), (req, res)=>{
         cover: {
             img_data: fs.readFileSync(req.file.path),
             contentType: String
-        }
+        },
+        star:    1,
+        Comment: "",
+        haveRead: false,
+        extract: []
     }
     Book.create(data, (err, book)=>{
         if(err){
@@ -66,12 +70,13 @@ router.get("/book/new", (req, res)=>{
 })
 
 
-/* 
+/**
  * 
  */
-router.get("/book/index", async (req, res)=>{
+router.get("/book/index/:have_read", async (req, res)=>{
     allBooks = await Book.find({})
-    res.render("book/index", {allBooks})
+    const haveRead = (req.params.have_read === 'have_read')
+    res.render("book/index", {allBooks, haveRead})
 })
 
 router.get("/book/:id/show", async (req, res) =>{
@@ -84,17 +89,26 @@ router.get("/book/:id/edit", async (req, res) =>{
     res.render("book/edit", {book})
 })
 
-/*
- * Note
- *  Don't forget to add upload, otherwise, req.body is empty.
- *      
+/**
+ * @Note
+ *  Don't forget to add upload, otherwise, req.body is empty.    
  */
 router.put("/book/:id", upload.single('cover'), async (req, res)=>{
     const { id } = req.params
-    console.log(id)
-    console.log(req.body)
+    const newData = req.body
+    if(newData.haveRead){
+        console.log(newData.haveRead)
+        newData.haveRead = true
+    }
+    console.log(newData)
     const book = await Book.findByIdAndUpdate(id, req.body)
     res.redirect(`/book/${book._id}/show`)
+})
+
+router.delete("/book/:id", async (req, res) =>{
+    const { id } = req.params
+    await Book.findByIdAndDelete(id)
+    res.redirect("/")
 })
 
 module.exports = router

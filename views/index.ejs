@@ -11,7 +11,7 @@
         
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    
+
         <!-- Custom CSS -->
         <link rel="stylesheet" href="/stylesheets/app.css">
         <link rel="stylesheet" href="/stylesheets/weather.css">
@@ -20,13 +20,36 @@
     </head>
 
     <body>
+        <!--  
+        # Navbar supported content
+        Navbars come with built-in support for a handful of sub-components.
+        .navbar-brand: for your company, product, or project name.
+        .navbar-nav: for a full-height and lightweight navigation(including support for dropdowns)
+        .navbar-toggler: for use with our collapse plugin and other navigation toggling behaviors
+        .form-inline: for any form controls and actions.
+        .navbar-text: for adding vertically centered strings of text.
+        .collapse.navbar-collapse: for grouping and hiding navbar contents by a parent breakpoint
+        -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/" style="font-weight: 500;">Yi Long</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/bucket-list/show">Bucket List</a></li>
+                </ul>
+            </div>
+        </nav>
+
         <div class="hello_world">
             _   _      _ _    __        __         _     _ 
            | | | | ___| | | __\ \      / /__  _ __| | __| |
            | |_| |/ _ \ | |/ _ \ \ /\ / / _ \| '__| |/ _` |
            |  _  |  __/ | | (_) \ V  V / (_) | |  | | (_| |
            |_| |_|\___|_|_|\___/ \_/\_/ \___/|_|  |_|\__,_|
-
         </div>
 
         <div class="container">
@@ -165,22 +188,44 @@
                             <div class="container" id="right_container">
                                 <!-- Read row -->
                                 <div class="row" id="right_row">
-                                    <div class="col-2" id="right_row_title">Read</div>
-                                    <div class="col-2"><img src="/pictures/books/2020110506.jpg" class="item-img"></div>
-                                    <div class="col-2"><img src="/pictures/books/2020110507.jpg" class="item-img"></div>
-                                    <div class="col-2"><img src="/pictures/books/2020110508.jpg" class="item-img"></div>
+                                    <div class="col-2" id="right_row_title">
+                                        <a href="/book/index/have_read">Read</a>
+                                    </div>
+                                    <!-- Retrieve books' cover from the database and display it -->
+                                    <% let count = 0 %>
+                                    <% for(let i = 0; i <books.length; ++i) { %>
+                                        <% book = books[i] %>
+                                        <% if (book.haveRead) { %>
+                                            <% count++ %>
+                                            <div class="col-2">
+                                                <a href="/book/<%= book._id %>/show">
+                                                    <img src="data:book/<%= book.cover.contentType%>;base64, <%= book.cover.img_data.toString('base64')%>" class="item-img">
+                                                </a>
+                                            </div>
+                                        <% } %>
+                                        <% if(count==4) break %>
+                                    <% } %>
+
                                 </div>
                                 <!-- Wish List row -->
                                 <div class="row" id="right_row">
-                                    <div class="col-2" id="right_row_title">Wish List</div>
+                                    <div class="col-2" id="right_row_title">
+                                        <a href="/book/index/wish_list">Wish List</a>
+                                    </div>
                                     <!-- Retrieve books' cover from the database and display it -->
-                                    <% books.forEach(function(book) { %>
-                                        <div class="col-2">
-                                            <a href="/book/<%= book._id %>/show">
-                                                <img src="data:book/<%= book.cover.contentType%>;base64, <%= book.cover.img_data.toString('base64')%>" class="item-img">
-                                            </a>
-                                        </div>
-                                    <% }) %>
+                                    <% count = 0 %>
+                                    <% for(let i = 0; i<books.length; ++i) { %>
+                                        <% book = books[i] %>
+                                        <% if(!book.haveRead) { %>
+                                            <% count++ %>
+                                            <div class="col-2">
+                                                <a href="/book/<%= book._id %>/show">
+                                                    <img src="data:book/<%= book.cover.contentType%>;base64, <%= book.cover.img_data.toString('base64')%>" class="item-img">
+                                                </a>
+                                            </div>
+                                        <% } %>
+                                        <% if(count==3) break %>
+                                    <% } %>
                                     <div class="col-2"><a href="/book/new"><img src="/pictures/add_icon.png"   class="add-icon"></a></div>
                                 </div>  
                             </div>

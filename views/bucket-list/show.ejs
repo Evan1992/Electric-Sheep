@@ -13,11 +13,13 @@
     
         <!-- Customized CSS -->
         <link rel="stylesheet" href="/stylesheets/app.css">
+        <link rel="stylesheet" href="/stylesheets/bucket-list.css">
 
         <title>Electric Sheep</title>
     </head>
 
     <body>
+
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="/" style="font-weight: 500;">Yi Long</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,32 +29,40 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/bucket-list/show">Bucket List</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="/bucket-list/show">Bucket List</a></li>
                 </ul>
             </div>
         </nav>
 
-        <!-- Index of all the books -->
-        <div class="container">
+        <div class="container padding-vert--lg">
             <div class="row">
-                <% if(haveRead) { %>
-                    <ul class="item-list">
-                        <% allBooks.forEach((book) =>{ %>
-                            <% if(book.haveRead) { %>
-                                <li class="subject-item"><%= book.name %></li>
-                            <% } %>
-                        <% }) %>
+                <div class="col">
+                    <h1>Bucket List</h1>
+                    <h4>TODO</h4>
+                    <ul class="event">
+                        <li>Write a static site generator from scratch</li>
+                        <li>Buy a nice grand piano</li>
                     </ul>
-                <% } else { %>
-                    <ul class="item-list">
-                        <% allBooks.forEach((book) =>{ %>
-                            <% if(!book.haveRead) { %>
-                                <li class="subject-item"><%= book.name %></li>
-                            <% } %>
-                        <% }) %>
+
+                    <h4>In Progress</h4>
+                    <ul class="event">
+                        <li>Join a professional team to start my career</li>
+                        <li>Write a planning tool using React.js from scratch</li>
+                        <li>Get the master's degree in computer science</li>
                     </ul>
-                <% } %>
-                
+
+                    <h4>Done</h4>
+                    <ul class="event">
+                        <li>Come to US for further study</li>
+                        <li>Learn Snowboarding</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row" id="footer">
+                <div class="footer-wrapper">
+                    <span class="copyright">Copyright © 2020 Electric Sheep</span>
+                </div>
             </div>
         </div>
 

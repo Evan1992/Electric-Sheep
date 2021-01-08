@@ -1,0 +1,21 @@
+h1 {
+    margin-top: 20px;
+    font-size: 500;
+}
+
+h4 {
+    margin-top: 40px;
+}
+
+.event {
+    font-size: 16px;
+}
+
+.col {
+    margin-left: 16.66667%;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+}

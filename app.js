@@ -1,13 +1,13 @@
-/*  
- * This is a server file to handle the logic of interaction with the server
+/**
+ * @brief This is a server file to handle the logic of interaction with the server
  * 
  * Packages
  * - method-override
  *      form only has two methods: GET and POST,
  *      to put, patch, and delete, we can use the 
  *      method-override 
- * 
  */
+
 const express        = require("express"),
       app            = express(),
       request        = require("request"),
@@ -17,7 +17,7 @@ const express        = require("express"),
       dotenv         = require("dotenv").config(),
       methodOverride = require("method-override")
 
-/*
+/**
  * Set EJS as the templating engine with Express.
  * The default behavior of EJS is that it looks into
  * the 'views' folder for the templates to render
@@ -25,8 +25,8 @@ const express        = require("express"),
  */
 app.set("view engine", "ejs");
 
-/*
- * Set default view path in Express.js
+/**
+ * @brief Set default view path in Express.js
  * 
  * __dirname: an environment variable that tells you
  * the absolute path of the directory containing the
@@ -61,11 +61,13 @@ app.use(methodOverride('_method'));
  */
 const indexRoutes = require("./routes/index");
 const itemRoutes  = require("./routes/item");
+const bucketListRoutes = require("./routes/bucket-list");
 app.use(indexRoutes);
 app.use(itemRoutes);
+app.use(bucketListRoutes);
 
-/*
- * Connect to database MongoDB Atlas
+/**
+ * @brief Connect to database MongoDB Atlas
  */
 // const dbUrl = process.env.DB_URL
 // mongoose.connect(dbUrl, {
@@ -86,10 +88,10 @@ mongoose.connect("mongodb+srv://Yi:824219@cluster0.frtp9.mongodb.net/<dbname>?re
     console.log("Connected to the database");
 });
 
-/*
- * Connect to Server
+/**
+ * @brief Connect to Server
  */
 const port = process.env.PORT || 3000; 
 app.listen(port, () =>{
-    console.log(`Listening on port ${port}`, port)
+    console.log(`Listening on port ${port}`)
 })

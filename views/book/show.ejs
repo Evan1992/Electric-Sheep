@@ -19,14 +19,19 @@
     </head>
 
     <body>
-        <div class="hello_world">
-            _   _      _ _    __        __         _     _ 
-           | | | | ___| | | __\ \      / /__  _ __| | __| |
-           | |_| |/ _ \ | |/ _ \ \ /\ / / _ \| '__| |/ _` |
-           |  _  |  __/ | | (_) \ V  V / (_) | |  | | (_| |
-           |_| |_|\___|_|_|\___/ \_/\_/ \___/|_|  |_|\__,_|
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/" style="font-weight: 500;">Yi Long</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/bucket-list/show">Bucket List</a></li>
+                </ul>
+            </div>
+        </nav>
 
         <!-- Info of the book -->
         <div class="container">
@@ -34,7 +39,12 @@
             <div class="row">
                 <div class="d-flex flex-row">
                     <div class="book-name"><%= book.name %></div>
-                    <div class="edit-tag"><a href="edit">&nbsp;&nbsp;Edit</a></div>
+                    <div class="edit-tag">&nbsp;&nbsp;<a href="edit">Edit</a></div>
+                    <div class="delete-tag">
+                        <form action="/book/<%= book._id %>?_method=DELETE" method=POST>
+                            <input type="submit" value="Delete">
+                        </form>
+                    </div>
                 </div>
             </div>
 
@@ -47,6 +57,11 @@
                     <div class="row"><div class="col">Author: <%= book.author %></div></div>
                     <div class="row"><div class="col">Press: <%= book.press %></div></div>
                     <div class="row"><div class="col">Year: <%= book.year %></div></div>
+                    <% if(!book.haveRead) { %>
+                        <form action="/book/<%= book._id %>?_method=PUT" method=POST enctype="multipart/form-data" novalidate class="validated-form">
+                            <input type="submit" name="haveRead" value="Have Read">
+                        </form>
+                    <% } %>
                 </div>
             </div>
             
@@ -59,6 +74,6 @@
             <div class="row">
                 <div class="col comments">Comments</div>
             </div>
-        </dic>
+        </div>
     </body>
 </html>
