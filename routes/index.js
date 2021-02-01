@@ -18,6 +18,7 @@ router.get("/", async (req, res) => {
     /* Get log data from database */
     // Get current client's ip
     const clientIP = requestIP.getClientIp(req);
+    console.log(clientIP)
     let log = ''
     try{
         log = await Log.findOne({'ip': `${clientIP}`})
@@ -38,7 +39,7 @@ router.get("/", async (req, res) => {
                 }
             })
         }
-    } catch(error){
+    }catch(error){
         console.log(error)
     }
     
