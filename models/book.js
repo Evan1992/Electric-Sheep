@@ -14,6 +14,11 @@ var BookSchema = new mongoose.Schema({
     Comment: String,
     haveRead: Boolean,
     extract: Array
+
+    /** 
+     * Add more properties of the book model
+     * ...
+     */
 })
 
 module.exports = mongoose.model("Book", BookSchema);
