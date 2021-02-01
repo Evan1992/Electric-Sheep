@@ -43,7 +43,6 @@ router.get("/", async (req, res) => {
         console.log(error)
     }
     
-    
     // Count the total number of visitors
     const logs = await Log.find({})
     let   num_visitors = 0

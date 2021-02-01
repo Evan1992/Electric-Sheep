@@ -41,7 +41,9 @@
                     <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="/bucket-list/show">Bucket List</a></li>
                 </ul>
-                <span class="navbar-text"><%= num_visitors %> visits</span>
+                <!-- <span class="navbar-text" id="count"> visits</span> -->
+                <span class="navbar-text" id="count">0</span>
+                <span class="navbar-text">&nbsp;visits</span>
             </div>
         </nav>
 
@@ -308,6 +310,7 @@
             </div>
         </div>
         
-        <script src="client.js"></script>
+        <script src="weather_API.js"></script>
+        <script src="count_visits_API.js"></script>
     </body>
 </html>
