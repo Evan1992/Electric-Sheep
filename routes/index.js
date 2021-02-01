@@ -17,27 +17,31 @@ const express   = require("express"),
 router.get("/", async (req, res) => {
     /* Get log data from database */
     // Get current client's ip
-    clientIP = requestIP.getClientIp(req);
+    const clientIP = requestIP.getClientIp(req);
     let log = ''
-    log = await Log.findOne({'ip': `${clientIP}`})
-
-    // Update log data
-    if(log !== ''){
-        log.count++
-        await Log.findByIdAndUpdate(log._id, log)  // @note: use await to wait for the post data process, otherwise, it may fail to post the data.
-    }else{
-        let data = {
-            ip: clientIP,
-            count: 1
-        }
-        Log.create(data, (err, log) =>{
-            if(err){
-                console.log(err)
-            }else{
-                console.log(log)
+    try{
+        log = await Log.findOne({'ip': `${clientIP}`})
+        // Update log data
+        if(log !== ''){
+            log.count++
+            await Log.findByIdAndUpdate(log._id, log)  // @note: use await to wait for the post data process, otherwise, it may fail to post the data.
+        }else{
+            let data = {
+                ip: clientIP,
+                count: 1
             }
-        })
+            Log.create(data, (err, log) =>{
+                if(err){
+                    console.log(err)
+                }else{
+                    console.log(log)
+                }
+            })
+        }
+    } catch(error){
+        console.log(error)
     }
+    
     
     // Count the total number of visitors
     const logs = await Log.find({})
