@@ -45,10 +45,10 @@ app.set('views', viewPath);
  */
 app.use(express.static(__dirname + "/views"))
 app.use(express.static(path.join(__dirname, "public")))
-app.use(express.static(__dirname+"/public/pictures/weather_icons"))
+app.use(express.static(__dirname + "/public/pictures/weather_icons"))
 
-/*
- * Parse the data
+/**
+ * @brief Parse the data
  */
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
@@ -56,7 +56,7 @@ app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-
 /* */
 app.use(methodOverride('_method'));
 
-/*
+/**
  * Require routes
  */
 const indexRoutes = require("./routes/index");
