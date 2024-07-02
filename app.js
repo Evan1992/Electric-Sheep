@@ -78,8 +78,8 @@ app.use(bucketListRoutes);
 // }, err=>{
 //     console.log("Connected to the database");
 // });
-const dbUrl = "mongodb+srv://Yi:824219@cluster0.frtp9.mongodb.net/<dbname>?retryWrites=true&w=majority"
-mongoose.connect("mongodb+srv://Yi:824219@cluster0.frtp9.mongodb.net/<dbname>?retryWrites=true&w=majority", {
+const dbUrl = "mongodb+srv://longyi:824219@freecluster.ckz8w2h.mongodb.net/?retryWrites=true&w=majority&appName=FreeCluster"
+mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,

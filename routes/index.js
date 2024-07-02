@@ -10,13 +10,10 @@ const express   = require("express"),
 
 
 /* Root Route 
- * 
  * async & await
  *  querying the database takes time, we need wait for the result 
  *  back from the database, then execute remaining code
- *
  */
-
 // router.get("/", async (req, res) => {
 //     request.get(`https://api.ipify.org?format=json`, async(err, res, body) =>{
 //         console.log(body);
