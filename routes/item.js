@@ -6,8 +6,7 @@
  *      of busboy for maximum efficiency.
  *      NOTE: Multer will not process any form which is not multipart(multipart/form-data)
  *      In case you need to handle a text-only multipart form, you should use the .none() method,
- *      like upload.none()
- *      
+ *      like upload.none() 
  */
 const express        = require("express"),
       router         = express.Router(),
@@ -33,8 +32,7 @@ const express        = require("express"),
  *      Introduction
  *          fs-extra adds file system methods that aren't included in the natvie fs
  *          module and adds promise support to the fs methods. It also uses graceful-fs
- *          to prevent EMFILE errors. It should be a drop in the replacement for fs
- *      
+ *          to prevent EMFILE errors. It should be a drop in the replacement for fs 
  */
 router.post('/book/new', upload.single('cover'), (req, res)=>{
     // req.file is the 'cover' file
@@ -47,15 +45,19 @@ router.post('/book/new', upload.single('cover'), (req, res)=>{
         author:  req.body.author,
         press:   req.body.press,
         ISBN:    req.body.ISBN,
-        cover: {
-            img_data: fs.readFileSync(req.file.path),
-            contentType: String
-        },
         star:    1,
         Comment: "",
         haveRead: false,
         extract: []
     }
+
+    if(req.file !== undefined) {
+        data.cover = {
+            img_data: fs.readFileSync(req.file.path),
+            contentType: String
+        }
+    }
+
     Book.create(data, (err, book)=>{
         if(err){
             console.log(err)

@@ -52,7 +52,12 @@
             <!-- Cover and info of the book -->
             <div class="row">
                 <div class="col-2">
-                    <img src="data:book/<%=book.cover.contentType%>;base64, <%=book.cover.img_data.toString('base64')%>" class="book-cover">
+                    <% if(book.cover.img_data !== undefined) { %>
+                        <img src="data:book/<%= book.cover.contentType%>;base64, <%= book.cover.img_data.toString('base64')%>" class="item-img">
+                    <% } else { %>
+                        <% console.log("default image") %>
+                        <img src="../../pictures/books/book-default.gif" class="item-img">
+                    <% } %>
                 </div>
                 <div class="col">
                     <div class="row"><div class="col">Author: <%= book.author %></div></div>
