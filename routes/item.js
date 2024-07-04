@@ -44,6 +44,7 @@ router.post('/book/new', upload.single('cover'), (req, res)=>{
         name:    req.body.name,
         author:  req.body.author,
         press:   req.body.press,
+        year:    req.body.year,
         ISBN:    req.body.ISBN,
         star:    1,
         Comment: "",
