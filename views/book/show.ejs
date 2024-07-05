@@ -10,10 +10,14 @@
         
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    
+
+        <!-- Font Awesome CSS for star icon -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
         <!-- Customized CSS -->
         <link rel="stylesheet" href="/stylesheets/app.css">
         <link rel="stylesheet" href="/stylesheets/bookInfo.css">
+
 
         <title>Electric Sheep</title>
     </head>
@@ -55,7 +59,6 @@
                     <% if(book.cover.img_data !== undefined) { %>
                         <img src="data:book/<%= book.cover.contentType%>;base64, <%= book.cover.img_data.toString('base64')%>" class="item-img">
                     <% } else { %>
-                        <% console.log("default image") %>
                         <img src="../../pictures/books/book-default.gif" class="item-img">
                     <% } %>
                 </div>
@@ -63,6 +66,35 @@
                     <div class="row"><div class="col">Author: <%= book.author %></div></div>
                     <div class="row"><div class="col">Press: <%= book.press %></div></div>
                     <div class="row"><div class="col">Year: <%= book.year %></div></div>
+                    <div class="row">
+                        <div class="col-md-auto" style="padding-right: 3px;">
+                            Rate:
+                        </div>
+                        <div class="col" style="padding-left: 0px;">
+                            <div class="star-widget">
+                                <input type="radio" name="rate" id="rate-1">
+                                <label id="rate-1" for="rate-1" class="fas fa-star"></label>
+                                <input type="radio" name="rate" id="rate-2">
+                                <label id="rate-2" for="rate-2" class="fas fa-star"></label>
+                                <input type="radio" name="rate" id="rate-3">
+                                <label id="rate-3" for="rate-3" class="fas fa-star"></label>
+                                <input type="radio" name="rate" id="rate-4">
+                                <label id="rate-4" for="rate-4" class="fas fa-star"></label>
+                                <input type="radio" name="rate" id="rate-5">
+                                <label id="rate-5" for="rate-5" class="fas fa-star"></label>
+                                <input type="radio" name="rate" id="rate-6">
+                                <label id="rate-6" for="rate-1" class="fas fa-star"></label>
+                                <input type="radio" name="rate" id="rate-7">
+                                <label id="rate-7" for="rate-2" class="fas fa-star"></label>
+                                <input type="radio" name="rate" id="rate-8">
+                                <label id="rate-8" for="rate-3" class="fas fa-star"></label>
+                                <input type="radio" name="rate" id="rate-9">
+                                <label id="rate-9" for="rate-4" class="fas fa-star"></label>
+                                <input type="radio" name="rate" id="rate-10">
+                                <label id="rate-10" for="rate-5" class="fas fa-star"></label>
+                            </div>
+                        </div>
+                    </div>
                     <% if(!book.haveRead) { %>
                         <form action="/book/<%= book._id %>?_method=PUT" method=POST enctype="multipart/form-data" novalidate class="validated-form">
                             <input type="submit" name="haveRead" value="Have Read">
