@@ -205,7 +205,11 @@
                                             <% count++ %>
                                             <div class="col-2">
                                                 <a href="/book/<%= book._id %>/show">
-                                                    <img src="data:book/<%= book.cover.contentType%>;base64, <%= book.cover.img_data.toString('base64')%>" class="item-img">
+                                                    <% if(book.cover.img_data !== undefined) { %>
+                                                        <img src="data:book/<%= book.cover.contentType%>;base64, <%= book.cover.img_data.toString('base64')%>" class="item-img">
+                                                    <% } else { %>
+                                                        <img src="pictures/books/book-default.gif" class="item-img">
+                                                    <% } %>
                                                 </a>
                                             </div>
                                         <% } %>
