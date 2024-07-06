@@ -72,26 +72,76 @@
                         </div>
                         <div class="col" style="padding-left: 0px;">
                             <div class="star-widget">
-                                <input type="radio" name="rate" id="rate-1">
-                                <label id="rate-1" for="rate-1" class="fas fa-star"></label>
-                                <input type="radio" name="rate" id="rate-2">
-                                <label id="rate-2" for="rate-2" class="fas fa-star"></label>
-                                <input type="radio" name="rate" id="rate-3">
-                                <label id="rate-3" for="rate-3" class="fas fa-star"></label>
-                                <input type="radio" name="rate" id="rate-4">
-                                <label id="rate-4" for="rate-4" class="fas fa-star"></label>
-                                <input type="radio" name="rate" id="rate-5">
-                                <label id="rate-5" for="rate-5" class="fas fa-star"></label>
-                                <input type="radio" name="rate" id="rate-6">
-                                <label id="rate-6" for="rate-6" class="fas fa-star"></label>
-                                <input type="radio" name="rate" id="rate-7">
-                                <label id="rate-7" for="rate-7" class="fas fa-star"></label>
-                                <input type="radio" name="rate" id="rate-8">
-                                <label id="rate-8" for="rate-8" class="fas fa-star"></label>
-                                <input type="radio" name="rate" id="rate-9">
-                                <label id="rate-9" for="rate-9" class="fas fa-star"></label>
-                                <input type="radio" name="rate" id="rate-10">
-                                <label id="rate-10" for="rate-10" class="fas fa-star"></label>
+                                <% if(book.star === 10) { %>
+                                    <input type="radio" name="rate" id="rate-1" checked>
+                                    <label id="rate-1" for="rate-1" class="fas fa-star"></label>
+                                <% } else { %>
+                                    <input type="radio" name="rate" id="rate-1">
+                                    <label id="rate-1" for="rate-1" class="fas fa-star"></label>
+                                <% } %>
+                                <% if(book.star === 9) { %>
+                                    <input type="radio" name="rate" id="rate-2" checked>
+                                    <label id="rate-2" for="rate-2" class="fas fa-star"></label>
+                                <% } else { %>
+                                    <input type="radio" name="rate" id="rate-2">
+                                    <label id="rate-2" for="rate-2" class="fas fa-star"></label>
+                                <% } %>
+                                <% if(book.star === 8) { %>
+                                    <input type="radio" name="rate" id="rate-3" checked>
+                                    <label id="rate-3" for="rate-3" class="fas fa-star"></label>
+                                <% } else { %>
+                                    <input type="radio" name="rate" id="rate-3">
+                                    <label id="rate-3" for="rate-3" class="fas fa-star"></label>
+                                <% } %>
+                                <% if(book.star === 7) { %>
+                                    <input type="radio" name="rate" id="rate-4" checked>
+                                    <label id="rate-4" for="rate-4" class="fas fa-star"></label>
+                                <% } else { %>
+                                    <input type="radio" name="rate" id="rate-4">
+                                    <label id="rate-4" for="rate-4" class="fas fa-star"></label>
+                                <% } %>
+                                <% if(book.star === 6) { %>
+                                    <input type="radio" name="rate" id="rate-5" checked>
+                                    <label id="rate-5" for="rate-5" class="fas fa-star"></label>
+                                <% } else { %>
+                                    <input type="radio" name="rate" id="rate-5">
+                                    <label id="rate-5" for="rate-5" class="fas fa-star"></label>
+                                <% } %>
+                                <% if(book.star === 5) { %>
+                                    <input type="radio" name="rate" id="rate-6" checked>
+                                    <label id="rate-6" for="rate-6" class="fas fa-star"></label>
+                                <% } else { %>
+                                    <input type="radio" name="rate" id="rate-6">
+                                    <label id="rate-6" for="rate-6" class="fas fa-star"></label>
+                                <% } %>
+                                <% if(book.star === 4) { %>
+                                    <input type="radio" name="rate" id="rate-7" checked>
+                                    <label id="rate-7" for="rate-7" class="fas fa-star"></label>
+                                <% } else { %>
+                                    <input type="radio" name="rate" id="rate-7">
+                                    <label id="rate-7" for="rate-7" class="fas fa-star"></label>
+                                <% } %>
+                                <% if(book.star === 3) { %>
+                                    <input type="radio" name="rate" id="rate-8" checked>
+                                    <label id="rate-8" for="rate-8" class="fas fa-star"></label>
+                                <% } else { %>
+                                    <input type="radio" name="rate" id="rate-8">
+                                    <label id="rate-8" for="rate-8" class="fas fa-star"></label>
+                                <% } %>
+                                <% if(book.star === 2) { %>
+                                    <input type="radio" name="rate" id="rate-9" checked>
+                                    <label id="rate-9" for="rate-9" class="fas fa-star"></label>
+                                <% } else { %>
+                                    <input type="radio" name="rate" id="rate-9">
+                                    <label id="rate-9" for="rate-9" class="fas fa-star"></label>
+                                <% } %>
+                                <% if(book.star === 1) { %>
+                                    <input type="radio" name="rate" id="rate-10" checked>
+                                    <label id="rate-10" for="rate-10" class="fas fa-star"></label>
+                                <% } else { %>
+                                    <input type="radio" name="rate" id="rate-10">
+                                    <label id="rate-10" for="rate-10" class="fas fa-star"></label>
+                                <% } %>
                             </div>
                         </div>
                     </div>
