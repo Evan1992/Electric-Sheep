@@ -46,7 +46,7 @@ router.post('/book/new', upload.single('cover'), (req, res)=>{
         press:   req.body.press,
         year:    req.body.year,
         ISBN:    req.body.ISBN,
-        star:    1,
+        stars:   0,
         Comment: "",
         haveRead: false,
         extract: []
@@ -100,10 +100,8 @@ router.put("/book/:id", upload.single('cover'), async (req, res)=>{
     const { id } = req.params
     const newData = req.body
     if(newData.haveRead){
-        console.log(newData.haveRead)
         newData.haveRead = true
     }
-    console.log(newData)
     const book = await Book.findByIdAndUpdate(id, req.body)
     res.redirect(`/book/${book._id}/show`)
 })
