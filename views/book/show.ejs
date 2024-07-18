@@ -154,10 +154,30 @@
                 </div>
             </div>
             
-            <!-- Extract of the book -->
+            <!-- Excerpts of the book -->
             <div class="row">
-                <div class="col extracts">Extracts</div>
+                <div class="col excerpts">Excerpts</div>
             </div>
+            <!-- Show the existing excerpts -->
+            <% book.excerpts.forEach((excerpt) => { %>
+                <div class="row">
+                    <div class="col"><%= excerpt %></div>
+                </div>
+            <% }) %>
+            <!-- New excerpt form -->
+            <form action="/book/<%= book._id %>?_method=PUT" method=POST enctype="multipart/form-data" novalidate class="validated-form">
+                <div class="row">
+                    <div class="col">
+                        <!-- The name attribute is needed to reference the form data after the form is submitted -->
+                        <textarea type="text" name="excerpt" style="width: 60%; height: 100px"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="submit">
+                    </div>
+                </div>
+            </form>
 
             <!-- Comment of the book -->
             <div class="row">

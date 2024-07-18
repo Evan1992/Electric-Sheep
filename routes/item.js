@@ -99,9 +99,18 @@ router.get("/book/:id/edit", async (req, res) =>{
 router.put("/book/:id", upload.single('cover'), async (req, res)=>{
     const { id } = req.params
     const newData = req.body
+
+    // Update haveRead
     if(newData.haveRead){
         newData.haveRead = true
     }
+    // Update excerpts
+    if(newData.excerpt){
+        const book = await Book.findById(req.params.id)
+        newData.excerpts = [...book.excerpts] // Clone an array in ES6
+        newData.excerpts.push(newData.excerpt)
+    }
+
     const book = await Book.findByIdAndUpdate(id, req.body)
     res.redirect(`/book/${book._id}/show`)
 })

@@ -13,7 +13,7 @@ var BookSchema = new mongoose.Schema({
     stars:   Number,
     Comment: String,
     haveRead: Boolean,
-    extract: Array
+    excerpts: Array
 
     /** 
      * Add more properties of the book model
