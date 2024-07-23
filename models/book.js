@@ -10,6 +10,7 @@ var BookSchema = new mongoose.Schema({
         img_data: Buffer,
         contentType: String
     },
+    recurrence: Number,
     stars:   Number,
     Comment: String,
     haveRead: Boolean,
