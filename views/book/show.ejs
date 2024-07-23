@@ -160,8 +160,15 @@
             </div>
             <!-- Show the existing excerpts -->
             <% book.excerpts.forEach((excerpt) => { %>
-                <div class="row">
-                    <div class="col"><%= excerpt %></div>
+                <div class="excerpt">
+                    <div class="row">
+                        <div class="col"><%= excerpt %></div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input type="submit" value="Delete">
+                        </div>
+                    </div>
                 </div>
             <% }) %>
             <!-- New excerpt form -->

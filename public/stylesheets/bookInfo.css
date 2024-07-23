@@ -99,6 +99,10 @@
     color: #fd4;
 }
 
+.excerpt {
+    margin-bottom: 16px;
+}
+
 .excerpts, .comments {
     font-size: 20px;
     margin-top: 15px;
