@@ -159,15 +159,19 @@
                 <div class="col excerpts">Excerpts</div>
             </div>
             <!-- Show the existing excerpts -->
-            <% book.excerpts.forEach((excerpt) => { %>
+            <% book.excerpts.forEach((excerpt, index) => { %>
                 <div class="excerpt">
                     <div class="row">
                         <div class="col"><%= excerpt %></div>
                     </div>
                     <div class="row">
-                        <div class="col">
-                            <input type="submit" value="Delete">
-                        </div>
+                        <form action="/book/<%=book._id %>?_method=PUT" method=POST>
+                            <div class="col">
+                                <!-- Use <button> instead of <input> so we can specify the text of the buttong shown on the page -->
+                                <!-- Reference: https://stackoverflow.com/questions/14007613/change-text-from-submit-on-input-tag -->
+                                <button type="submit" name="delete_excerpt" value="<%= index %>">Delete</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             <% }) %>
@@ -176,7 +180,7 @@
                 <div class="row">
                     <div class="col">
                         <!-- The name attribute is needed to reference the form data after the form is submitted -->
-                        <textarea type="text" name="excerpt" style="width: 60%; height: 100px"></textarea>
+                        <textarea type="text" name="add_excerpt" style="width: 60%; height: 100px"></textarea>
                     </div>
                 </div>
                 <div class="row">
@@ -218,3 +222,15 @@
 
     </body>
 </html>
+
+
+
+<!------------------- Learning ------------------->
+<!-- <input> value attribute -->
+<!-- The value attribute specifies the value of an <input> element -->
+<!-- The value attribute is used differently for different input types -->
+<!-- 
+    For "button", "reset", and "submit", it defines the text on the button
+    For "text", "password", and "hidden", it defines the initial (default) value of the input field
+    For "checkbox", "radio", "image", it defines the value associated with the input (this is also the value that is sent on submit)
+-->

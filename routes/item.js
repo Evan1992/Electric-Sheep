@@ -105,10 +105,15 @@ router.put("/book/:id", upload.single('cover'), async (req, res)=>{
         newData.haveRead = true
     }
     // Update excerpts
-    if(newData.excerpt){
+    if(newData.add_excerpt){
         const book = await Book.findById(req.params.id)
         newData.excerpts = [...book.excerpts] // Clone an array in ES6
-        newData.excerpts.push(newData.excerpt)
+        newData.excerpts.push(newData.add_excerpt)
+    }
+    if(newData.delete_excerpt){
+        const book = await Book.findById(req.params.id)
+        newData.excerpts = [...book.excerpts]
+        newData.excerpts.splice(newData.delete_excerpt, 1)
     }
 
     const book = await Book.findByIdAndUpdate(id, req.body)
