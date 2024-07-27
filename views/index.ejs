@@ -215,7 +215,6 @@
                                         <% } %>
                                         <% if(count==4) break %>
                                     <% } %>
-
                                 </div>
                                 <!-- Wish List row -->
                                 <div class="row" id="right_row">
@@ -271,10 +270,24 @@
                                 <!-- Wish List row -->
                                 <div class="row" id="right_row">
                                     <div class="col-2" id="right_row_title">Wish List</div>
-                                    <div class="col-2"><img src="pictures/dramas/2020110905.webp" class="item-img"></div>
-                                    <div class="col-2"><img src="pictures/dramas/2020110906.webp" class="item-img"></div>
-                                    <div class="col-2"><img src="pictures/dramas/2020110907.webp" class="item-img"></div>
-                                    <div class="col-2"><img src="pictures/dramas/2020110908.webp" class="item-img"></div>
+                                    <% count = 0 %>
+                                    <% for(let i = 0; i<dramas.length; ++i) { %>
+                                        <% drama = dramas[i] %>
+                                        <% if(!drama.haveWatched) { %>
+                                            <% count++ %>
+                                            <div class="col-2">
+                                                <a href="/drama/<%= drama._id %>/show">
+                                                    <% if(drama.cover.img_data !== undefined) { %>
+                                                        <img src="data:drama/<%= drama.cover.contentType%>;base64, <%= drama.cover.img_data.toString('base64')%>" class="item-img">
+                                                    <% } else { %>
+                                                        <img src="pictures/dramas/drama-default.png" class="item-img">
+                                                    <% } %>
+                                                </a>
+                                            </div>
+                                        <% } %>
+                                        <% if(count==3) break %>
+                                    <% } %>
+                                    <div class="col-2"><a href="/drama/new"><img src="/pictures/add_icon.png"   class="add-icon"></a></div>
                                 </div>  
                             </div>
                         </div>
