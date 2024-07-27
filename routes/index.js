@@ -4,10 +4,10 @@ const { defaultProxyHeaderExclusiveList } = require("request/request");
 const express   = require("express"),
       router    = express.Router(),
       Book      = require("../models/book"),
+      Drama     = require("../models/drama"),
       Log       = require("../models/logs"),
       requestIP = require("request-ip"),
       request   = require("request")
-
 
 /* Root Route 
  * async & await
@@ -64,7 +64,9 @@ router.get("/", async (req, res) => {
 
     // Find all books stored in the database
     const books = await Book.find({})
-    res.render("index", {books: books, num_visitors: num_visitors})
+    // Find all dramas stored in the database
+    const dramas = await Drama.find({})
+    res.render("index", {books: books, dramas: dramas, num_visitors: num_visitors})
 })
 
 module.exports = router;
