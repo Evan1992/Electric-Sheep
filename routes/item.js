@@ -11,6 +11,7 @@
 const express        = require("express"),
       router         = express.Router(),
       Book           = require("../models/book"),
+      Drama          = require("../models/drama"),
       fs             = require("fs"),
       multer         = require("multer"),
       upload         = multer({dest: 'uploads/'})
@@ -125,6 +126,40 @@ router.delete("/book/:id", async (req, res) =>{
     const { id } = req.params
     await Book.findByIdAndDelete(id)
     res.redirect("/")
+})
+
+/* =================== Drama =================== */
+router.get("/drama/new", (req, res)=>{
+    res.render("drama/new")
+})
+
+router.post('/drama/new', upload.single('cover'), (req, res)=>{
+    data = {
+        name:        req.body.name,
+        director:    req.body.director,
+        year:        req.body.year,
+        recurrence:  0,
+        stars:       0,
+        lines:       [],
+        comments:    [],
+        haveWatched: false,
+    }
+
+    if(req.file !== undefined) {
+        data.cover = {
+            img_data: fs.readFileSync(req.file.path),
+            contentType: String
+        }
+    }
+
+    Drama.create(data, (err, drama)=>{
+        if(err){
+            console.log(err)
+        }else{
+            console.log(drama)
+        }
+    })
+    res.redirect("/drama/new")
 })
 
 module.exports = router
