@@ -226,45 +226,29 @@
 
                     <div class="sort" id="drama">
                         <div class="sort_title">
-                            <h5 class="sort_title_name">Dramas</h5>
-                            <!-- <span class="pl">
-                                <a href="">will do</a>
-                                &nbsp;&nbsp;
-                                <a href="">doing</a>
-                                &nbsp;&nbsp; 
-                                <a href="">done</a>
-                            </span> -->
+                            <h5 class="sort_title_name">
+                                <a href="/drama/index">Dramas</a>
+                            </h5>
                         </div>
 
                         <div class="sort_body">
                             <div class="container" id="right_container">
-                                <!-- Watched row -->
-                                <div class="row" id="right_row">
-                                    <div class="col-2" id="right_row_title">Watched</div>
-                                    <div class="col-2"><img src="pictures/dramas/2020110901.webp" class="item-img"></div>
-                                    <div class="col-2"><img src="pictures/dramas/2020110902.webp" class="item-img"></div>
-                                    <div class="col-2"><img src="pictures/dramas/2020110903.webp" class="item-img"></div>
-                                    <div class="col-2"><img src="pictures/dramas/2020110904.webp" class="item-img"></div>
-                                </div>
                                 <!-- Wish List row -->
                                 <div class="row" id="right_row">
-                                    <div class="col-2" id="right_row_title">Wish List</div>
                                     <% count = 0 %>
                                     <% for(let i = 0; i<dramas.length; ++i) { %>
                                         <% drama = dramas[i] %>
-                                        <% if(!drama.haveWatched) { %>
-                                            <% count++ %>
-                                            <div class="col-2">
-                                                <a href="/drama/<%= drama._id %>/show">
-                                                    <% if(drama.cover.img_data !== undefined) { %>
-                                                        <img src="data:drama/<%= drama.cover.contentType%>;base64, <%= drama.cover.img_data.toString('base64')%>" class="item-img">
-                                                    <% } else { %>
-                                                        <img src="pictures/dramas/drama-default.png" class="item-img">
-                                                    <% } %>
-                                                </a>
-                                            </div>
-                                        <% } %>
-                                        <% if(count==3) break %>
+                                        <% count++ %>
+                                        <div class="col-2">
+                                            <a href="/drama/<%= drama._id %>/show">
+                                                <% if(drama.cover.img_data !== undefined) { %>
+                                                    <img src="data:drama/<%= drama.cover.contentType%>;base64, <%= drama.cover.img_data.toString('base64')%>" class="item-img">
+                                                <% } else { %>
+                                                    <img src="pictures/dramas/drama-default.png" class="item-img">
+                                                <% } %>
+                                            </a>
+                                        </div>
+                                        <% if(count==4) break %>
                                     <% } %>
                                     <div class="col-2"><a href="/drama/new"><img src="/pictures/add_icon.png"   class="add-icon"></a></div>
                                 </div>  
