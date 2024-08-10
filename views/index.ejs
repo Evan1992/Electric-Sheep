@@ -187,11 +187,11 @@
 
                         <div class="sort_body">
                             <div class="container" id="right_container">
-                                <!-- Wish List row -->
+                                <!-- Row for book images -->
                                 <div class="row" id="right_row">
                                     <!-- Retrieve books' cover from the database and display it -->
                                     <% count = 0 %>
-                                    <% for(let i = 0; i<books.length; ++i) { %>
+                                    <% for(let i = books.length-1; i>=0; --i) { %>
                                         <% book = books[i] %>
                                         <% count++ %>
                                         <div class="col-2">
@@ -206,7 +206,20 @@
                                         <% if(count==4) break %>
                                     <% } %>
                                     <div class="col-2"><a href="/book/new"><img src="/pictures/add_icon.png"   class="add-icon"></a></div>
-                                </div>  
+                                </div>
+                                <!-- Row for book names -->
+                                <div class="row" id="right_row">
+                                    <!-- Retrieve books' cover from the database and display it -->
+                                    <% count = 0 %>
+                                    <% for(let i = books.length-1; i>=0; --i) { %>
+                                        <% book = books[i] %>
+                                        <% count++ %>
+                                        <div class="col-2" style="text-align:center; font-size:small;">
+                                            <%= book.name %>
+                                        </div>
+                                        <% if(count==4) break %>
+                                    <% } %>
+                                </div>
                             </div>
                         </div>
                     </div>
