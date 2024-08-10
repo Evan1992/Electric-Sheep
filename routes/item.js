@@ -128,6 +128,16 @@ router.get("/drama/new", (req, res)=>{
     res.render("drama/new")
 })
 
+router.get("/drama/index", async (req, res)=>{
+    dramas = await Drama.find({})
+    res.render("drama/index", {dramas})
+})
+
+router.get("/drama/:id/show", async (req, res) =>{
+    drama = await Drama.findById(req.params.id)
+    res.render("drama/show", {drama})
+})
+
 router.post('/drama/new', upload.single('cover'), (req, res)=>{
     data = {
         name:        req.body.name,
