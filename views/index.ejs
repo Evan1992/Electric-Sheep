@@ -233,10 +233,10 @@
 
                         <div class="sort_body">
                             <div class="container" id="right_container">
-                                <!-- Wish List row -->
+                                <!-- Row for drama images -->
                                 <div class="row" id="right_row">
                                     <% count = 0 %>
-                                    <% for(let i = 0; i<dramas.length; ++i) { %>
+                                    <% for(let i = dramas.length-1; i>=0; --i) { %>
                                         <% drama = dramas[i] %>
                                         <% count++ %>
                                         <div class="col-2">
@@ -251,7 +251,20 @@
                                         <% if(count==4) break %>
                                     <% } %>
                                     <div class="col-2"><a href="/drama/new"><img src="/pictures/add_icon.png"   class="add-icon"></a></div>
-                                </div>  
+                                </div>
+                                <!-- Row for drama names -->
+                                <div class="row" id="right_row">
+                                    <% count = 0 %>
+                                    <% for(let i = dramas.length-1; i>=0; --i) { %>
+                                        <% drama = dramas[i] %>
+                                        <% count++ %>
+                                        <div class="col-2" style="text-align:center; font-size:small;">
+                                            <%= drama.name %>
+                                        </div>
+                                        <% if(count==4) break %>
+                                    <% } %>
+                                    <div class="col-2"><a href="/drama/new"><img src="/pictures/add_icon.png"   class="add-icon"></a></div>
+                                </div>
                             </div>
                         </div>
                     </div>
