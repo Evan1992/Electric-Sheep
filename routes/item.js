@@ -167,4 +167,17 @@ router.post('/drama/new', upload.single('cover'), (req, res)=>{
     res.redirect("/drama/new")
 })
 
+router.put("/drama/:id", upload.single('cover'), async (req, res)=>{
+    const { id } = req.params
+    const newData = req.body
+
+    // Update haveWatched
+    if(newData.haveWatched){
+        newData.haveWatched = true
+    }
+
+    const drama = await Drama.findByIdAndUpdate(id, req.body)
+    res.redirect(`/drama/${drama._id}/show`)
+})
+
 module.exports = router
