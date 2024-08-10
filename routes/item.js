@@ -74,14 +74,9 @@ router.get("/book/new", (req, res)=>{
     res.render("book/new")
 })
 
-
-/**
- * 
- */
-router.get("/book/index/:have_read", async (req, res)=>{
+router.get("/book/index", async (req, res)=>{
     allBooks = await Book.find({})
-    const haveRead = (req.params.have_read === 'have_read')
-    res.render("book/index", {allBooks, haveRead})
+    res.render("book/index", {allBooks})
 })
 
 router.get("/book/:id/show", async (req, res) =>{

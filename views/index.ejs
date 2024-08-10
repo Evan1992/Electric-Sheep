@@ -180,64 +180,30 @@
                 <div class="col-8">
                     <div class="sort" id="book">
                         <div class="sort_title">
-                            <h5 class="sort_title_name">Books</h5>
-                            <!-- <span class="pl">
-                                <a href="">will do</a>
-                                &nbsp;&nbsp;
-                                <a href="">doing</a>
-                                &nbsp;&nbsp; 
-                                <a href="">done</a>
-                            </span> -->
+                            <h5 class="sort_title_name">
+                                <a href="/book/index">Books</a>
+                            </h5>
                         </div>
 
                         <div class="sort_body">
                             <div class="container" id="right_container">
-                                <!-- Read row -->
-                                <div class="row" id="right_row">
-                                    <div class="col-2" id="right_row_title">
-                                        <a href="/book/index/have_read">Read</a>
-                                    </div>
-                                    <!-- Retrieve books' cover from the database and display it -->
-                                    <% let count = 0 %>
-                                    <% for(let i = 0; i <books.length; ++i) { %>
-                                        <% book = books[i] %>
-                                        <% if (book.haveRead) { %>
-                                            <% count++ %>
-                                            <div class="col-2">
-                                                <a href="/book/<%= book._id %>/show">
-                                                    <% if(book.cover.img_data !== undefined) { %>
-                                                        <img src="data:book/<%= book.cover.contentType%>;base64, <%= book.cover.img_data.toString('base64')%>" class="item-img">
-                                                    <% } else { %>
-                                                        <img src="pictures/books/book-default.gif" class="item-img">
-                                                    <% } %>
-                                                </a>
-                                            </div>
-                                        <% } %>
-                                        <% if(count==4) break %>
-                                    <% } %>
-                                </div>
                                 <!-- Wish List row -->
                                 <div class="row" id="right_row">
-                                    <div class="col-2" id="right_row_title">
-                                        <a href="/book/index/wish_list">Wish List</a>
-                                    </div>
                                     <!-- Retrieve books' cover from the database and display it -->
                                     <% count = 0 %>
                                     <% for(let i = 0; i<books.length; ++i) { %>
                                         <% book = books[i] %>
-                                        <% if(!book.haveRead) { %>
-                                            <% count++ %>
-                                            <div class="col-2">
-                                                <a href="/book/<%= book._id %>/show">
-                                                    <% if(book.cover.img_data !== undefined) { %>
-                                                        <img src="data:book/<%= book.cover.contentType%>;base64, <%= book.cover.img_data.toString('base64')%>" class="item-img">
-                                                    <% } else { %>
-                                                        <img src="pictures/books/book-default.gif" class="item-img">
-                                                    <% } %>
-                                                </a>
-                                            </div>
-                                        <% } %>
-                                        <% if(count==3) break %>
+                                        <% count++ %>
+                                        <div class="col-2">
+                                            <a href="/book/<%= book._id %>/show">
+                                                <% if(book.cover.img_data !== undefined) { %>
+                                                    <img src="data:book/<%= book.cover.contentType%>;base64, <%= book.cover.img_data.toString('base64')%>" class="item-img">
+                                                <% } else { %>
+                                                    <img src="pictures/books/book-default.gif" class="item-img">
+                                                <% } %>
+                                            </a>
+                                        </div>
+                                        <% if(count==4) break %>
                                     <% } %>
                                     <div class="col-2"><a href="/book/new"><img src="/pictures/add_icon.png"   class="add-icon"></a></div>
                                 </div>  

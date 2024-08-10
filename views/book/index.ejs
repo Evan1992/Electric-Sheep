@@ -35,24 +35,11 @@
         <!-- Index of all the books -->
         <div class="container">
             <div class="row">
-                <% if(haveRead) { %>
-                    <ul class="item-list">
-                        <% allBooks.forEach((book) =>{ %>
-                            <% if(book.haveRead) { %>
-                                <li class="subject-item"><%= book.name %></li>
-                            <% } %>
-                        <% }) %>
-                    </ul>
-                <% } else { %>
-                    <ul class="item-list">
-                        <% allBooks.forEach((book) =>{ %>
-                            <% if(!book.haveRead) { %>
-                                <li class="subject-item"><%= book.name %></li>
-                            <% } %>
-                        <% }) %>
-                    </ul>
-                <% } %>
-                
+                <ul class="item-list">
+                    <% allBooks.forEach((book) =>{ %>
+                        <li class="subject-item"><%= book.name %></li>
+                    <% }) %>
+                </ul>
             </div>
         </div>
 
