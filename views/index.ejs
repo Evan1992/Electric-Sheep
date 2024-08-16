@@ -263,7 +263,6 @@
                                         </div>
                                         <% if(count==4) break %>
                                     <% } %>
-                                    <div class="col-2"><a href="/drama/new"><img src="/pictures/add_icon.png"   class="add-icon"></a></div>
                                 </div>
                             </div>
                         </div>
@@ -271,31 +270,44 @@
 
                     <div class="sort" id="music">
                         <div class="sort_title">
-                            <h5 class="sort_title_name">Records</h5>
-                            <!-- <span class="pl">
-                                <a href="">will do</a>
-                                &nbsp;&nbsp;
-                                <a href="">doing</a>
-                                &nbsp;&nbsp; 
-                                <a href="">done</a>
-                            </span> -->
+                            <h5 class="sort_title_name">
+                                <a href="/record/index">Records</a>
+                            </h5>
                         </div>
 
                         <div class="sort_body">
                             <div class="container" id="right_container">
-                                <!-- Reading row -->
+                                <!-- Row for record images -->
                                 <div class="row" id="right_row">
-                                    <div class="col-2" id="right_row_title">Listened</div>
-                                    <div class="col-2"><img src="pictures/music/2020111401.jpg" class="item-img"></div>
-                                    <div class="col-2"><img src="pictures/music/2020111402.jpg" class="item-img"></div>
-                                    <div class="col-2"><img src="pictures/music/2020111403.jpg" class="item-img"></div>
+                                    <% count = 0 %>
+                                    <% for(let i = records.length-1; i>=0; --i) { %>
+                                        <% record = records[i] %>
+                                        <% count++ %>
+                                        <div class="col-2">
+                                            <a href="/record/<%= record._id %>/show">
+                                                <% if(record.cover.img_data !== undefined) { %>
+                                                    <img src="data:record/<%= record.cover.contentType%>;base64, <%= record.cover.img_data.toString('base64')%>" class="item-img">
+                                                <% } else { %>
+                                                    <img src="pictures/records/record-default.gif" class="item-img">
+                                                <% } %>
+                                            </a>
+                                        </div>
+                                        <% if(count==4) break %>
+                                    <% } %>
+                                    <div class="col-2"><a href="/record/new"><img src="/pictures/add_icon.png"   class="add-icon"></a></div>
                                 </div>
-                                <!-- Wish List row -->
+                                <!-- Row for record names -->
                                 <div class="row" id="right_row">
-                                    <div class="col-2" id="right_row_title">Wish List</div>
-                                    <div class="col-2"><img src="pictures/music/2020111404.jpg" class="item-img"></div>
-                                    <div class="col-2"><img src="pictures/music/2020111405.jpg" class="item-img"></div>
-                                </div>  
+                                    <% count = 0 %>
+                                    <% for(let i = records.length-1; i>=0; --i) { %>
+                                        <% record = records[i] %>
+                                        <% count++ %>
+                                        <div class="col-2" style="text-align:center; font-size:small;">
+                                            <%= record.name %>
+                                        </div>
+                                        <% if(count==4) break %>
+                                    <% } %>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -12,6 +12,7 @@ const express        = require("express"),
       router         = express.Router(),
       Book           = require("../models/book"),
       Drama          = require("../models/drama"),
+      Record         = require("../models/record"),
       fs             = require("fs"),
       multer         = require("multer"),
       upload         = multer({dest: 'uploads/'})
@@ -123,7 +124,7 @@ router.delete("/book/:id", async (req, res) =>{
     res.redirect("/")
 })
 
-/* =================== Drama =================== */
+/* =================== Dramas =================== */
 router.get("/drama/new", (req, res)=>{
     res.render("drama/new")
 })
@@ -178,6 +179,67 @@ router.put("/drama/:id", upload.single('cover'), async (req, res)=>{
 
     const drama = await Drama.findByIdAndUpdate(id, req.body)
     res.redirect(`/drama/${drama._id}/show`)
+})
+
+/* =================== Records =================== */
+router.get("/record/new", (req, res)=>{
+    res.render("record/new")
+})
+
+router.get("/record/index", async (req, res)=>{
+    records = await Record.find({})
+    res.render("record/index", {records})
+})
+
+router.get("/record/:id/show", async (req, res) =>{
+    record = await Record.findById(req.params.id)
+    res.render("record/show", {record})
+})
+
+router.get("/record/:id/edit", async (req, res) =>{
+    record = await Record.findById(req.params.id)
+    res.render("record/edit", {record})
+})
+
+router.post('/record/new', upload.single('cover'), (req, res)=>{
+    data = {
+        name:         req.body.name,
+        artist:       req.body.artist,
+        genre:        req.body.genre,
+        year:         req.body.year,
+        stars:        0,
+        comments:     [],
+        haveListened: false,
+    }
+
+    if(req.file !== undefined) {
+        data.cover = {
+            img_data: fs.readFileSync(req.file.path),
+            contentType: String
+        }
+    }
+
+    Record.create(data, (err, record)=>{
+        if(err){
+            console.log(err)
+        }else{
+            console.log(record)
+        }
+    })
+    res.redirect("/record/new")
+})
+
+router.put("/record/:id", upload.single('cover'), async (req, res)=>{
+    const { id } = req.params
+    const newData = req.body
+
+    // Update haveListened
+    if(newData.haveListened){
+        newData.haveListened = true
+    }
+
+    const record = await Record.findByIdAndUpdate(id, req.body)
+    res.redirect(`/record/${record._id}/show`)
 })
 
 module.exports = router
