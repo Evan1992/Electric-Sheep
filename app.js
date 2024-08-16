@@ -78,7 +78,7 @@ app.use(bucketListRoutes);
 // }, err=>{
 //     console.log("Connected to the database");
 // });
-const dbUrl = "mongodb+srv://longyi:824219@freecluster.ckz8w2h.mongodb.net/?retryWrites=true&w=majority&appName=FreeCluster"
+const dbUrl = "mongodb+srv://longyi:824219@freecluster.tby7p.mongodb.net/?retryWrites=true&w=majority&appName=FreeCluster"
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useCreateIndex: true,
