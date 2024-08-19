@@ -13,6 +13,7 @@ const express        = require("express"),
       Book           = require("../models/book"),
       Drama          = require("../models/drama"),
       Record         = require("../models/record"),
+      Game           = require("../models/game"),
       fs             = require("fs"),
       multer         = require("multer"),
       upload         = multer({dest: 'uploads/'})
@@ -245,6 +246,67 @@ router.put("/record/:id", upload.single('cover'), async (req, res)=>{
 
     const record = await Record.findByIdAndUpdate(id, req.body)
     res.redirect(`/record/${record._id}/show`)
+})
+
+/* =================== Games =================== */
+router.get("/game/new", (req, res)=>{
+    res.render("game/new")
+})
+
+router.get("/game/index", async (req, res)=>{
+    games = await Game.find({})
+    res.render("game/index", {games})
+})
+
+router.get("/game/:id/show", async (req, res) =>{
+    game = await Game.findById(req.params.id)
+    res.render("game/show", {game})
+})
+
+router.get("/game/:id/edit", async (req, res) =>{
+    game = await Game.findById(req.params.id)
+    res.render("game/edit", {game})
+})
+
+router.post('/game/new', upload.single('cover'), (req, res)=>{
+    data = {
+        name:         req.body.name,
+        developer:    req.body.developer,
+        genre:        req.body.genre,
+        year:         req.body.year,
+        stars:        0,
+        comments:     [],
+        havePlayed: false,
+    }
+
+    if(req.file !== undefined) {
+        data.cover = {
+            img_data: fs.readFileSync(req.file.path),
+            contentType: String
+        }
+    }
+
+    Game.create(data, (err, game)=>{
+        if(err){
+            console.log(err)
+        }else{
+            console.log(game)
+        }
+    })
+    res.redirect("/game/new")
+})
+
+router.put("/game/:id", upload.single('cover'), async (req, res)=>{
+    const { id } = req.params
+    const newData = req.body
+
+    // Update havePlayed
+    if(newData.havePlayed){
+        newData.havePlayed = true
+    }
+
+    const game = await Game.findByIdAndUpdate(id, req.body)
+    res.redirect(`/game/${game._id}/show`)
 })
 
 module.exports = router

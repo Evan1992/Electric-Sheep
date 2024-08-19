@@ -314,12 +314,43 @@
 
                     <div class="sort" id="game">
                         <div class="sort_title">
-                            <h5 class="sort_title_name">Games</h5>
+                            <h5 class="sort_title_name">
+                                <a href="/game/index">Games</a>
+                            </h5>
                         </div>
 
                         <div class="sort_body">
                             <div class="container" id="right_container">
+                                <!-- Row for game images -->
                                 <div class="row" id="right_row">
+                                    <% count = 0 %>
+                                    <% for(let i = games.length-1; i>=0; --i) { %>
+                                        <% game = games[i] %>
+                                        <% count++ %>
+                                        <div class="col-2">
+                                            <a href="/game/<%= game._id %>/show">
+                                                <% if(record.cover.img_data !== undefined) { %>
+                                                    <img src="data:game/<%= game.cover.contentType%>;base64, <%= game.cover.img_data.toString('base64')%>" class="item-img">
+                                                <% } else { %>
+                                                    <img src="pictures/records/record-default.gif" class="item-img">
+                                                <% } %>
+                                            </a>
+                                        </div>
+                                        <% if(count==4) break %>
+                                    <% } %>
+                                    <div class="col-2"><a href="/game/new"><img src="/pictures/add_icon.png"   class="add-icon"></a></div>
+                                </div>
+                                <!-- Row for record names -->
+                                <div class="row" id="right_row">
+                                    <% count = 0 %>
+                                    <% for(let i = games.length-1; i>=0; --i) { %>
+                                        <% game = games[i] %>
+                                        <% count++ %>
+                                        <div class="col-2" style="text-align:center; font-size:small;">
+                                            <%= game.name %>
+                                        </div>
+                                        <% if(count==4) break %>
+                                    <% } %>
                                 </div>
                             </div>
                         </div>

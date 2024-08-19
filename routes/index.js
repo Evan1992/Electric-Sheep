@@ -6,6 +6,7 @@ const express   = require("express"),
       Book      = require("../models/book"),
       Drama     = require("../models/drama"),
       Record    = require("../models/record"),
+      Game      = require("../models/game"),
       Log       = require("../models/logs"),
       requestIP = require("request-ip"),
       request   = require("request")
@@ -63,16 +64,16 @@ router.get("/", async (req, res) => {
         num_visitors += 1
     }
 
-    // Find all books stored in the database
+    // Find all itmes stored in the database
     const books = await Book.find({})
-    // Find all dramas stored in the database
     const dramas = await Drama.find({})
-    // Find all records stored in the database
     const records = await Record.find({})
+    const games = await Game.find({})
     res.render("index", {
         books: books,
         dramas: dramas,
         records: records,
+        games: games,
         num_visitors: num_visitors
     })
 })
