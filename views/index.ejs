@@ -358,12 +358,43 @@
 
                     <div class="sort" id="channels">
                         <div class="sort_title">
-                            <h5 class="sort_title_name">Channels</h5>
+                            <h5 class="sort_title_name">
+                                <a href="/channel/index">Channels</a>
+                            </h5>
                         </div>
 
                         <div class="sort_body">
                             <div class="container" id="right_container">
+                                <!-- Row for channel images -->
                                 <div class="row" id="right_row">
+                                    <% count = 0 %>
+                                    <% for(let i = channels.length-1; i>=0; --i) { %>
+                                        <% channel = channels[i] %>
+                                        <% count++ %>
+                                        <div class="col-2">
+                                            <a href="/channel/<%= channel._id %>/show">
+                                                <% if(record.cover.img_data !== undefined) { %>
+                                                    <img src="data:channel/<%= channel.cover.contentType%>;base64, <%= channel.cover.img_data.toString('base64')%>" class="item-img">
+                                                <% } else { %>
+                                                    <img src="pictures/records/record-default.gif" class="item-img">
+                                                <% } %>
+                                            </a>
+                                        </div>
+                                        <% if(count==4) break %>
+                                    <% } %>
+                                    <div class="col-2"><a href="/channel/new"><img src="/pictures/add_icon.png"   class="add-icon"></a></div>
+                                </div>
+                                <!-- Row for channel names -->
+                                <div class="row" id="right_row">
+                                    <% count = 0 %>
+                                    <% for(let i = channels.length-1; i>=0; --i) { %>
+                                        <% channel = channels[i] %>
+                                        <% count++ %>
+                                        <div class="col-2" style="text-align:center; font-size:small;">
+                                            <%= channel.name %>
+                                        </div>
+                                        <% if(count==4) break %>
+                                    <% } %>
                                 </div>
                             </div>
                         </div>

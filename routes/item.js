@@ -14,6 +14,7 @@ const express        = require("express"),
       Drama          = require("../models/drama"),
       Record         = require("../models/record"),
       Game           = require("../models/game"),
+      Channel        = require('../models/channel'),
       fs             = require("fs"),
       multer         = require("multer"),
       upload         = multer({dest: 'uploads/'})
@@ -307,6 +308,65 @@ router.put("/game/:id", upload.single('cover'), async (req, res)=>{
 
     const game = await Game.findByIdAndUpdate(id, req.body)
     res.redirect(`/game/${game._id}/show`)
+})
+
+/* =================== Channels =================== */
+router.get("/channel/new", (req, res)=>{
+    res.render("channel/new")
+})
+
+router.get("/channel/index", async (req, res)=>{
+    channels = await Channel.find({})
+    res.render("channel/index", {channels})
+})
+
+router.get("/channel/:id/show", async (req, res) =>{
+    channel = await Channel.findById(req.params.id)
+    res.render("channel/show", {channel})
+})
+
+router.get("/channel/:id/edit", async (req, res) =>{
+    channel = await Channel.findById(req.params.id)
+    res.render("channel/edit", {channel})
+})
+
+router.post('/channel/new', upload.single('cover'), (req, res)=>{
+    data = {
+        name:         req.body.name,
+        influencer:   req.body.influencer,
+        stars:        0,
+        comments:     [],
+        haveWatched: false,
+    }
+
+    if(req.file !== undefined) {
+        data.cover = {
+            img_data: fs.readFileSync(req.file.path),
+            contentType: String
+        }
+    }
+
+    Channel.create(data, (err, channel)=>{
+        if(err){
+            console.log(err)
+        }else{
+            console.log(channel)
+        }
+    })
+    res.redirect("/channel/new")
+})
+
+router.put("/channel/:id", upload.single('cover'), async (req, res)=>{
+    const { id } = req.params
+    const newData = req.body
+
+    // Update havePlayed
+    if(newData.haveWatched){
+        newData.haveWatched = true
+    }
+
+    const channel = await Channel.findByIdAndUpdate(id, req.body)
+    res.redirect(`/channel/${channel._id}/show`)
 })
 
 module.exports = router
