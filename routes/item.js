@@ -14,7 +14,8 @@ const express        = require("express"),
       Drama          = require("../models/drama"),
       Record         = require("../models/record"),
       Game           = require("../models/game"),
-      Channel        = require('../models/channel'),
+      Channel        = require("../models/channel"),
+      Podcast        = require("../models/podcast"),
       fs             = require("fs"),
       multer         = require("multer"),
       upload         = multer({dest: 'uploads/'})
@@ -367,6 +368,65 @@ router.put("/channel/:id", upload.single('cover'), async (req, res)=>{
 
     const channel = await Channel.findByIdAndUpdate(id, req.body)
     res.redirect(`/channel/${channel._id}/show`)
+})
+
+/* =================== Podcasts =================== */
+router.get("/podcast/new", (req, res)=>{
+    res.render("podcast/new")
+})
+
+router.get("/podcast/index", async (req, res)=>{
+    podcasts = await Podcast.find({})
+    res.render("podcast/index", {podcasts})
+})
+
+router.get("/podcast/:id/show", async (req, res) =>{
+    podcast = await Podcast.findById(req.params.id)
+    res.render("podcast/show", {podcast})
+})
+
+router.get("/podcast/:id/edit", async (req, res) =>{
+    podcast = await Podcast.findById(req.params.id)
+    res.render("podcast/edit", {podcast})
+})
+
+router.post('/podcast/new', upload.single('cover'), (req, res)=>{
+    data = {
+        name:         req.body.name,
+        host:         req.body.host,
+        stars:        0,
+        comments:     [],
+        haveListened: false,
+    }
+
+    if(req.file !== undefined) {
+        data.cover = {
+            img_data: fs.readFileSync(req.file.path),
+            contentType: String
+        }
+    }
+
+    Podcast.create(data, (err, podcast)=>{
+        if(err){
+            console.log(err)
+        }else{
+            console.log(podcast)
+        }
+    })
+    res.redirect("/podcast/new")
+})
+
+router.put("/podcast/:id", upload.single('cover'), async (req, res)=>{
+    const { id } = req.params
+    const newData = req.body
+
+    // Update havePlayed
+    if(newData.haveListened){
+        newData.haveListened = true
+    }
+
+    const podcast = await Podcast.findByIdAndUpdate(id, req.body)
+    res.redirect(`/podcast/${podcast._id}/show`)
 })
 
 module.exports = router

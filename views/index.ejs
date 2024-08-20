@@ -402,12 +402,43 @@
 
                     <div class="sort" id="podcast">
                         <div class="sort_title">
-                            <h5 class="sort_title_name">Podcasts</h5>
+                            <h5 class="sort_title_name">
+                                <a href="/podcast/index">Podcasts</a>
+                            </h5>
                         </div>
 
                         <div class="sort_body">
                             <div class="container" id="right_container">
+                                <!-- Row for podcast images -->
                                 <div class="row" id="right_row">
+                                    <% count = 0 %>
+                                    <% for(let i = podcasts.length-1; i>=0; --i) { %>
+                                        <% podcast = podcasts[i] %>
+                                        <% count++ %>
+                                        <div class="col-2">
+                                            <a href="/podcast/<%= podcast._id %>/show">
+                                                <% if(record.cover.img_data !== undefined) { %>
+                                                    <img src="data:podcast/<%= podcast.cover.contentType%>;base64, <%= podcast.cover.img_data.toString('base64')%>" class="item-img">
+                                                <% } else { %>
+                                                    <img src="pictures/records/record-default.gif" class="item-img">
+                                                <% } %>
+                                            </a>
+                                        </div>
+                                        <% if(count==4) break %>
+                                    <% } %>
+                                    <div class="col-2"><a href="/podcast/new"><img src="/pictures/add_icon.png"   class="add-icon"></a></div>
+                                </div>
+                                <!-- Row for podcast names -->
+                                <div class="row" id="right_row">
+                                    <% count = 0 %>
+                                    <% for(let i = podcasts.length-1; i>=0; --i) { %>
+                                        <% podcast = podcasts[i] %>
+                                        <% count++ %>
+                                        <div class="col-2" style="text-align:center; font-size:small;">
+                                            <%= podcast.name %>
+                                        </div>
+                                        <% if(count==4) break %>
+                                    <% } %>
                                 </div>
                             </div>
                         </div>

@@ -7,7 +7,8 @@ const express   = require("express"),
       Drama     = require("../models/drama"),
       Record    = require("../models/record"),
       Game      = require("../models/game"),
-      Channel   = require('../models/channel'),
+      Channel   = require("../models/channel"),
+      Podcast   = require("../models/podcast"),
       Log       = require("../models/logs"),
       requestIP = require("request-ip"),
       request   = require("request")
@@ -71,12 +72,14 @@ router.get("/", async (req, res) => {
     const records = await Record.find({})
     const games = await Game.find({})
     const channels = await Channel.find({})
+    const podcasts = await Podcast.find({})
     res.render("index", {
         books: books,
         dramas: dramas,
         records: records,
         games: games,
         channels: channels,
+        podcasts: podcasts,
         num_visitors: num_visitors
     })
 })
