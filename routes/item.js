@@ -141,6 +141,10 @@ router.get("/drama/:id/show", async (req, res) =>{
     drama = await Drama.findById(req.params.id)
     res.render("drama/show", {drama})
 })
+router.get("/drama/:id/commentary/new", async (req, res) =>{
+    drama = await Drama.findById(req.params.id)
+    res.render("drama/new_commentary", {drama})
+})
 
 router.get("/drama/:id/edit", async (req, res) =>{
     drama = await Drama.findById(req.params.id)
@@ -149,14 +153,14 @@ router.get("/drama/:id/edit", async (req, res) =>{
 
 router.post('/drama/new', upload.single('cover'), (req, res)=>{
     data = {
-        name:        req.body.name,
-        director:    req.body.director,
-        year:        req.body.year,
-        recurrence:  0,
-        stars:       0,
-        lines:       [],
-        comments:    [],
-        haveWatched: false,
+        name:         req.body.name,
+        director:     req.body.director,
+        year:         req.body.year,
+        recurrence:   0,
+        stars:        0,
+        lines:        [],
+        commentaries: [],
+        haveWatched:  false,
     }
 
     if(req.file !== undefined) {
@@ -197,6 +201,24 @@ router.put("/drama/:id", upload.single('cover'), async (req, res)=>{
     }
 
     const drama = await Drama.findByIdAndUpdate(id, req.body)
+    res.redirect(`/drama/${drama._id}/show`)
+})
+
+router.put("/drama/:id/commentary/new", async (req, res) =>{
+    const newData = req.body
+
+    if(newData.title && newData.content) {
+        const drama = await Drama.findById(req.params.id)
+        newData.commentaries = [...drama.lines]
+        newData.commentaries.push(
+            {
+                title: newData.title,
+                content: newData.content
+            }
+        )
+    }
+
+    await Drama.findByIdAndUpdate(req.params.id, req.body)
     res.redirect(`/drama/${drama._id}/show`)
 })
 
