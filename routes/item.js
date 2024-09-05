@@ -184,6 +184,17 @@ router.put("/drama/:id", upload.single('cover'), async (req, res)=>{
     if(newData.haveWatched){
         newData.haveWatched = true
     }
+    // Update lines
+    if(newData.add_line){
+        const drama = await Drama.findById(req.params.id)
+        newData.lines = [...drama.lines]
+        newData.lines.push(newData.add_line)
+    }
+    if(newData.delete_line){
+        const drama = await Drama.findById(req.params.id)
+        newData.lines = [...drama.lines]
+        newData.lines.splice(newData.delete_line, 1)
+    }
 
     const drama = await Drama.findByIdAndUpdate(id, req.body)
     res.redirect(`/drama/${drama._id}/show`)

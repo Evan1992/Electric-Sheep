@@ -99,7 +99,11 @@
     color: #fd4;
 }
 
-.comments {
+.line {
+    margin-bottom: 16px;
+}
+
+.lines, .comments {
     font-size: 20px;
     margin-top: 15px;
 }
