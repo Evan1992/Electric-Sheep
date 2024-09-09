@@ -194,6 +194,18 @@
             <div class="row">
                 <div class="col comments">Commentaries</div>
             </div>
+            <!-- Existing commentary list -->
+            <div class="row">
+                <% for(let i = 0; i < commentaries.length; i++) { %>
+                    <% commentary = commentaries[i] %>
+                    <div class="col">
+                        <li>
+                            <a href="/drama/<%= drama._id %>/commentary/<%= commentary.id %>"><%= commentary.title %></a>
+                        </li>
+                    </div>
+                <% } %>
+            </div>
+            <!-- New commentary link -->
             <div class="row">
                 <div class="col"><a href="/drama/<%= drama._id %>/commentary/new">Add a new commentary</a>
             </div>

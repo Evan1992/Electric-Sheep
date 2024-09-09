@@ -139,11 +139,22 @@ router.get("/drama/index", async (req, res)=>{
 
 router.get("/drama/:id/show", async (req, res) =>{
     drama = await Drama.findById(req.params.id)
-    res.render("drama/show", {drama})
+    commentaries = drama.commentaries;
+    res.render("drama/show", {drama, commentaries})
 })
+
 router.get("/drama/:id/commentary/new", async (req, res) =>{
     drama = await Drama.findById(req.params.id)
-    res.render("drama/new_commentary", {drama})
+    res.render("drama/commentary/new", {drama})
+})
+
+router.get("/drama/:id/commentary/:commentaryId", async (req, res) =>{
+    drama = await Drama.findById(req.params.id)
+    for (const commentary of commentaries) {
+        if (commentary.id == req.params.commentaryId) {
+            res.render("drama/commentary/show", {commentary})
+        }
+    }
 })
 
 router.get("/drama/:id/edit", async (req, res) =>{
@@ -212,6 +223,7 @@ router.put("/drama/:id/commentary/new", async (req, res) =>{
         newData.commentaries = [...drama.lines]
         newData.commentaries.push(
             {
+                id: Math.random().toString(16).slice(2),
                 title: newData.title,
                 content: newData.content
             }
