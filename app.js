@@ -66,26 +66,15 @@ app.use(indexRoutes);
 app.use(itemRoutes);
 app.use(bucketListRoutes);
 
-/**
- * @brief Connect to database MongoDB Atlas
- */
-// const dbUrl = process.env.DB_URL
-// mongoose.connect(dbUrl, {
-//     useNewUrlParser: true,
-//     useCreateIndex: true,
-//     useUnifiedTopology: true,
-//     useFindAndModify: false
-// }, err=>{
-//     console.log("Connected to the database");
-// });
 const dbUrl = "mongodb+srv://longyi:824219@freecluster.tby7p.mongodb.net/?retryWrites=true&w=majority&appName=FreeCluster"
 mongoose.connect(dbUrl, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-}, err=>{
-    console.log("Connected to the database");
+    serverSelectionTimeoutMS: 10000
+})
+.then(() => {
+    console.log('MongoDB connected successfully');
+})
+.catch((error) => {
+    console.error('Connection error', error);
 });
 
 /**

@@ -46,12 +46,13 @@ router.get("/", async (req, res) => {
                     ip: clientIP,
                     count: 1
                 }
-                Log.create(data, (err, log) =>{
-                    if(err){
-                        console.log(err)
-                    }else{
-                        console.log(log)
-                    }
+                
+                Log.create(data)
+                .then(() => {
+                    console.log('Create log successfully');
+                })
+                .catch((error) => {
+                    console.error('Fail to create the log', error);
                 })
             }
         }catch(error){
