@@ -65,12 +65,12 @@ router.post('/book/new', upload.single('cover'), (req, res)=>{
         }
     }
 
-    Book.create(data, (err, book)=>{
-        if(err){
-            console.log(err)
-        }else{
-            console.log(book)
-        }
+    Book.create(data)
+    .then((book) => {
+        console.log(book)
+    })
+    .catch((error) => {
+        console.error('Failed to create a new book', error)
     })
     res.redirect("/book/new");
 })
@@ -181,12 +181,12 @@ router.post('/drama/new', upload.single('cover'), (req, res)=>{
         }
     }
 
-    Drama.create(data, (err, drama)=>{
-        if(err){
-            console.log(err)
-        }else{
-            console.log(drama)
-        }
+    Drama.create(data)
+    .then((drama) => {
+        console.log(drama)
+    })
+    .catch((error) => {
+        console.error('Failed to create a new drama', error)
     })
     res.redirect("/drama/new")
 })
@@ -272,12 +272,12 @@ router.post('/record/new', upload.single('cover'), (req, res)=>{
         }
     }
 
-    Record.create(data, (err, record)=>{
-        if(err){
-            console.log(err)
-        }else{
-            console.log(record)
-        }
+    Record.create(data)
+    .then((record) => {
+        console.log(record)
+    })
+    .catch((error) => {
+        console.error('Failed to create a new record', error)
     })
     res.redirect("/record/new")
 })
@@ -333,12 +333,12 @@ router.post('/game/new', upload.single('cover'), (req, res)=>{
         }
     }
 
-    Game.create(data, (err, game)=>{
-        if(err){
-            console.log(err)
-        }else{
-            console.log(game)
-        }
+    Game.create(data)
+    .then((game) => {
+        console.log(game)
+    })
+    .catch((error) => {
+        console.error('Failed to create a new game', error)
     })
     res.redirect("/game/new")
 })
@@ -392,12 +392,12 @@ router.post('/channel/new', upload.single('cover'), (req, res)=>{
         }
     }
 
-    Channel.create(data, (err, channel)=>{
-        if(err){
-            console.log(err)
-        }else{
-            console.log(channel)
-        }
+    Channel.create(data)
+    .then((channel) => {
+        console.log(channel)
+    })
+    .catch((error) => {
+        console.error('Failed to create a new channel', error)
     })
     res.redirect("/channel/new")
 })
@@ -451,12 +451,12 @@ router.post('/podcast/new', upload.single('cover'), (req, res)=>{
         }
     }
 
-    Podcast.create(data, (err, podcast)=>{
-        if(err){
-            console.log(err)
-        }else{
-            console.log(podcast)
-        }
+    Podcast.create(data)
+    .then((podcast) => {
+        console.log(podcast)
+    })
+    .catch((error) => {
+        console.error('Failed to create a new podcast', error)
     })
     res.redirect("/podcast/new")
 })
