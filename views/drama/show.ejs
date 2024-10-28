@@ -162,7 +162,7 @@
             <% drama.lines.forEach((line, index) => { %>
                 <div class="line">
                     <div class="row">
-                        <div class="col"><%= line %></div>
+                        <div class="col" style="white-space: pre-line;"><%= line %></div>
                     </div>
                     <div class="row">
                         <form action="/drama/<%=drama._id %>?_method=PUT" method=POST>

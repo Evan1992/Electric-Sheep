@@ -162,7 +162,7 @@
             <% book.excerpts.forEach((excerpt, index) => { %>
                 <div class="excerpt">
                     <div class="row">
-                        <div class="col"><%= excerpt %></div>
+                        <div class="col" style="white-space: pre-line;"><%= excerpt %></div>
                     </div>
                     <div class="row">
                         <form action="/book/<%=book._id %>?_method=PUT" method=POST>
@@ -234,3 +234,7 @@
     For "text", "password", and "hidden", it defines the initial (default) value of the input field
     For "checkbox", "radio", "image", it defines the value associated with the input (this is also the value that is sent on submit)
 -->
+
+<!-- Display newline within <div> -->
+<!-- white-space: pre-line; keeps the whitespace and line breaks in the HTML content. -->
+<!-- Alternatively, white-space: pre; will preserve all whitespace and line breaks exactly as they appear. -->
