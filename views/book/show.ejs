@@ -167,9 +167,8 @@
                     <div class="row">
                         <form action="/book/<%=book._id %>?_method=PUT" method=POST>
                             <div class="col">
-                                <!-- Use <button> instead of <input> so we can specify the text of the button shown on the page -->
                                 <!-- Reference: https://stackoverflow.com/questions/14007613/change-text-from-submit-on-input-tag -->
-                                <button type="submit" name="delete_excerpt" value="<%= index %>">Delete</button>
+                                <input type="submit" name="delete_excerpt" value="Delete">
                             </div>
                         </form>
                     </div>
