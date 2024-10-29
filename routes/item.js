@@ -93,6 +93,11 @@ router.get("/book/:id/edit", async (req, res) =>{
     res.render("book/edit", {book})
 })
 
+router.get("/book/:id/new-comment", async (req, res) =>{
+    book = await Book.findById(req.params.id)
+    res.render("book/new-comment", {book})
+})
+
 /**
  * @Note
  *  Don't forget to add upload, otherwise, req.body is empty.    
