@@ -12,7 +12,7 @@ var BookSchema = new mongoose.Schema({
     },
     recurrence: Number,
     stars:   Number,
-    Comment: String,
+    commentaries: Array,
     haveRead: Boolean,
     excerpts: Array
 
