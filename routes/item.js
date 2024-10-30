@@ -85,7 +85,8 @@ router.get("/book/index", async (req, res)=>{
 
 router.get("/book/:id/show", async (req, res) =>{
     book = await Book.findById(req.params.id)
-    res.render("book/show", {book})
+    commentaries = book.commentaries
+    res.render("book/show", {book, commentaries})
 })
 
 router.get("/book/:id/edit", async (req, res) =>{
@@ -132,6 +133,25 @@ router.put("/book/:id", upload.single('cover'), async (req, res)=>{
     }
 
     const book = await Book.findByIdAndUpdate(id, req.body)
+    res.redirect(`/book/${book._id}/show`)
+})
+
+router.put("/book/:id/commentary/new", async (req, res) =>{
+    const newData = req.body
+
+    if(newData.title && newData.content) {
+        const book = await Book.findById(req.params.id)
+        newData.commentaries = [...book.commentaries]
+        newData.commentaries.push(
+            {
+                id: Math.random().toString(16).slice(2),
+                title: newData.title,
+                content: newData.content
+            }
+        )
+    }
+
+    await Book.findByIdAndUpdate(req.params.id, req.body)
     res.redirect(`/book/${book._id}/show`)
 })
 
