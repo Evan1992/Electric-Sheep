@@ -93,9 +93,18 @@ router.get("/book/:id/edit", async (req, res) =>{
     res.render("book/edit", {book})
 })
 
-router.get("/book/:id/new-comment", async (req, res) =>{
+router.get("/book/:id/commentary/new", async (req, res) =>{
     book = await Book.findById(req.params.id)
-    res.render("book/new-comment", {book})
+    res.render("book/commentary/new", {book})
+})
+
+router.get("/book/:id/commentary/:commentaryId", async (req, res) =>{
+    book = await Book.findById(req.params.id)
+    for (const commentary of commentaries) {
+        if (commentary.id == req.params.commentaryId) {
+            res.render("book/commentary/show", {commentary})
+        }
+    }
 })
 
 /**
