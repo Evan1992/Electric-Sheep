@@ -1,6 +1,7 @@
 /* Select the element <input> under the class form-item */
 div.form-item input {
-    border: none;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     margin-bottom: 10px;
     margin-top: 20px;
     padding-bottom: 10px;
@@ -10,4 +11,6 @@ div.form-item input {
 textarea {
     border: none;
     width: 1000px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
 }
