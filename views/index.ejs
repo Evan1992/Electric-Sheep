@@ -329,7 +329,7 @@
                                         <% count++ %>
                                         <div class="col-2">
                                             <a href="/game/<%= game._id %>/show">
-                                                <% if(record.cover.img_data !== undefined) { %>
+                                                <% if(game.cover.img_data !== undefined) { %>
                                                     <img src="data:game/<%= game.cover.contentType%>;base64, <%= game.cover.img_data.toString('base64')%>" class="item-img">
                                                 <% } else { %>
                                                     <img src="pictures/records/record-default.gif" class="item-img">
@@ -373,7 +373,7 @@
                                         <% count++ %>
                                         <div class="col-2">
                                             <a href="/channel/<%= channel._id %>/show">
-                                                <% if(record.cover.img_data !== undefined) { %>
+                                                <% if(channel.cover.img_data !== undefined) { %>
                                                     <img src="data:channel/<%= channel.cover.contentType%>;base64, <%= channel.cover.img_data.toString('base64')%>" class="item-img">
                                                 <% } else { %>
                                                     <img src="pictures/records/record-default.gif" class="item-img">
@@ -417,7 +417,7 @@
                                         <% count++ %>
                                         <div class="col-2">
                                             <a href="/podcast/<%= podcast._id %>/show">
-                                                <% if(record.cover.img_data !== undefined) { %>
+                                                <% if(podcast.cover.img_data !== undefined) { %>
                                                     <img src="data:podcast/<%= podcast.cover.contentType%>;base64, <%= podcast.cover.img_data.toString('base64')%>" class="item-img">
                                                 <% } else { %>
                                                     <img src="pictures/records/record-default.gif" class="item-img">
