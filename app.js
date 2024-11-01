@@ -8,6 +8,7 @@
  *      method-override 
  */
 
+require('dotenv').config();
 const express        = require("express"),
       app            = express(),
       request        = require("request"),
@@ -67,7 +68,8 @@ app.use(indexRoutes);
 app.use(itemRoutes);
 app.use(bucketListRoutes);
 
-const dbUrl = "mongodb+srv://longyi:824219@freecluster.tby7p.mongodb.net/?retryWrites=true&w=majority&appName=FreeCluster"
+const dbUrl = `mongodb+srv://longyi:824219@freecluster.tby7p.mongodb.net/${process.env.DATABASE_NAME}?retryWrites=true&w=majority&appName=FreeCluster`
+
 mongoose.connect(dbUrl, {
     serverSelectionTimeoutMS: 10000
 })
