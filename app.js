@@ -31,6 +31,7 @@ app.set("view engine", "ejs");
  * __dirname: an environment variable that tells you
  * the absolute path of the directory containing the
  * currently executing file
+ * We can do console.log(__dirname) to print out __dirname
  * 
  */
 const viewPath = path.join(__dirname, 'views')
