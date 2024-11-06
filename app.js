@@ -32,7 +32,7 @@ app.set("view engine", "ejs");
  * __dirname: an environment variable that tells you
  * the absolute path of the directory containing the
  * currently executing file
- * We can do console.log(__dirname) to print out __dirname
+ * We can do console.log(__dirname) to print out __dirname, and for this project, the output is /Users/yilong/Documents/Computer Science/Projects/ElectricSheep/Electric-Sheep
  * 
  */
 const viewPath = path.join(__dirname, 'views')
@@ -46,6 +46,7 @@ app.set('views', viewPath);
  *  app.use(express.static(path.join(__diranme, "public")))
  */
 app.use(express.static(__dirname + "/views"))
+app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, "public")))
 app.use(express.static(__dirname + "/public/pictures/weather_icons"))
 
