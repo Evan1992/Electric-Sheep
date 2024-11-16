@@ -49,6 +49,7 @@ app.use(express.static(__dirname + "/views"))
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, "public")))
 app.use(express.static(__dirname + "/public/pictures/weather_icons"))
+app.use(express.static(path.join(__dirname, "scripts")))
 
 /**
  * @brief Parse the data
