@@ -1,6 +1,6 @@
 /*
  * Cannot directly require packages on client side/browser,
- * because require is from node.js can can only used in 
+ * because require is from node.js that can only used in 
  * server side
  * 
  * To visit the information defined in .env, we need to use
@@ -70,7 +70,7 @@ function getWeather(latitude, longitude){
         })
 }
 
-/* =========== Display weather to UI ============= */
+/* =========== Display weather ============= */
 function displayWeather(){
     iconElement.innerHTML     = `<img src="${weather.iconId}.png">`;
     tempElement.innerHTML     = `${weather.temperature.value}°<span>C</span>`
