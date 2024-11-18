@@ -329,6 +329,12 @@ router.put("/record/:id", upload.single('cover'), async (req, res)=>{
     res.redirect(`/record/${record._id}/show`)
 })
 
+router.delete("/record/:id", async (req, res) =>{
+    const { id } = req.params
+    await Record.findByIdAndDelete(id)
+    res.redirect("/")
+})
+
 /* =================== Games =================== */
 router.get("/game/new", (req, res)=>{
     res.render("game/new")
