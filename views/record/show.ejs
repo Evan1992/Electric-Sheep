@@ -63,9 +63,11 @@
                     <% } %>
                 </div>
                 <div class="col">
+                    <div class="row"><div class="col">Name: <%= record.name %></div></div>
                     <div class="row"><div class="col">Artist: <%= record.artist %></div></div>
                     <div class="row"><div class="col">Genre: <%= record.genre %></div></div>
                     <div class="row"><div class="col">Year: <%= record.year %></div></div>
+                    <div class="row"><div class="col">Medium: <%= record.medium %></div></div>
                     <div class="row">
                         <div class="col-md-auto" style="padding-right: 3px;">
                             Rate:
@@ -146,9 +148,9 @@
                             </form>
                         </div>
                     </div>
-                    <% if(!record.haveListened) { %>
+                    <% if(!record.owned) { %>
                         <form action="/record/<%= record._id %>?_method=PUT" method=POST enctype="multipart/form-data" novalidate class="validated-form">
-                            <input type="submit" name="haveListened" value="Have Listened">
+                            <input type="submit" name="owned" value="Owned">
                         </form>
                     <% } %>
                 </div>

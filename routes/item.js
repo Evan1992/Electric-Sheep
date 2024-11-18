@@ -293,10 +293,11 @@ router.post('/record/new', upload.single('cover'), (req, res)=>{
         name:         req.body.name,
         artist:       req.body.artist,
         genre:        req.body.genre,
+        medium:       req.body.medium,
         year:         req.body.year,
         stars:        0,
         comments:     [],
-        haveListened: false,
+        owned:        false,
     }
 
     if(req.file !== undefined) {
@@ -321,8 +322,8 @@ router.put("/record/:id", upload.single('cover'), async (req, res)=>{
     const newData = req.body
 
     // Update haveListened
-    if(newData.haveListened){
-        newData.haveListened = true
+    if(newData.owned){
+        newData.owned = true
     }
 
     const record = await Record.findByIdAndUpdate(id, req.body)

@@ -4,6 +4,7 @@ var RecordSchema = new mongoose.Schema({
     name:        String,
     artist:      String,
     genre:       String,
+    medium:      String,
     year:        String,
     cover:   {
         img_data: Buffer,
@@ -11,7 +12,7 @@ var RecordSchema = new mongoose.Schema({
     },
     stars:       Number,
     comments:    Array,
-    haveListened: Boolean,
+    owned:       Boolean,
 })
 
 module.exports = mongoose.model("Record", RecordSchema);
