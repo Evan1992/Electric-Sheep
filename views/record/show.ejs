@@ -152,6 +152,10 @@
                         <form action="/record/<%= record._id %>?_method=PUT" method=POST enctype="multipart/form-data" novalidate class="validated-form">
                             <input type="submit" name="owned" value="Owned">
                         </form>
+                    <% } else { %>
+                        <form action="/record/<%= record._id %>?_method=PUT" method=POST enctype="multipart/form-data" novalidate class="validated-form">
+                            <input type="submit" name="already_owned" value="Already owned">
+                        </form>
                     <% } %>
                 </div>
             </div>

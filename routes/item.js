@@ -321,9 +321,12 @@ router.put("/record/:id", upload.single('cover'), async (req, res)=>{
     const { id } = req.params
     const newData = req.body
 
-    // Update haveListened
+    // Update/Toggle owned
     if(newData.owned){
         newData.owned = true
+    }
+    if(newData.already_owned) {
+        newData.owned = false
     }
 
     const record = await Record.findByIdAndUpdate(id, req.body)
