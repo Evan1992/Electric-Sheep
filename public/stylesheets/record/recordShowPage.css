@@ -93,6 +93,10 @@
     color: #fd4;
 }
 
+.validated-form input {
+    cursor: pointer;
+}
+
 .comments {
     font-size: 20px;
     margin-top: 15px;
