@@ -1,3 +1,7 @@
+.validated-form input {
+    cursor: pointer;
+}
+
 .record-name, .book-name {
     font-size: 25px;
     font-weight: 500;
