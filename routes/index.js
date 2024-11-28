@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const json = require("body-parser/lib/types/json");
 const bcrypt = require('bcrypt'); // For securely comparing passwords
 const { defaultProxyHeaderExclusiveList } = require("request/request");
@@ -45,7 +46,14 @@ router.post("/login", async (req, res) => {
             return res.status(401).json({ error: 'Invalid credentials' });
         }
 
-        res.status(200).json({ message: 'Login successful!' });
+        // Generate a JWT token after matching the password
+        const token = jwt.sign(
+            { userId: user._id, role: user.role }, // Payload
+            process.env.ADMIN_SECURITY_KEY,        // Environment variable
+            { expiresIn: '24h' }                   // Token expiry
+        );
+
+        res.status(200).json({ message: 'Login successful', token });
     } catch (err) {
         console.error('Error during login:', err);
         res.status(500).json({ error: 'Internal server error' });
