@@ -1,8 +1,10 @@
 const json = require("body-parser/lib/types/json");
+const bcrypt = require('bcrypt'); // For securely comparing passwords
 const { defaultProxyHeaderExclusiveList } = require("request/request");
 
 const express   = require("express"),
       router    = express.Router(),
+      Admin     = require("../models/admin"),
       Book      = require("../models/book"),
       Drama     = require("../models/drama"),
       Record    = require("../models/record"),
@@ -12,6 +14,43 @@ const express   = require("express"),
       Log       = require("../models/logs"),
       requestIP = require("request-ip"),
       request   = require("request")
+
+async function registerUser(username, password) {
+    try {
+        const newUser = new Admin({ username, password });
+        await newUser.save();
+        console.log('User registered successfully!');
+    } catch (err) {
+        console.error('Error registering user:', err);
+    }
+}
+// Comment out the following line to use this function when register a new admin
+// registerUser('dummyUserName', 'dummyPassword');
+
+// Admin login route
+router.post("/login", async (req, res) => {
+    const { username, password } = req.body;
+
+    try {
+        // Find the user in the database
+        const user = await Admin.findOne({ username });
+
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        // Compare the hashed password
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        res.status(200).json({ message: 'Login successful!' });
+    } catch (err) {
+        console.error('Error during login:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+})
 
 /* Root Route 
  * async & await
