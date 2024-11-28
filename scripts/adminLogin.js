@@ -5,7 +5,6 @@ const loginForm = document.getElementById('loginForm');
 const message = document.getElementById('message');
 
 openModalButton.onclick = () => {
-    console.log("Modal opened")
     modal.style.display = 'flex';
 };
 

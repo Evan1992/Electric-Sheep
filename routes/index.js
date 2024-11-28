@@ -57,18 +57,6 @@ router.post("/login", async (req, res) => {
  *  querying the database takes time, we need wait for the result 
  *  back from the database, then execute remaining code
  */
-// router.get("/", async (req, res) => {
-//     request.get(`https://api.ipify.org?format=json`, async(err, res, body) =>{
-//         console.log(body);
-//         const clientIP = JSON.parse(body);
-//         console.log(clientIP)
-//         console.log(clientIP.ip)
-//     })
-//     // Find all books stored in the database
-//     const books = await Book.find({})
-//     res.render("index", {books: books})
-// })
-
 router.get("/", async (req, res) => {
     // Get current client's ip
     await request.get(`https://api.ipify.org?format=json`, async (err, res, body) =>{
