@@ -15,9 +15,9 @@ const express   = require("express"),
       requestIP = require("request-ip"),
       request   = require("request")
 
-async function registerUser(username, password) {
+async function registerUser(username, password, role) {
     try {
-        const newUser = new Admin({ username, password });
+        const newUser = new Admin({ username, password, role });
         await newUser.save();
         console.log('User registered successfully!');
     } catch (err) {
@@ -25,7 +25,7 @@ async function registerUser(username, password) {
     }
 }
 // Comment out the following line to use this function when register a new admin
-// registerUser('dummyUserName', 'dummyPassword');
+// registerUser('dummyUserName', 'dummyPassword', "dummyRole");
 
 // Admin login route
 router.post("/login", async (req, res) => {
