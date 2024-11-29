@@ -16,7 +16,8 @@ const express        = require("express"),
       path           = require("path"),
       mongoose       = require("mongoose"),
       dotenv         = require("dotenv").config(),
-      methodOverride = require("method-override")
+      methodOverride = require("method-override"),
+      cookieParser   = require('cookie-parser')
 
 /**
  * Set EJS as the templating engine with Express.
@@ -57,8 +58,10 @@ app.use(express.static(path.join(__dirname, "scripts")))
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-/* */
 app.use(methodOverride('_method'));
+
+// Middleware to parse cookies
+app.use(cookieParser());
 
 /**
  * Require routes

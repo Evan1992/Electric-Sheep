@@ -53,19 +53,42 @@ router.post("/login", async (req, res) => {
             { expiresIn: '24h' }                   // Token expiry
         );
 
-        res.status(200).json({ message: 'Login successful', token });
+        // Send token as HttpOnly cookie
+        res.cookie('auth_token', token, { httpOnly: true, secure: true }); // Set secure: true in production
+
+        return res.status(200).json({ message: 'Login successful', token });
     } catch (err) {
         console.error('Error during login:', err);
         res.status(500).json({ error: 'Internal server error' });
     }
 })
 
+// Middleware to verify JWT
+const isAdmin = (req, res, next) => {
+    if (typeof req.cookies !== 'undefined') {
+        const token = req.cookies.auth_token;
+
+        if (!token) {
+            return res.status(403).json({ error: 'Access denied. No token provided.' });
+        }
+
+        try {
+            const decoded = jwt.verify(token, process.env.ADMIN_SECURITY_KEY);
+            req.user = decoded; // Attach user data to the request object
+        } catch (err) {
+            res.status(401).json({ error: 'Invalid or expired token' });
+        }
+        return res.redirect('/admin');
+    }
+    next();
+};
+
 /* Root Route 
  * async & await
  *  querying the database takes time, we need wait for the result 
  *  back from the database, then execute remaining code
  */
-router.get("/", async (req, res) => {
+router.get("/", isAdmin, async (req, res) => {
     // Get current client's ip
     await request.get(`https://api.ipify.org?format=json`, async (err, res, body) =>{
         const clientIP = JSON.parse(body).ip
