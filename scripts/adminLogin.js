@@ -31,6 +31,8 @@ loginForm.onsubmit = async (e) => {
             const result = await response.json();
             alert(result.message);
             modal.style.display = 'none';
+            // Redirect to login or home page after logout
+            window.location.href = '/admin';
         } else {
             message.style.display = 'block';
             message.textContent = 'Invalid credentials';
