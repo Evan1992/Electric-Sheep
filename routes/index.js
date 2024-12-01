@@ -66,20 +66,17 @@ router.post("/login", async (req, res) => {
 // Middleware to verify JWT
 const isAdminRedirect = (req, res, next) => {
     if (typeof req.cookies !== 'undefined') {
-        const token = req.cookies.auth_token;
-
-        if (!token) {
-            return res.status(403).json({ error: 'Access denied. No token provided.' });
-        }
-
         try {
-            jwt.verify(token, process.env.ADMIN_SECURITY_KEY);
-            return res.redirect('/admin');
+            const token = req.cookies.auth_token;
+            if (token) {
+                jwt.verify(token, process.env.ADMIN_SECURITY_KEY);
+                return res.redirect('/admin');
+            }
         } catch (err) {
             // Do nothing
         }
-        next();
     }
+    next();
 };
 const isAdmin = (req, res, next) => {
     if (typeof req.cookies !== 'undefined') {
