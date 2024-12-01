@@ -63,6 +63,12 @@ router.post("/login", async (req, res) => {
     }
 })
 
+router.post("/logout", async (req, res) => {
+    // Clear the 'auth_token' cookie
+    res.clearCookie('auth_token', { httpOnly: true, secure: true });
+    res.status(200).json({ message: 'Logged out successfully' });
+})
+
 // Middleware to verify JWT
 const isAdminRedirect = (req, res, next) => {
     if (typeof req.cookies !== 'undefined') {

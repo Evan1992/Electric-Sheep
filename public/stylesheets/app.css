@@ -183,6 +183,6 @@ body {
     background-color: #218838;
 }
 
-#openModal:hover {
+#openModal:hover, #logout:hover {
     cursor: pointer;
 }
