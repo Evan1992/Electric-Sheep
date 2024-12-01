@@ -59,11 +59,28 @@ router.post("/login", async (req, res) => {
         return res.status(200).json({ message: 'Login successful', token });
     } catch (err) {
         console.error('Error during login:', err);
-        res.status(500).json({ error: 'Internal server error' });
+        return res.status(500).json({ error: 'Internal server error' });
     }
 })
 
 // Middleware to verify JWT
+const isAdminRedirect = (req, res, next) => {
+    if (typeof req.cookies !== 'undefined') {
+        const token = req.cookies.auth_token;
+
+        if (!token) {
+            return res.status(403).json({ error: 'Access denied. No token provided.' });
+        }
+
+        try {
+            jwt.verify(token, process.env.ADMIN_SECURITY_KEY);
+            return res.redirect('/admin');
+        } catch (err) {
+            // Do nothing
+        }
+        next();
+    }
+};
 const isAdmin = (req, res, next) => {
     if (typeof req.cookies !== 'undefined') {
         const token = req.cookies.auth_token;
@@ -78,7 +95,6 @@ const isAdmin = (req, res, next) => {
         } catch (err) {
             res.status(401).json({ error: 'Invalid or expired token' });
         }
-        return res.redirect('/admin');
     }
     next();
 };
@@ -88,7 +104,7 @@ const isAdmin = (req, res, next) => {
  *  querying the database takes time, we need wait for the result 
  *  back from the database, then execute remaining code
  */
-router.get("/", isAdmin, async (req, res) => {
+router.get("/", isAdminRedirect, async (req, res) => {
     // Get current client's ip
     await request.get(`https://api.ipify.org?format=json`, async (err, res, body) =>{
         const clientIP = JSON.parse(body).ip
@@ -142,5 +158,61 @@ router.get("/", isAdmin, async (req, res) => {
         num_visitors: num_visitors
     })
 })
+
+router.get("/admin", isAdmin, async (req, res) => {
+    // Get current client's ip
+    await request.get(`https://api.ipify.org?format=json`, async (err, res, body) =>{
+        const clientIP = JSON.parse(body).ip
+        // Get log data from database
+        try{
+            let log = await Log.findOne({'ip': `${clientIP}`})
+            // Update log data
+            if(log !== null){
+                log.count++
+                await Log.findByIdAndUpdate(log._id, log)  // @note: use await to wait for the post data process, otherwise, it may fail to post the data.
+            }else{
+                let data = {
+                    ip: clientIP,
+                    count: 1
+                }
+
+                Log.create(data)
+                .then(() => {
+                    console.log('Create log successfully');
+                })
+                .catch((error) => {
+                    console.error('Fail to create the log', error);
+                })
+            }
+        }catch(error){
+            console.log(error)
+        }
+    })
+
+    // Count the total number of visitors
+    const logs = await Log.find({})
+    let   num_visitors = 0
+    for(key in logs){
+        num_visitors += 1
+    }
+
+    // Find all itmes stored in the database
+    const books = await Book.find({})
+    const dramas = await Drama.find({})
+    const records = await Record.find({})
+    const games = await Game.find({})
+    const channels = await Channel.find({})
+    const podcasts = await Podcast.find({})
+    res.render("index-admin", {
+        books: books,
+        dramas: dramas,
+        records: records,
+        games: games,
+        channels: channels,
+        podcasts: podcasts,
+        num_visitors: num_visitors
+    })
+})
+
 
 module.exports = router;
