@@ -54,7 +54,7 @@ router.post("/login", async (req, res) => {
         );
 
         // Send token as HttpOnly cookie
-        res.cookie('auth_token', token, { httpOnly: true, secure: true }); // Set secure: true in production
+        res.cookie('auth_token', token, { httpOnly: true, secure: false }); // Set secure: true in production
 
         return res.status(200).json({ message: 'Login successful', token });
     } catch (err) {
@@ -65,7 +65,7 @@ router.post("/login", async (req, res) => {
 
 router.post("/logout", async (req, res) => {
     // Clear the 'auth_token' cookie
-    res.clearCookie('auth_token', { httpOnly: true, secure: true });
+    res.clearCookie('auth_token', { httpOnly: true, secure: false });
     res.status(200).json({ message: 'Logged out successfully' });
 })
 
