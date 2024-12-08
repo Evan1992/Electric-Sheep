@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const json = require("body-parser/lib/types/json");
 const bcrypt = require('bcrypt'); // For securely comparing passwords
 const { defaultProxyHeaderExclusiveList } = require("request/request");
+const { isAdmin, isAdminRedirect } = require("./auth-middleware");
 
 const express   = require("express"),
       router    = express.Router(),
@@ -68,39 +69,6 @@ router.post("/logout", async (req, res) => {
     res.clearCookie('auth_token', { httpOnly: true, secure: false });
     res.status(200).json({ message: 'Logged out successfully' });
 })
-
-// Middleware to verify JWT
-const isAdminRedirect = (req, res, next) => {
-    if (typeof req.cookies !== 'undefined') {
-        try {
-            const token = req.cookies.auth_token;
-            if (token) {
-                jwt.verify(token, process.env.ADMIN_SECURITY_KEY);
-                return res.redirect('/admin');
-            }
-        } catch (err) {
-            // Do nothing
-        }
-    }
-    next();
-};
-const isAdmin = (req, res, next) => {
-    if (typeof req.cookies !== 'undefined') {
-        const token = req.cookies.auth_token;
-
-        if (!token) {
-            return res.status(403).json({ error: 'Access denied. No token provided.' });
-        }
-
-        try {
-            const decoded = jwt.verify(token, process.env.ADMIN_SECURITY_KEY);
-            req.user = decoded; // Attach user data to the request object
-        } catch (err) {
-            res.status(401).json({ error: 'Invalid or expired token' });
-        }
-    }
-    next();
-};
 
 /* Root Route 
  * async & await
