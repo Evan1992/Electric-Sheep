@@ -18,8 +18,9 @@ const express        = require("express"),
       Podcast        = require("../models/podcast"),
       fs             = require("fs"),
       multer         = require("multer"),
-      upload         = multer({dest: 'uploads/'})
-      
+      upload         = multer({dest: 'uploads/'}),
+      { isAdmin }    = require("./auth-middleware")
+
 /**
  * @brief Upload the image to mongodb
  *
@@ -39,7 +40,7 @@ const express        = require("express"),
  *          module and adds promise support to the fs methods. It also uses graceful-fs
  *          to prevent EMFILE errors. It should be a drop in the replacement for fs 
  */
-router.post('/book/new', upload.single('cover'), (req, res)=>{
+router.post('/book/new', upload.single('cover'), isAdmin, (req, res)=>{
     // req.file is the 'cover' file
     // req.body will hold the text fields, if there were any
     console.log(req.body);
@@ -74,7 +75,7 @@ router.post('/book/new', upload.single('cover'), (req, res)=>{
     })
     res.redirect("/book/new");
 })
-router.get("/book/new", (req, res)=>{
+router.get("/book/new", isAdmin, (req, res)=>{
     res.render("book/new")
 })
 
