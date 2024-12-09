@@ -132,6 +132,13 @@ router.put("/book/:id", upload.single('cover'), async (req, res)=>{
         newData.excerpts = [...book.excerpts]
         newData.excerpts.splice(newData.delete_excerpt, 1)
     }
+    // Update image
+    if(req.file !== undefined) {
+        newData.cover = {
+            img_data: fs.readFileSync(req.file.path),
+            contentType: String
+        }
+    }
 
     const book = await Book.findByIdAndUpdate(id, req.body)
     res.redirect(`/book/${book._id}/show`)
@@ -409,6 +416,13 @@ router.put("/game/:id", upload.single('cover'), async (req, res)=>{
     if(newData.havePlayed){
         newData.havePlayed = true
     }
+    // Update image
+    if(req.file !== undefined) {
+        newData.cover = {
+            img_data: fs.readFileSync(req.file.path),
+            contentType: String
+        }
+    }
 
     const game = await Game.findByIdAndUpdate(id, req.body)
     res.redirect(`/game/${game._id}/show`)
@@ -474,6 +488,13 @@ router.put("/channel/:id", upload.single('cover'), async (req, res)=>{
     if(newData.haveWatched){
         newData.haveWatched = true
     }
+    // Update image
+    if(req.file !== undefined) {
+        newData.cover = {
+            img_data: fs.readFileSync(req.file.path),
+            contentType: String
+        }
+    }
 
     const channel = await Channel.findByIdAndUpdate(id, req.body)
     res.redirect(`/channel/${channel._id}/show`)
@@ -535,9 +556,16 @@ router.put("/podcast/:id", upload.single('cover'), async (req, res)=>{
     const { id } = req.params
     const newData = req.body
 
-    // Update havePlayed
+    // Update haveListened
     if(newData.haveListened){
         newData.haveListened = true
+    }
+    // Update image
+    if(req.file !== undefined) {
+        newData.cover = {
+            img_data: fs.readFileSync(req.file.path),
+            contentType: String
+        }
     }
 
     const podcast = await Podcast.findByIdAndUpdate(id, req.body)
