@@ -269,6 +269,12 @@ router.put("/drama/:id/commentary/new", async (req, res) =>{
     res.redirect(`/drama/${drama._id}/show`)
 })
 
+router.delete("/drama/:id", async (req, res) =>{
+    const { id } = req.params
+    await Drama.findByIdAndDelete(id)
+    res.redirect("/")
+})
+
 /* =================== Records =================== */
 router.get("/record/new", (req, res)=>{
     res.render("record/new")
@@ -401,6 +407,12 @@ router.put("/game/:id", upload.single('cover'), async (req, res)=>{
     res.redirect(`/game/${game._id}/show`)
 })
 
+router.delete("/game/:id", async (req, res) =>{
+    const { id } = req.params
+    await Game.findByIdAndDelete(id)
+    res.redirect("/")
+})
+
 /* =================== Channels =================== */
 router.get("/channel/new", (req, res)=>{
     res.render("channel/new")
@@ -460,6 +472,12 @@ router.put("/channel/:id", upload.single('cover'), async (req, res)=>{
     res.redirect(`/channel/${channel._id}/show`)
 })
 
+router.delete("/channel/:id", async (req, res) =>{
+    const { id } = req.params
+    await Channel.findByIdAndDelete(id)
+    res.redirect("/")
+})
+
 /* =================== Podcasts =================== */
 router.get("/podcast/new", (req, res)=>{
     res.render("podcast/new")
@@ -517,6 +535,12 @@ router.put("/podcast/:id", upload.single('cover'), async (req, res)=>{
 
     const podcast = await Podcast.findByIdAndUpdate(id, req.body)
     res.redirect(`/podcast/${podcast._id}/show`)
+})
+
+router.delete("/podcast/:id", async (req, res) =>{
+    const { id } = req.params
+    await Podcast.findByIdAndDelete(id)
+    res.redirect("/")
 })
 
 module.exports = router
