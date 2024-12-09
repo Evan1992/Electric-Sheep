@@ -245,6 +245,13 @@ router.put("/drama/:id", upload.single('cover'), async (req, res)=>{
         newData.lines = [...drama.lines]
         newData.lines.splice(newData.delete_line, 1)
     }
+    // Update image
+    if(req.file !== undefined) {
+        newData.cover = {
+            img_data: fs.readFileSync(req.file.path),
+            contentType: String
+        }
+    }
 
     const drama = await Drama.findByIdAndUpdate(id, req.body)
     res.redirect(`/drama/${drama._id}/show`)
