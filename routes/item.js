@@ -170,7 +170,7 @@ router.delete("/book/:id", async (req, res) =>{
 })
 
 /* =================== Dramas =================== */
-router.get("/drama/new", (req, res)=>{
+router.get("/drama/new", isAdmin, (req, res)=>{
     res.render("drama/new")
 })
 
@@ -204,7 +204,7 @@ router.get("/drama/:id/edit", async (req, res) =>{
     res.render("drama/edit", {drama})
 })
 
-router.post('/drama/new', upload.single('cover'), (req, res)=>{
+router.post('/drama/new', upload.single('cover'), isAdmin, (req, res)=>{
     data = {
         name:         req.body.name,
         director:     req.body.director,
@@ -290,7 +290,7 @@ router.delete("/drama/:id", async (req, res) =>{
 })
 
 /* =================== Records =================== */
-router.get("/record/new", (req, res)=>{
+router.get("/record/new", isAdmin, (req, res)=>{
     res.render("record/new")
 })
 
@@ -309,7 +309,7 @@ router.get("/record/:id/edit", async (req, res) =>{
     res.render("record/edit", {record})
 })
 
-router.post('/record/new', upload.single('cover'), (req, res)=>{
+router.post('/record/new', upload.single('cover'), isAdmin, (req, res)=>{
     data = {
         name:         req.body.name,
         artist:       req.body.artist,
@@ -361,7 +361,7 @@ router.delete("/record/:id", async (req, res) =>{
 })
 
 /* =================== Games =================== */
-router.get("/game/new", (req, res)=>{
+router.get("/game/new", isAdmin, (req, res)=>{
     res.render("game/new")
 })
 
@@ -380,7 +380,7 @@ router.get("/game/:id/edit", async (req, res) =>{
     res.render("game/edit", {game})
 })
 
-router.post('/game/new', upload.single('cover'), (req, res)=>{
+router.post('/game/new', upload.single('cover'), isAdmin, (req, res)=>{
     data = {
         name:         req.body.name,
         developer:    req.body.developer,
@@ -435,7 +435,7 @@ router.delete("/game/:id", async (req, res) =>{
 })
 
 /* =================== Channels =================== */
-router.get("/channel/new", (req, res)=>{
+router.get("/channel/new", isAdmin, (req, res)=>{
     res.render("channel/new")
 })
 
@@ -454,7 +454,7 @@ router.get("/channel/:id/edit", async (req, res) =>{
     res.render("channel/edit", {channel})
 })
 
-router.post('/channel/new', upload.single('cover'), (req, res)=>{
+router.post('/channel/new', upload.single('cover'), isAdmin, (req, res)=>{
     data = {
         name:         req.body.name,
         influencer:   req.body.influencer,
@@ -507,7 +507,7 @@ router.delete("/channel/:id", async (req, res) =>{
 })
 
 /* =================== Podcasts =================== */
-router.get("/podcast/new", (req, res)=>{
+router.get("/podcast/new", isAdmin, (req, res)=>{
     res.render("podcast/new")
 })
 
@@ -526,7 +526,7 @@ router.get("/podcast/:id/edit", async (req, res) =>{
     res.render("podcast/edit", {podcast})
 })
 
-router.post('/podcast/new', upload.single('cover'), (req, res)=>{
+router.post('/podcast/new', upload.single('cover'), isAdmin, (req, res)=>{
     data = {
         name:         req.body.name,
         host:         req.body.host,
