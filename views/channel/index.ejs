@@ -37,7 +37,9 @@
             <div class="row">
                 <ul class="item-list">
                     <% channels.forEach((channel) =>{ %>
-                        <li class="subject-item"><%= channel.name %></li>
+                        <li class="subject-item">
+                            <a href="/channel/<%= channel._id %>/show"><%= channel.name %></a>
+                        </li>
                     <% }) %>
                 </ul>
             </div>

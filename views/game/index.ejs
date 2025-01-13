@@ -37,7 +37,9 @@
             <div class="row">
                 <ul class="item-list">
                     <% games.forEach((game) =>{ %>
-                        <li class="subject-item"><%= game.name %></li>
+                        <li class="subject-item">
+                            <a href="/game/<%= game._id %>/show"><%= game.name %></a>
+                        </li>
                     <% }) %>
                 </ul>
             </div>

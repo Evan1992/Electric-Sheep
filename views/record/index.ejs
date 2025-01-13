@@ -37,7 +37,9 @@
             <div class="row">
                 <ul class="item-list">
                     <% records.forEach((record) =>{ %>
-                        <li class="subject-item"><%= record.name %></li>
+                        <li class="subject-item">
+                            <a href="/record/<%= record._id %>/show"><%= record.name %></a>
+                        </li>
                     <% }) %>
                 </ul>
             </div>

@@ -37,7 +37,9 @@
             <div class="row">
                 <ul class="item-list">
                     <% allBooks.forEach((book) =>{ %>
-                        <li class="subject-item"><%= book.name %></li>
+                        <li class="subject-item">
+                            <a href="/book/<%= book._id %>/show"><%= book.name %></a>
+                        </li>
                     <% }) %>
                 </ul>
             </div>
