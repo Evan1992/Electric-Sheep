@@ -387,6 +387,11 @@ router.get("/game/:id/show", async (req, res) =>{
     res.render("game/show", {game})
 })
 
+router.get("/admin/game/:id/show", async (req, res) =>{
+    game = await Game.findById(req.params.id)
+    res.render("game/show-admin", {game})
+})
+
 router.get("/game/:id/edit", isAdmin, async (req, res) =>{
     game = await Game.findById(req.params.id)
     res.render("game/edit", {game})
