@@ -387,7 +387,7 @@ router.get("/game/:id/show", async (req, res) =>{
     res.render("game/show", {game})
 })
 
-router.get("/admin/game/:id/show", async (req, res) =>{
+router.get("/admin/game/:id/show", isAdmin, async (req, res) =>{
     game = await Game.findById(req.params.id)
     res.render("game/show-admin", {game})
 })
@@ -541,6 +541,11 @@ router.get("/podcast/index", async (req, res)=>{
 router.get("/podcast/:id/show", async (req, res) =>{
     podcast = await Podcast.findById(req.params.id)
     res.render("podcast/show", {podcast})
+})
+
+router.get("/admin/podcast/:id/show", isAdmin, async (req, res) =>{
+    podcast = await Podcast.findById(req.params.id)
+    res.render("podcast/show-admin", {podcast})
 })
 
 router.get("/podcast/:id/edit", isAdmin, async (req, res) =>{

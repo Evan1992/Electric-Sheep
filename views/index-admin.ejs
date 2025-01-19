@@ -449,7 +449,7 @@
                                         <% podcast = podcasts[i] %>
                                         <% count++ %>
                                         <div class="col-2">
-                                            <a href="/podcast/<%= podcast._id %>/show">
+                                            <a href="/admin/podcast/<%= podcast._id %>/show">
                                                 <% if(podcast.cover.img_data !== undefined) { %>
                                                     <img src="data:podcast/<%= podcast.cover.contentType%>;base64, <%= podcast.cover.img_data.toString('base64')%>" class="item-img">
                                                 <% } else { %>
