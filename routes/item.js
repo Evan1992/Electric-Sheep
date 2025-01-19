@@ -90,6 +90,12 @@ router.get("/book/:id/show", async (req, res) =>{
     res.render("book/show", {book, commentaries})
 })
 
+router.get("/admin/book/:id/show", isAdmin, async (req, res) =>{
+    book = await Book.findById(req.params.id)
+    commentaries = book.commentaries
+    res.render("book/show-admin", {book, commentaries})
+})
+
 router.get("/book/:id/edit", isAdmin, async (req, res) =>{
     book = await Book.findById(req.params.id)
     res.render("book/edit", {book})
