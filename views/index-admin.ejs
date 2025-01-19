@@ -257,7 +257,7 @@
                                         <% drama = dramas[i] %>
                                         <% count++ %>
                                         <div class="col-2">
-                                            <a href="/drama/<%= drama._id %>/show">
+                                            <a href="/admin/drama/<%= drama._id %>/show">
                                                 <% if(drama.cover.img_data !== undefined) { %>
                                                     <img src="data:drama/<%= drama.cover.contentType%>;base64, <%= drama.cover.img_data.toString('base64')%>" class="item-img">
                                                 <% } else { %>

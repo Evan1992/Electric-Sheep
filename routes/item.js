@@ -191,6 +191,12 @@ router.get("/drama/:id/show", async (req, res) =>{
     res.render("drama/show", {drama, commentaries})
 })
 
+router.get("/admin/drama/:id/show", isAdmin, async (req, res) =>{
+    drama = await Drama.findById(req.params.id)
+    commentaries = drama.commentaries;
+    res.render("drama/show-admin", {drama, commentaries})
+})
+
 router.get("/drama/:id/commentary/new", async (req, res) =>{
     drama = await Drama.findById(req.params.id)
     res.render("drama/commentary/new", {drama})
