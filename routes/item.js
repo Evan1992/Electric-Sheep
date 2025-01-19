@@ -90,7 +90,7 @@ router.get("/book/:id/show", async (req, res) =>{
     res.render("book/show", {book, commentaries})
 })
 
-router.get("/book/:id/edit", async (req, res) =>{
+router.get("/book/:id/edit", isAdmin, async (req, res) =>{
     book = await Book.findById(req.params.id)
     res.render("book/edit", {book})
 })
@@ -199,7 +199,7 @@ router.get("/drama/:id/commentary/:commentaryId", async (req, res) =>{
     }
 })
 
-router.get("/drama/:id/edit", async (req, res) =>{
+router.get("/drama/:id/edit", isAdmin, async (req, res) =>{
     drama = await Drama.findById(req.params.id)
     res.render("drama/edit", {drama})
 })
@@ -304,7 +304,7 @@ router.get("/record/:id/show", async (req, res) =>{
     res.render("record/show", {record})
 })
 
-router.get("/record/:id/edit", async (req, res) =>{
+router.get("/record/:id/edit", isAdmin, async (req, res) =>{
     record = await Record.findById(req.params.id)
     res.render("record/edit", {record})
 })
@@ -375,7 +375,7 @@ router.get("/game/:id/show", async (req, res) =>{
     res.render("game/show", {game})
 })
 
-router.get("/game/:id/edit", async (req, res) =>{
+router.get("/game/:id/edit", isAdmin, async (req, res) =>{
     game = await Game.findById(req.params.id)
     res.render("game/edit", {game})
 })
@@ -449,7 +449,7 @@ router.get("/channel/:id/show", async (req, res) =>{
     res.render("channel/show", {channel})
 })
 
-router.get("/channel/:id/edit", async (req, res) =>{
+router.get("/channel/:id/edit", isAdmin, async (req, res) =>{
     channel = await Channel.findById(req.params.id)
     res.render("channel/edit", {channel})
 })
@@ -521,7 +521,7 @@ router.get("/podcast/:id/show", async (req, res) =>{
     res.render("podcast/show", {podcast})
 })
 
-router.get("/podcast/:id/edit", async (req, res) =>{
+router.get("/podcast/:id/edit", isAdmin, async (req, res) =>{
     podcast = await Podcast.findById(req.params.id)
     res.render("podcast/edit", {podcast})
 })
