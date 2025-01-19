@@ -44,13 +44,6 @@
             <div class="row">
                 <div class="d-flex flex-row">
                     <div class="book-name"><%= book.name %></div>
-                    <div class="edit-tag">&nbsp;&nbsp;<a href="edit">Edit</a></div>
-                    <div class="delete-tag">
-                        <form action="/book/<%= book._id %>?_method=DELETE" method=POST>
-                            <button type="submit">Delete</button>
-                            <!-- <input type="submit" value="Delete"> -->
-                        </form>
-                    </div>
                 </div>
             </div>
 
@@ -72,86 +65,81 @@
                             Rate:
                         </div>
                         <div class="col" style="padding-left: 0px;">
-                            <form class="star-widget" id="updateRate" action="/book/<%= book._id %>?_method=PUT" method=POST enctype="multipart/form-data">
+                            <form class="star-widget">
+                                <!-- Add "disabled" to make the stars only visible, but not clickable -->
                                 <% if(book.stars === 10) { %>
-                                    <input type="radio" name="rate" id="rate-1" checked>
+                                    <input type="radio" name="rate" id="rate-1" checked disabled>
                                     <label id="rate-1" for="rate-1" class="fas fa-star"></label>
                                 <% } else { %>
-                                    <input type="radio" name="rate" id="rate-1">
+                                    <input type="radio" name="rate" id="rate-1" disabled>
                                     <label id="rate-1" for="rate-1" class="fas fa-star"></label>
                                 <% } %>
                                 <% if(book.stars === 9) { %>
-                                    <input type="radio" name="rate" id="rate-2" checked>
+                                    <input type="radio" name="rate" id="rate-2" checked disabled>
                                     <label id="rate-2" for="rate-2" class="fas fa-star"></label>
                                 <% } else { %>
-                                    <input type="radio" name="rate" id="rate-2">
+                                    <input type="radio" name="rate" id="rate-2" disabled>
                                     <label id="rate-2" for="rate-2" class="fas fa-star"></label>
                                 <% } %>
                                 <% if(book.stars === 8) { %>
-                                    <input type="radio" name="rate" id="rate-3" checked>
+                                    <input type="radio" name="rate" id="rate-3" checked disabled>
                                     <label id="rate-3" for="rate-3" class="fas fa-star"></label>
                                 <% } else { %>
-                                    <input type="radio" name="rate" id="rate-3">
+                                    <input type="radio" name="rate" id="rate-3" disabled>
                                     <label id="rate-3" for="rate-3" class="fas fa-star"></label>
                                 <% } %>
                                 <% if(book.stars === 7) { %>
-                                    <input type="radio" name="rate" id="rate-4" checked>
+                                    <input type="radio" name="rate" id="rate-4" checked disabled>
                                     <label id="rate-4" for="rate-4" class="fas fa-star"></label>
                                 <% } else { %>
-                                    <input type="radio" name="rate" id="rate-4">
+                                    <input type="radio" name="rate" id="rate-4" disabled>
                                     <label id="rate-4" for="rate-4" class="fas fa-star"></label>
                                 <% } %>
                                 <% if(book.stars === 6) { %>
-                                    <input type="radio" name="rate" id="rate-5" checked>
+                                    <input type="radio" name="rate" id="rate-5" checked disabled>
                                     <label id="rate-5" for="rate-5" class="fas fa-star"></label>
                                 <% } else { %>
-                                    <input type="radio" name="rate" id="rate-5">
+                                    <input type="radio" name="rate" id="rate-5" disabled>
                                     <label id="rate-5" for="rate-5" class="fas fa-star"></label>
                                 <% } %>
                                 <% if(book.stars === 5) { %>
-                                    <input type="radio" name="rate" id="rate-6" checked>
+                                    <input type="radio" name="rate" id="rate-6" checked disabled>
                                     <label id="rate-6" for="rate-6" class="fas fa-star"></label>
                                 <% } else { %>
-                                    <input type="radio" name="rate" id="rate-6">
+                                    <input type="radio" name="rate" id="rate-6" disabled>
                                     <label id="rate-6" for="rate-6" class="fas fa-star"></label>
                                 <% } %>
                                 <% if(book.stars === 4) { %>
-                                    <input type="radio" name="rate" id="rate-7" checked>
+                                    <input type="radio" name="rate" id="rate-7" checked disabled>
                                     <label id="rate-7" for="rate-7" class="fas fa-star"></label>
                                 <% } else { %>
-                                    <input type="radio" name="rate" id="rate-7">
+                                    <input type="radio" name="rate" id="rate-7" disabled>
                                     <label id="rate-7" for="rate-7" class="fas fa-star"></label>
                                 <% } %>
                                 <% if(book.stars === 3) { %>
-                                    <input type="radio" name="rate" id="rate-8" checked>
+                                    <input type="radio" name="rate" id="rate-8" checked disabled>
                                     <label id="rate-8" for="rate-8" class="fas fa-star"></label>
                                 <% } else { %>
-                                    <input type="radio" name="rate" id="rate-8">
+                                    <input type="radio" name="rate" id="rate-8" disabled>
                                     <label id="rate-8" for="rate-8" class="fas fa-star"></label>
                                 <% } %>
                                 <% if(book.stars === 2) { %>
-                                    <input type="radio" name="rate" id="rate-9" checked>
+                                    <input type="radio" name="rate" id="rate-9" checked disabled>
                                     <label id="rate-9" for="rate-9" class="fas fa-star"></label>
                                 <% } else { %>
-                                    <input type="radio" name="rate" id="rate-9">
+                                    <input type="radio" name="rate" id="rate-9" disabled>
                                     <label id="rate-9" for="rate-9" class="fas fa-star"></label>
                                 <% } %>
                                 <% if(book.stars === 1) { %>
-                                    <input type="radio" name="rate" id="rate-10" checked>
+                                    <input type="radio" name="rate" id="rate-10" checked disabled>
                                     <label id="rate-10" for="rate-10" class="fas fa-star"></label>
                                 <% } else { %>
-                                    <input type="radio" name="rate" id="rate-10">
+                                    <input type="radio" name="rate" id="rate-10" disabled>
                                     <label id="rate-10" for="rate-10" class="fas fa-star"></label>
                                 <% } %>
-                                <input type="hidden" name="stars" id="stars" value=0 />
                             </form>
                         </div>
                     </div>
-                    <% if(!book.haveRead) { %>
-                        <form action="/book/<%= book._id %>?_method=PUT" method=POST enctype="multipart/form-data" novalidate class="validated-form">
-                            <input type="submit" name="haveRead" value="Have Read">
-                        </form>
-                    <% } %>
                 </div>
             </div>
             
@@ -165,36 +153,12 @@
                     <div class="row">
                         <div class="col" style="white-space: pre-line;"><%= excerpt %></div>
                     </div>
-                    <div class="row">
-                        <form action="/book/<%=book._id %>?_method=PUT" method=POST>
-                            <div class="col">
-                                <!-- Reference: https://stackoverflow.com/questions/14007613/change-text-from-submit-on-input-tag -->
-                                <input type="submit" name="delete_excerpt" value="Delete">
-                            </div>
-                        </form>
-                    </div>
                 </div>
             <% }) %>
-            <!-- New excerpt form -->
-            <form action="/book/<%= book._id %>?_method=PUT" method=POST enctype="multipart/form-data" novalidate class="validated-form">
-                <div class="row">
-                    <div class="col">
-                        <!-- The name attribute is needed to reference the form data after the form is submitted -->
-                        <textarea type="text" name="add_excerpt" style="width: 60%; height: 100px"></textarea>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <input type="submit">
-                    </div>
-                </div>
-            </form>
 
             <!-- Commentary -->
             <div class="row">
                 <div class="col comments">Commentaries</div>
-                <!-- New commentary -->
-                <div class="col new_comment"><a href="/book/<%= book._id %>/commentary/new">New commentary</a></div>
             </div>
 
             <!-- Existing commentary list -->
@@ -236,19 +200,3 @@
 
     </body>
 </html>
-
-
-
-<!------------------- Learning ------------------->
-<!-- <input> value attribute -->
-<!-- The value attribute specifies the value of an <input> element -->
-<!-- The value attribute is used differently for different input types -->
-<!-- 
-    For "button", "reset", and "submit", it defines the text on the button
-    For "text", "password", and "hidden", it defines the initial (default) value of the input field
-    For "checkbox", "radio", "image", it defines the value associated with the input (this is also the value that is sent on submit)
--->
-
-<!-- Display newline within <div> -->
-<!-- white-space: pre-line; keeps the whitespace and line breaks in the HTML content. -->
-<!-- Alternatively, white-space: pre; will preserve all whitespace and line breaks exactly as they appear. -->
