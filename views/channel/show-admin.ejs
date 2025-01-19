@@ -69,81 +69,86 @@
                             Rate:
                         </div>
                         <div class="col" style="padding-left: 0px;">
-                            <form class="star-widget">
-                                <!-- Add "disabled" to make the stars only visible, but not clickable -->
-                                <% if(book.stars === 10) { %>
-                                    <input type="radio" name="rate" id="rate-1" checked disabled>
+                            <form class="star-widget" id="updateRate" action="/channel/<%= channel._id %>?_method=PUT" method=POST enctype="multipart/form-data">
+                                <% if(channel.stars === 10) { %>
+                                    <input type="radio" name="rate" id="rate-1" checked>
                                     <label id="rate-1" for="rate-1" class="fas fa-star"></label>
                                 <% } else { %>
-                                    <input type="radio" name="rate" id="rate-1" disabled>
+                                    <input type="radio" name="rate" id="rate-1">
                                     <label id="rate-1" for="rate-1" class="fas fa-star"></label>
                                 <% } %>
-                                <% if(book.stars === 9) { %>
-                                    <input type="radio" name="rate" id="rate-2" checked disabled>
+                                <% if(channel.stars === 9) { %>
+                                    <input type="radio" name="rate" id="rate-2" checked>
                                     <label id="rate-2" for="rate-2" class="fas fa-star"></label>
                                 <% } else { %>
-                                    <input type="radio" name="rate" id="rate-2" disabled>
+                                    <input type="radio" name="rate" id="rate-2">
                                     <label id="rate-2" for="rate-2" class="fas fa-star"></label>
                                 <% } %>
-                                <% if(book.stars === 8) { %>
-                                    <input type="radio" name="rate" id="rate-3" checked disabled>
+                                <% if(channel.stars === 8) { %>
+                                    <input type="radio" name="rate" id="rate-3" checked>
                                     <label id="rate-3" for="rate-3" class="fas fa-star"></label>
                                 <% } else { %>
-                                    <input type="radio" name="rate" id="rate-3" disabled>
+                                    <input type="radio" name="rate" id="rate-3">
                                     <label id="rate-3" for="rate-3" class="fas fa-star"></label>
                                 <% } %>
-                                <% if(book.stars === 7) { %>
-                                    <input type="radio" name="rate" id="rate-4" checked disabled>
+                                <% if(channel.stars === 7) { %>
+                                    <input type="radio" name="rate" id="rate-4" checked>
                                     <label id="rate-4" for="rate-4" class="fas fa-star"></label>
                                 <% } else { %>
-                                    <input type="radio" name="rate" id="rate-4" disabled>
+                                    <input type="radio" name="rate" id="rate-4">
                                     <label id="rate-4" for="rate-4" class="fas fa-star"></label>
                                 <% } %>
-                                <% if(book.stars === 6) { %>
-                                    <input type="radio" name="rate" id="rate-5" checked disabled>
+                                <% if(channel.stars === 6) { %>
+                                    <input type="radio" name="rate" id="rate-5" checked>
                                     <label id="rate-5" for="rate-5" class="fas fa-star"></label>
                                 <% } else { %>
-                                    <input type="radio" name="rate" id="rate-5" disabled>
+                                    <input type="radio" name="rate" id="rate-5">
                                     <label id="rate-5" for="rate-5" class="fas fa-star"></label>
                                 <% } %>
-                                <% if(book.stars === 5) { %>
-                                    <input type="radio" name="rate" id="rate-6" checked disabled>
+                                <% if(channel.stars === 5) { %>
+                                    <input type="radio" name="rate" id="rate-6" checked>
                                     <label id="rate-6" for="rate-6" class="fas fa-star"></label>
                                 <% } else { %>
-                                    <input type="radio" name="rate" id="rate-6" disabled>
+                                    <input type="radio" name="rate" id="rate-6">
                                     <label id="rate-6" for="rate-6" class="fas fa-star"></label>
                                 <% } %>
-                                <% if(book.stars === 4) { %>
-                                    <input type="radio" name="rate" id="rate-7" checked disabled>
+                                <% if(channel.stars === 4) { %>
+                                    <input type="radio" name="rate" id="rate-7" checked>
                                     <label id="rate-7" for="rate-7" class="fas fa-star"></label>
                                 <% } else { %>
-                                    <input type="radio" name="rate" id="rate-7" disabled>
+                                    <input type="radio" name="rate" id="rate-7">
                                     <label id="rate-7" for="rate-7" class="fas fa-star"></label>
                                 <% } %>
-                                <% if(book.stars === 3) { %>
-                                    <input type="radio" name="rate" id="rate-8" checked disabled>
+                                <% if(channel.stars === 3) { %>
+                                    <input type="radio" name="rate" id="rate-8" checked>
                                     <label id="rate-8" for="rate-8" class="fas fa-star"></label>
                                 <% } else { %>
-                                    <input type="radio" name="rate" id="rate-8" disabled>
+                                    <input type="radio" name="rate" id="rate-8">
                                     <label id="rate-8" for="rate-8" class="fas fa-star"></label>
                                 <% } %>
-                                <% if(book.stars === 2) { %>
-                                    <input type="radio" name="rate" id="rate-9" checked disabled>
+                                <% if(channel.stars === 2) { %>
+                                    <input type="radio" name="rate" id="rate-9" checked>
                                     <label id="rate-9" for="rate-9" class="fas fa-star"></label>
                                 <% } else { %>
-                                    <input type="radio" name="rate" id="rate-9" disabled>
+                                    <input type="radio" name="rate" id="rate-9">
                                     <label id="rate-9" for="rate-9" class="fas fa-star"></label>
                                 <% } %>
-                                <% if(book.stars === 1) { %>
-                                    <input type="radio" name="rate" id="rate-10" checked disabled>
+                                <% if(channel.stars === 1) { %>
+                                    <input type="radio" name="rate" id="rate-10" checked>
                                     <label id="rate-10" for="rate-10" class="fas fa-star"></label>
                                 <% } else { %>
-                                    <input type="radio" name="rate" id="rate-10" disabled>
+                                    <input type="radio" name="rate" id="rate-10">
                                     <label id="rate-10" for="rate-10" class="fas fa-star"></label>
                                 <% } %>
+                                <input type="hidden" name="stars" id="stars" value=0 />
                             </form>
                         </div>
                     </div>
+                    <% if(!channel.haveWatched) { %>
+                        <form action="/channel/<%= channel._id %>?_method=PUT" method=POST enctype="multipart/form-data" novalidate class="validated-form">
+                            <input type="submit" name="haveWatched" value="Have Watched">
+                        </form>
+                    <% } %>
                 </div>
             </div>
 

@@ -455,6 +455,11 @@ router.get("/channel/:id/show", async (req, res) =>{
     res.render("channel/show", {channel})
 })
 
+router.get("/admin/channel/:id/show", isAdmin, async (req, res) =>{
+    channel = await Channel.findById(req.params.id)
+    res.render("channel/show-admin", {channel})
+})
+
 router.get("/channel/:id/edit", isAdmin, async (req, res) =>{
     channel = await Channel.findById(req.params.id)
     res.render("channel/edit", {channel})

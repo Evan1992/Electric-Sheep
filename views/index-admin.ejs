@@ -401,7 +401,7 @@
                                         <% channel = channels[i] %>
                                         <% count++ %>
                                         <div class="col-2">
-                                            <a href="/channel/<%= channel._id %>/show">
+                                            <a href="/admin/channel/<%= channel._id %>/show">
                                                 <% if(channel.cover.img_data !== undefined) { %>
                                                     <img src="data:channel/<%= channel.cover.contentType%>;base64, <%= channel.cover.img_data.toString('base64')%>" class="item-img">
                                                 <% } else { %>
