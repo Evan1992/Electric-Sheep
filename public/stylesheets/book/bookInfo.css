@@ -1,0 +1,46 @@
+.edit-tag {
+    margin: auto auto
+}
+.delete-tag {
+    padding-left: 10px;
+    margin: auto auto
+}
+.delete-tag button{
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    /*optional*/
+    font-family: arial, sans-serif;
+    /*input has OS specific font-family*/
+    color: #007bff;;
+    text-decoration: none;
+    cursor: pointer;
+}
+.delete-tag button:hover{
+    text-decoration: underline;
+}
+
+.book-cover {
+    width: 160px;
+}
+
+.excerpt {
+    margin-bottom: 16px;
+}
+
+.excerpts, .comments {
+    font-size: 20px;
+    margin-top: 15px;
+}
+
+.new_comment {
+    margin-top: 15px;
+    align-content: center;
+}
+
+
+
+/* ========== Learning ========== */
+/* What does tilde "~" CSS selector mean */
+/* Reference: https://stackoverflow.com/questions/10782054/what-does-the-tilde-squiggle-twiddle-css-selector-mean */
+/* The ~ selector is used to select all the following siblings */
