@@ -316,6 +316,11 @@ router.get("/record/:id/show", async (req, res) =>{
     res.render("record/show", {record})
 })
 
+router.get("/admin/record/:id/show", async (req, res) =>{
+    record = await Record.findById(req.params.id)
+    res.render("record/show-admin", {record})
+})
+
 router.get("/record/:id/edit", isAdmin, async (req, res) =>{
     record = await Record.findById(req.params.id)
     res.render("record/edit", {record})

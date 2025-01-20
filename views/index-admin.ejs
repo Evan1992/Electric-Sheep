@@ -305,7 +305,7 @@
                                         <% record = records[i] %>
                                         <% count++ %>
                                         <div class="col-2">
-                                            <a href="/record/<%= record._id %>/show">
+                                            <a href="/admin/record/<%= record._id %>/show">
                                                 <% if(record.cover.img_data !== undefined) { %>
                                                     <img src="data:record/<%= record.cover.contentType%>;base64, <%= record.cover.img_data.toString('base64')%>" class="item-img">
                                                 <% } else { %>
