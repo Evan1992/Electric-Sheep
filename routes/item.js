@@ -96,7 +96,7 @@ router.get("/admin/book/:id/show", isAdmin, async (req, res) =>{
     res.render("book/show-admin", {book, commentaries})
 })
 
-router.get("/book/:id/edit", isAdmin, async (req, res) =>{
+router.get("/admin/book/:id/edit", isAdmin, async (req, res) =>{
     book = await Book.findById(req.params.id)
     res.render("book/edit", {book})
 })
@@ -211,7 +211,7 @@ router.get("/drama/:id/commentary/:commentaryId", async (req, res) =>{
     }
 })
 
-router.get("/drama/:id/edit", isAdmin, async (req, res) =>{
+router.get("/admin/drama/:id/edit", isAdmin, async (req, res) =>{
     drama = await Drama.findById(req.params.id)
     res.render("drama/edit", {drama})
 })
@@ -321,7 +321,7 @@ router.get("/admin/record/:id/show", async (req, res) =>{
     res.render("record/show-admin", {record})
 })
 
-router.get("/record/:id/edit", isAdmin, async (req, res) =>{
+router.get("/admin/record/:id/edit", isAdmin, async (req, res) =>{
     record = await Record.findById(req.params.id)
     res.render("record/edit", {record})
 })
@@ -397,7 +397,7 @@ router.get("/admin/game/:id/show", isAdmin, async (req, res) =>{
     res.render("game/show-admin", {game})
 })
 
-router.get("/game/:id/edit", isAdmin, async (req, res) =>{
+router.get("/admin/game/:id/edit", isAdmin, async (req, res) =>{
     game = await Game.findById(req.params.id)
     res.render("game/edit", {game})
 })
@@ -476,7 +476,7 @@ router.get("/admin/channel/:id/show", isAdmin, async (req, res) =>{
     res.render("channel/show-admin", {channel})
 })
 
-router.get("/channel/:id/edit", isAdmin, async (req, res) =>{
+router.get("/admin/channel/:id/edit", isAdmin, async (req, res) =>{
     channel = await Channel.findById(req.params.id)
     res.render("channel/edit", {channel})
 })
@@ -553,7 +553,7 @@ router.get("/admin/podcast/:id/show", isAdmin, async (req, res) =>{
     res.render("podcast/show-admin", {podcast})
 })
 
-router.get("/podcast/:id/edit", isAdmin, async (req, res) =>{
+router.get("/admin/podcast/:id/edit", isAdmin, async (req, res) =>{
     podcast = await Podcast.findById(req.params.id)
     res.render("podcast/edit", {podcast})
 })
