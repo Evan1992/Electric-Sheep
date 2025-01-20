@@ -2,7 +2,29 @@
     cursor: pointer;
 }
 
-.book-name, .drama-name, .record-name {
+.edit-tag {
+    margin: auto auto
+}
+.delete-tag {
+    padding-left: 10px;
+    margin: auto auto
+}
+.delete-tag button{
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    /*optional*/
+    font-family: arial, sans-serif;
+    /*input has OS specific font-family*/
+    color: #007bff;;
+    text-decoration: none;
+    cursor: pointer;
+}
+.delete-tag button:hover{
+    text-decoration: underline;
+}
+
+.book-name, .drama-name, .record-name, .game-name {
     font-size: 25px;
     font-weight: 500;
     margin: 15px 0;
