@@ -24,10 +24,15 @@
     text-decoration: underline;
 }
 
-.book-name, .drama-name, .record-name, .game-name {
+.book-name, .drama-name, .record-name, .game-name, .channel-name, .podcast-name {
     font-size: 25px;
     font-weight: 500;
     margin: 15px 0;
+}
+
+.comments {
+    font-size: 20px;
+    margin-top: 15px;
 }
 
 .star-widget {
