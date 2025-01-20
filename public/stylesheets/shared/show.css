@@ -2,7 +2,7 @@
     cursor: pointer;
 }
 
-.record-name, .book-name {
+.book-name, .drama-name, .record-name {
     font-size: 25px;
     font-weight: 500;
     margin: 15px 0;
