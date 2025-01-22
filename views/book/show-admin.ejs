@@ -60,7 +60,7 @@
                     <% if(book.cover.img_data !== undefined) { %>
                         <img src="data:book/<%= book.cover.contentType%>;base64, <%= book.cover.img_data.toString('base64')%>" class="item-img">
                     <% } else { %>
-                        <img src="../../pictures/books/book-default.gif" class="item-img">
+                        <img src="../../../pictures/books/book-default.gif" class="item-img">
                     <% } %>
                 </div>
                 <div class="col">
