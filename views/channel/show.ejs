@@ -43,13 +43,6 @@
             <div class="row">
                 <div class="d-flex flex-row">
                     <div class="channel-name"><%= channel.name %></div>
-                    <div class="edit-tag">&nbsp;&nbsp;<a href="edit">Edit</a></div>
-                    <div class="delete-tag">
-                        <form action="/channel/<%= channel._id %>?_method=DELETE" method=POST>
-                            <button type="submit">Delete</button>
-                            <!-- <input type="submit" value="Delete"> -->
-                        </form>
-                    </div>
                 </div>
             </div>
 
