@@ -13,8 +13,7 @@
     
         <!-- Customized CSS -->
         <link rel="stylesheet" href="/stylesheets/app.css">
-        <link rel="stylesheet" href="/stylesheets/addBook.css">
-        
+        <link rel="stylesheet" href="/stylesheets/shared/new.css">
 
         <title>New Channel</title>
     </head>
@@ -47,12 +46,23 @@
                 <div class=form-title>New Channel</div>
             </div>
             <div class="form-item">
-                <label for="name">Name</label>   
+                <label for="name">Name</label>
                 <input type="text" name="name" placeholder="Name" required>
             </div>
             <div class="form-item">
                 <label for="influencer">Influencer</label>
                 <input type="text" name="influencer" placeholder="Influencer" required>
+            </div>
+            <div class="form-item">
+                <label for="platform">Platform</label>
+                <div class="dropdown">
+                    <span class="dropdown-label">Select an option</span>
+                    <div class="dropdown-content">
+                        <a href="#">Option 1</a>
+                        <a href="#">Option 2</a>
+                        <a href="#">Option 3</a>
+                    </div>
+                </div>
             </div>
             <div class="form-item">
                 <label for="cover">Cover</label>
