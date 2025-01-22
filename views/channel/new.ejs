@@ -14,6 +14,7 @@
         <!-- Customized CSS -->
         <link rel="stylesheet" href="/stylesheets/app.css">
         <link rel="stylesheet" href="/stylesheets/shared/new.css">
+        <link rel="stylesheet" href="/stylesheets/shared/dropDown.css">
 
         <title>New Channel</title>
     </head>
@@ -58,9 +59,8 @@
                 <div class="dropdown">
                     <span class="dropdown-label">Select an option</span>
                     <div class="dropdown-content">
-                        <a href="#">Option 1</a>
-                        <a href="#">Option 2</a>
-                        <a href="#">Option 3</a>
+                        <a href="#">bilibili</a>
+                        <a href="#">YouTube</a>
                     </div>
                 </div>
             </div>
@@ -72,5 +72,25 @@
                 <input type="submit" value="Add">
             </div>
         </form>
+
+        <script type="text/javascript">
+            // Select the dropdown elements
+            const dropdown = document.querySelector('.dropdown');
+            const dropdownContent = document.querySelector('.dropdown-content');
+            const dropdownLabel = document.querySelector('.dropdown-label');
+
+            // Toggle dropdown visibility on click
+            dropdownLabel.addEventListener('click', () => {
+                const isVisible = dropdownContent.style.display === 'block';
+                dropdownContent.style.display = isVisible ? 'none' : 'block';
+            });
+
+            // Close the dropdown when clicking outside of it
+            document.addEventListener('click', (event) => {
+                if (!dropdown.contains(event.target)) {
+                    dropdownContent.style.display = 'none';
+                }
+            });
+        </script>
     </body>
 </html>
