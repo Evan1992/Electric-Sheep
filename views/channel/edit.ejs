@@ -13,9 +13,9 @@
     
         <!-- Customized CSS -->
         <link rel="stylesheet" href="/stylesheets/app.css">
-        <link rel="stylesheet" href="/stylesheets/addBook.css">
+        <link rel="stylesheet" href="/stylesheets/shared/new.css">
+        <link rel="stylesheet" href="/stylesheets/shared/dropDown.css">
 
-        
         <title>Edit Channel</title>
     </head>
 
@@ -54,6 +54,12 @@
             <div class="form-item">
                 <label for="influencer">Influencer</label>
                 <input type="text" name="influencer" placeholder="Influencer" value="<%= channel.influencer %>">
+            </div>
+            <div class="form-item">
+                <label for="platform">Platform</label>
+                <div class="dropdown">
+                    <%= channel.platform %>
+                </div>
             </div>
             <div class="form-item">
                 <label for="cover">Cover</label>

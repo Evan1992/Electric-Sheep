@@ -59,10 +59,12 @@
                 <div class="dropdown">
                     <span class="dropdown-label">Select an option</span>
                     <div class="dropdown-content">
-                        <a href="#">bilibili</a>
-                        <a href="#">YouTube</a>
+                        <a href="#" data-value="bilibli">bilibili</a>
+                        <a href="#" data-value="YouTube">YouTube</a>
                     </div>
                 </div>
+                <!-- Hidden input to store the selected option -->
+                <input type="hidden" name="platform" id="platform-input">
             </div>
             <div class="form-item">
                 <label for="cover">Cover</label>
@@ -78,6 +80,8 @@
             const dropdown = document.querySelector('.dropdown');
             const dropdownContent = document.querySelector('.dropdown-content');
             const dropdownLabel = document.querySelector('.dropdown-label');
+            const dropdownOptions = document.querySelectorAll('.dropdown-content a');
+            const platformInput = document.getElementById('platform-input'); // Hidden input
 
             // Toggle dropdown visibility on click
             dropdownLabel.addEventListener('click', () => {
@@ -90,6 +94,17 @@
                 if (!dropdown.contains(event.target)) {
                     dropdownContent.style.display = 'none';
                 }
+            });
+
+            // Update the dropdown label and hidden input when an option is clicked
+            dropdownOptions.forEach(option => {
+                option.addEventListener('click', (event) => {
+                    event.preventDefault(); // Prevent navigation
+                    const selectedValue = event.target.getAttribute('data-value'); // Get option value
+                    dropdownLabel.textContent = selectedValue; // Update label
+                    platformInput.value = selectedValue; // Update hidden input value
+                    dropdownContent.style.display = 'none'; // Hide dropdown
+                });
             });
         </script>
     </body>

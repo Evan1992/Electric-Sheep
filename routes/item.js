@@ -485,6 +485,7 @@ router.post('/channel/new', upload.single('cover'), isAdmin, (req, res)=>{
     data = {
         name:         req.body.name,
         influencer:   req.body.influencer,
+        platform:     req.body.platform,
         stars:        0,
         comments:     [],
         haveWatched: false,
