@@ -42,9 +42,10 @@ app.set('views', viewPath);
 /*
  * Set path in order to use external files
  * 
- * Difference between 
+ * Difference between:
  *  app.use(express.static(__dirname+"/public"))
  *  app.use(express.static(path.join(__diranme, "public")))
+ * They achieve the same result, which is to concatenate two strings to form the full path
  */
 app.use(express.static(__dirname + "/views"))
 app.use(express.static('public'));
