@@ -140,6 +140,18 @@
                 </div>
             </div>
 
+            <!-- Intro of the channel -->
+            <% if(channel.intro !== undefined) { %>
+                <div class="row">
+                    <div class="col intro">Intro</div>
+                </div>
+                <div id="displaySection">
+                    <div class="row">
+                        <div class="col" style="white-space: pre-line;"><%= channel.intro %></div>
+                    </div>
+                </div>
+            <% } %>
+
             <!-- Comment of the channel -->
             <div class="row">
                 <div class="col comments">Comments</div>
