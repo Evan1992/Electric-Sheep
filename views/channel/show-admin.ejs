@@ -151,6 +151,54 @@
                 </div>
             </div>
 
+            <!-- Intro of the channel -->
+            <div class="row">
+                <div class="col intro">Intro</div>
+            </div>
+
+            <% if(channel.intro !== undefined) { %>
+                <!-- Existing intro -->
+                <div id="displaySection">
+                    <div class="row">
+                        <div class="col" style="white-space: pre-line;"><%= channel.intro %></div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button id="editButton">Edit</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Intro form for edit -->
+                <form id="editIntroForm" action="/channel/<%= channel._id %>?_method=PUT" method=POST enctype="multipart/form-data" novalidate class="hidden">
+                    <div class="row">
+                        <div class="col">
+                            <!-- The name attribute is needed to reference the form data after the form is submitted -->
+                            <textarea id="introInput" name="intro" type="text" style="width: 60%; height: 100px" required><%= channel.intro %></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input type="submit">
+                        </div>
+                    </div>
+                </form>
+            <% } else { %>
+                <!-- Intro form for new -->
+                <form id="newIntroForm" action="/channel/<%= channel._id %>?_method=PUT" method=POST enctype="multipart/form-data" novalidate class="validated-form">
+                    <div class="row">
+                        <div class="col">
+                            <!-- The name attribute is needed to reference the form data after the form is submitted -->
+                            <textarea id="introInput" name="intro" type="text" style="width: 60%; height: 100px" required></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input type="submit">
+                        </div>
+                    </div>
+                </form>
+            <% } %>
+
             <!-- Comment of the channel -->
             <div class="row">
                 <div class="col comments">Comments</div>
@@ -179,6 +227,23 @@
                     }
                 })
             })
+
+            /**
+             * Script to edit the intro
+             */
+            const introForm = document.getElementById('editIntroForm');
+            const editButton = document.getElementById('editButton');
+            const displaySection = document.getElementById('displaySection');
+
+            introForm.addEventListener('submit', (e) => {
+                introForm.classList.add('hidden');
+                displaySection.classList.remove('hidden');
+            });
+
+            editButton.addEventListener('click', () => {
+                displaySection.classList.add('hidden');
+                introForm.classList.remove('hidden');
+            });
         </script>
 
     </body>

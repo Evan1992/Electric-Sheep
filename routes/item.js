@@ -508,7 +508,7 @@ router.post('/channel/new', upload.single('cover'), isAdmin, (req, res)=>{
     res.redirect("/channel/new")
 })
 
-router.put("/channel/:id", upload.single('cover'), async (req, res)=>{
+router.put("/channel/:id", upload.single('cover'), isAdmin, async (req, res)=>{
     const { id } = req.params
     const newData = req.body
 
@@ -525,7 +525,7 @@ router.put("/channel/:id", upload.single('cover'), async (req, res)=>{
     }
 
     const channel = await Channel.findByIdAndUpdate(id, req.body)
-    res.redirect(`/channel/${channel._id}/show`)
+    res.redirect(`/admin/channel/${channel._id}/show`)
 })
 
 router.delete("/channel/:id", async (req, res) =>{

@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 var ChannelSchema = new mongoose.Schema({
     name:        String,
     influencer:  String,
+    intro:       String,
     platform:    String,
     cover:   {
         img_data: Buffer,
