@@ -119,7 +119,7 @@ router.get("/book/:id/commentary/:commentaryId", async (req, res) =>{
  * @Note
  *  Don't forget to add upload, otherwise, req.body is empty.    
  */
-router.put("/book/:id", upload.single('cover'), async (req, res)=>{
+router.put("/book/:id", upload.single('cover'), isAdmin, async (req, res)=>{
     const { id } = req.params
     const newData = req.body
 
@@ -147,10 +147,10 @@ router.put("/book/:id", upload.single('cover'), async (req, res)=>{
     }
 
     const book = await Book.findByIdAndUpdate(id, req.body)
-    res.redirect(`/book/${book._id}/show`)
+    res.redirect(`/admin/book/${book._id}/show`)
 })
 
-router.put("/book/:id/commentary/new", async (req, res) =>{
+router.put("/book/:id/commentary/new", isAdmin, async (req, res) =>{
     const newData = req.body
 
     if(newData.title && newData.content) {
@@ -166,10 +166,10 @@ router.put("/book/:id/commentary/new", async (req, res) =>{
     }
 
     await Book.findByIdAndUpdate(req.params.id, req.body)
-    res.redirect(`/book/${book._id}/show`)
+    res.redirect(`/admin/book/${book._id}/show`)
 })
 
-router.delete("/book/:id", async (req, res) =>{
+router.delete("/book/:id", isAdmin, async (req, res) =>{
     const { id } = req.params
     await Book.findByIdAndDelete(id)
     res.redirect("/")
@@ -245,7 +245,7 @@ router.post('/drama/new', upload.single('cover'), isAdmin, (req, res)=>{
     res.redirect("/drama/new")
 })
 
-router.put("/drama/:id", upload.single('cover'), async (req, res)=>{
+router.put("/drama/:id", upload.single('cover'), isAdmin, async (req, res)=>{
     const { id } = req.params
     const newData = req.body
 
@@ -273,10 +273,10 @@ router.put("/drama/:id", upload.single('cover'), async (req, res)=>{
     }
 
     const drama = await Drama.findByIdAndUpdate(id, req.body)
-    res.redirect(`/drama/${drama._id}/show`)
+    res.redirect(`/admin/drama/${drama._id}/show`)
 })
 
-router.put("/drama/:id/commentary/new", async (req, res) =>{
+router.put("/drama/:id/commentary/new", isAdmin, async (req, res) =>{
     const newData = req.body
 
     if(newData.title && newData.content) {
@@ -292,10 +292,10 @@ router.put("/drama/:id/commentary/new", async (req, res) =>{
     }
 
     await Drama.findByIdAndUpdate(req.params.id, req.body)
-    res.redirect(`/drama/${drama._id}/show`)
+    res.redirect(`/admin/drama/${drama._id}/show`)
 })
 
-router.delete("/drama/:id", async (req, res) =>{
+router.delete("/drama/:id", isAdmin, async (req, res) =>{
     const { id } = req.params
     await Drama.findByIdAndDelete(id)
     res.redirect("/")
@@ -355,7 +355,7 @@ router.post('/record/new', upload.single('cover'), isAdmin, (req, res)=>{
     res.redirect("/record/new")
 })
 
-router.put("/record/:id", upload.single('cover'), async (req, res)=>{
+router.put("/record/:id", upload.single('cover'), isAdmin, async (req, res)=>{
     const { id } = req.params
     const newData = req.body
 
@@ -368,7 +368,7 @@ router.put("/record/:id", upload.single('cover'), async (req, res)=>{
     }
 
     const record = await Record.findByIdAndUpdate(id, req.body)
-    res.redirect(`/record/${record._id}/show`)
+    res.redirect(`/admin/record/${record._id}/show`)
 })
 
 router.delete("/record/:id", async (req, res) =>{
@@ -430,7 +430,7 @@ router.post('/game/new', upload.single('cover'), isAdmin, (req, res)=>{
     res.redirect("/game/new")
 })
 
-router.put("/game/:id", upload.single('cover'), async (req, res)=>{
+router.put("/game/:id", upload.single('cover'), isAdmin, async (req, res)=>{
     const { id } = req.params
     const newData = req.body
 
@@ -447,10 +447,10 @@ router.put("/game/:id", upload.single('cover'), async (req, res)=>{
     }
 
     const game = await Game.findByIdAndUpdate(id, req.body)
-    res.redirect(`/game/${game._id}/show`)
+    res.redirect(`/admin/game/${game._id}/show`)
 })
 
-router.delete("/game/:id", async (req, res) =>{
+router.delete("/game/:id", isAdmin, async (req, res) =>{
     const { id } = req.params
     await Game.findByIdAndDelete(id)
     res.redirect("/")
@@ -585,7 +585,7 @@ router.post('/podcast/new', upload.single('cover'), isAdmin, (req, res)=>{
     res.redirect("/podcast/new")
 })
 
-router.put("/podcast/:id", upload.single('cover'), async (req, res)=>{
+router.put("/podcast/:id", upload.single('cover'), isAdmin, async (req, res)=>{
     const { id } = req.params
     const newData = req.body
 
@@ -602,7 +602,7 @@ router.put("/podcast/:id", upload.single('cover'), async (req, res)=>{
     }
 
     const podcast = await Podcast.findByIdAndUpdate(id, req.body)
-    res.redirect(`/podcast/${podcast._id}/show`)
+    res.redirect(`/admin/podcast/${podcast._id}/show`)
 })
 
 router.delete("/podcast/:id", async (req, res) =>{
