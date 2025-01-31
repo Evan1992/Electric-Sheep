@@ -6,3 +6,8 @@
 .hidden {
     display: none;
 }
+
+.new_comment {
+    margin-top: 15px;
+    align-content: center;
+}
