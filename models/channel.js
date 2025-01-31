@@ -9,9 +9,9 @@ var ChannelSchema = new mongoose.Schema({
         img_data: Buffer,
         contentType: String
     },
-    stars:       Number,
-    comments:    Array,
-    haveWatched: Boolean,
+    stars:        Number,
+    commentaries: Array,
+    haveWatched:  Boolean,
 })
 
 module.exports = mongoose.model("Channel", ChannelSchema);

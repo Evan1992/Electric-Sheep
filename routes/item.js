@@ -468,17 +468,53 @@ router.get("/channel/index", async (req, res)=>{
 
 router.get("/channel/:id/show", async (req, res) =>{
     channel = await Channel.findById(req.params.id)
-    res.render("channel/show", {channel})
+    commentaries = channel.commentaries
+    res.render("channel/show", {channel, commentaries})
 })
 
 router.get("/admin/channel/:id/show", isAdmin, async (req, res) =>{
     channel = await Channel.findById(req.params.id)
-    res.render("channel/show-admin", {channel})
+    commentaries = channel.commentaries
+    res.render("channel/show-admin", {channel, commentaries})
 })
 
 router.get("/admin/channel/:id/edit", isAdmin, async (req, res) =>{
     channel = await Channel.findById(req.params.id)
     res.render("channel/edit", {channel})
+})
+
+router.get("/channel/:id/commentary/new", isAdmin, async (req, res) =>{
+    channel = await Channel.findById(req.params.id)
+    res.render("channel/commentary/new", {channel})
+})
+
+router.get("/channel/:id/commentary/:commentaryId", async (req, res) =>{
+    channel = await Channel.findById(req.params.id)
+    for (const commentary of commentaries) {
+        if (commentary.id == req.params.commentaryId) {
+            res.render("channel/commentary/show", {commentary})
+        }
+    }
+})
+
+router.put("/channel/:id/commentary/new", isAdmin, async (req, res) =>{
+    const newData = req.body
+
+
+    if(newData.title && newData.content) {
+        const channel = await Channel.findById(req.params.id)
+        newData.commentaries = [...channel.commentaries]
+        newData.commentaries.push(
+            {
+                id: Math.random().toString(16).slice(2),
+                title: newData.title,
+                content: newData.content
+            }
+        )
+    }
+
+    await Channel.findByIdAndUpdate(req.params.id, req.body)
+    res.redirect(`/admin/channel/${channel._id}/show`)
 })
 
 router.post('/channel/new', upload.single('cover'), isAdmin, (req, res)=>{
