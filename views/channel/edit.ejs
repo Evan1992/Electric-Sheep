@@ -55,18 +55,28 @@
                 <label for="influencer">Influencer</label>
                 <input type="text" name="influencer" placeholder="Influencer" value="<%= channel.influencer %>">
             </div>
+
             <div class="form-item">
-                <label for="platform">Platform</label>
+                <label for="platforms">Platforms</label>
                 <div class="dropdown">
-                    <span class="dropdown-label"><%= channel.platform %></span>
+                    <span class="dropdown-label">Select an option</span>
                     <div class="dropdown-content">
                         <a href="#" data-value="bilibli">bilibili</a>
                         <a href="#" data-value="YouTube">YouTube</a>
                     </div>
                 </div>
+                <div class="selected-items">
+                    <% channel.platforms.forEach(platform => { %>
+                        <div class="selected-item">
+                            <%= platform %>
+                            <span class="remove-btn">✖</span>
+                        </div>
+                    <% }) %>
+                </div>
                 <!-- Hidden input to store the selected option -->
-                <input type="hidden" name="platform" id="platform-input">
+                <input type="hidden" name="platforms" id="platform-input">
             </div>
+
             <div class="form-item">
                 <label for="cover">Cover</label>
                 <input type="file" name="cover" accept="image/png, image/jpeg, image/webp">
@@ -83,6 +93,9 @@
             const dropdownLabel = document.querySelector('.dropdown-label');
             const dropdownOptions = document.querySelectorAll('.dropdown-content a');
             const platformInput = document.getElementById('platform-input'); // Hidden input
+            const selectedItemsList = document.querySelectorAll('.selected-item');
+            const selectedItemsContainer = document.querySelector('.selected-items');
+            let selectedValues = [];
 
             // Toggle dropdown visibility on click
             dropdownLabel.addEventListener('click', () => {
@@ -97,16 +110,53 @@
                 }
             });
 
-            // Update the dropdown label and hidden input when an option is clicked
+            // Add the selected item when an option is clicked
             dropdownOptions.forEach(option => {
                 option.addEventListener('click', (event) => {
                     event.preventDefault(); // Prevent navigation
                     const selectedValue = event.target.getAttribute('data-value'); // Get option value
-                    dropdownLabel.textContent = selectedValue; // Update label
-                    platformInput.value = selectedValue; // Update hidden input value
+                    if (!selectedValues.includes(selectedValue)) {
+                        addSelectedItem(selectedValue);
+                    }
                     dropdownContent.style.display = 'none'; // Hide dropdown
                 });
             });
+
+            // Add the selected items from the database to the list selectedValues
+            selectedItemsList.forEach(item => {
+                const textContent = Array.from(item.childNodes)
+                    .filter(node => node.nodeType === Node.TEXT_NODE)
+                    .map(node => node.textContent.trim())
+                    .join('');
+                selectedValues.push(textContent);
+                const removeBtn = item.querySelector('.remove-btn');
+                removeBtn.addEventListener('click', () => {
+                    item.remove();
+                    selectedValues.splice(selectedValues.indexOf(textContent), 1);
+                    platformInput.value = selectedValues; // Update hidden input value
+                });
+            });
+
+            function addSelectedItem(value) {
+                selectedValues.push(value);
+                platformInput.value = selectedValues; // Update hidden input value
+
+                const item = document.createElement('div');
+                item.classList.add('selected-item');
+                item.textContent = value;
+
+                const removeBtn = document.createElement('span');
+                removeBtn.classList.add('remove-btn');
+                removeBtn.textContent = '✖';
+                removeBtn.addEventListener('click', () => {
+                    item.remove();
+                    selectedValues.splice(selectedValues.indexOf(value), 1);
+                    platformInput.value = selectedValues; // Update hidden input value
+                });
+
+                item.appendChild(removeBtn);
+                selectedItemsContainer.appendChild(item);
+            }
         </script>
     </body>
 </html>

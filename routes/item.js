@@ -551,10 +551,17 @@ router.put("/channel/:id", upload.single('cover'), isAdmin, async (req, res)=>{
     const { id } = req.params
     const newData = req.body
 
+    let platforms = []
+    if (req.body.platforms) {
+        platforms = req.body.platforms.split(',');
+    }
+
     // Update havePlayed
     if(newData.haveWatched){
         newData.haveWatched = true
     }
+    // Update platforms
+    newData.platforms = platforms
     // Update image
     if(req.file !== undefined) {
         newData.cover = {
