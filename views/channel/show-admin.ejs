@@ -258,15 +258,19 @@
             const editButton = document.getElementById('editButton');
             const displaySection = document.getElementById('displaySection');
 
-            introForm.addEventListener('submit', (e) => {
-                introForm.classList.add('hidden');
-                displaySection.classList.remove('hidden');
-            });
+            if (introForm !== null) {
+                introForm.addEventListener('submit', (e) => {
+                    introForm.classList.add('hidden');
+                    displaySection.classList.remove('hidden');
+                });
+            }
 
-            editButton.addEventListener('click', () => {
-                displaySection.classList.add('hidden');
-                introForm.classList.remove('hidden');
-            });
+            if (editButton !== null) {
+                editButton.addEventListener('click', () => {
+                    displaySection.classList.add('hidden');
+                    introForm.classList.remove('hidden');
+                });
+            }
         </script>
     </body>
 </html>
