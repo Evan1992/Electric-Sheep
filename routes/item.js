@@ -516,7 +516,10 @@ router.put("/channel/:id/commentary/new", isAdmin, async (req, res) =>{
 })
 
 router.post('/channel/new', upload.single('cover'), isAdmin, (req, res)=>{
-    const platforms = req.body.platforms.split(',');
+    let platforms = []
+    if (req.body.platforms) {
+        platforms = req.body.platforms.split(',');
+    }
 
     data = {
         name:         req.body.name,
