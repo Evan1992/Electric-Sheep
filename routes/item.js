@@ -499,8 +499,6 @@ router.get("/channel/:id/commentary/:commentaryId", async (req, res) =>{
 
 router.put("/channel/:id/commentary/new", isAdmin, async (req, res) =>{
     const newData = req.body
-
-
     if(newData.title && newData.content) {
         const channel = await Channel.findById(req.params.id)
         newData.commentaries = [...channel.commentaries]
@@ -518,10 +516,12 @@ router.put("/channel/:id/commentary/new", isAdmin, async (req, res) =>{
 })
 
 router.post('/channel/new', upload.single('cover'), isAdmin, (req, res)=>{
+    const platforms = req.body.platforms.split(',');
+
     data = {
         name:         req.body.name,
         influencer:   req.body.influencer,
-        platform:     req.body.platform,
+        platforms:    platforms,
         stars:        0,
         comments:     [],
         haveWatched: false,

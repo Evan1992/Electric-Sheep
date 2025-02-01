@@ -55,7 +55,7 @@
                 <input type="text" name="influencer" placeholder="Influencer" required>
             </div>
             <div class="form-item">
-                <label for="platform">Platform</label>
+                <label for="platforms">Platforms</label>
                 <div class="dropdown">
                     <span class="dropdown-label">Select an option</span>
                     <div class="dropdown-content">
@@ -63,8 +63,9 @@
                         <a href="#" data-value="YouTube">YouTube</a>
                     </div>
                 </div>
+                <div class="selected-items"></div>
                 <!-- Hidden input to store the selected option -->
-                <input type="hidden" name="platform" id="platform-input">
+                <input type="hidden" name="platforms" id="platform-input">
             </div>
             <div class="form-item">
                 <label for="cover">Cover</label>
@@ -82,6 +83,8 @@
             const dropdownLabel = document.querySelector('.dropdown-label');
             const dropdownOptions = document.querySelectorAll('.dropdown-content a');
             const platformInput = document.getElementById('platform-input'); // Hidden input
+            const selectedItemsContainer = document.querySelector('.selected-items');
+            let selectedValues = [];
 
             // Toggle dropdown visibility on click
             dropdownLabel.addEventListener('click', () => {
@@ -96,16 +99,38 @@
                 }
             });
 
-            // Update the dropdown label and hidden input when an option is clicked
+            // Add the selected item when an option is clicked
             dropdownOptions.forEach(option => {
                 option.addEventListener('click', (event) => {
                     event.preventDefault(); // Prevent navigation
                     const selectedValue = event.target.getAttribute('data-value'); // Get option value
-                    dropdownLabel.textContent = selectedValue; // Update label
-                    platformInput.value = selectedValue; // Update hidden input value
+                    if (!selectedValues.includes(selectedValue)) {
+                        addSelectedItem(selectedValue);
+                    }
                     dropdownContent.style.display = 'none'; // Hide dropdown
                 });
             });
+
+            function addSelectedItem(value) {
+                selectedValues.push(value);
+                platformInput.value = selectedValues; // Update hidden input value
+
+                const item = document.createElement('div');
+                item.classList.add('selected-item');
+                item.textContent = value;
+
+                const removeBtn = document.createElement('span');
+                removeBtn.classList.add('remove-btn');
+                removeBtn.textContent = '✖';
+                removeBtn.addEventListener('click', () => {
+                    item.remove();
+                    selectedValues.splice(selectedValues.indexOf(value), 1);
+                    platformInput.value = selectedValues; // Update hidden input value
+                });
+
+                item.appendChild(removeBtn);
+                selectedItemsContainer.appendChild(item);
+            }
         </script>
     </body>
 </html>
