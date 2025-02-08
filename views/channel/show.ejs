@@ -60,10 +60,22 @@
                     <div class="row">
                         <div class="col">
                             Platforms:
-                            <% if(channel.platforms.length === 0) { %>
+                            <% if(channel.platforms.length !== 0) { %>
                                 <% channel.platforms.forEach(platform => { %>
                                     <div class="selected-item">
                                         <%= platform %>
+                                    </div>
+                                <% }) %>
+                            <% } %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Categories:
+                            <% if(channel.categories.length !== 0) { %>
+                                <% channel.categories.forEach(category => { %>
+                                    <div class="selected-item">
+                                        <%= category %>
                                     </div>
                                 <% }) %>
                             <% } %>

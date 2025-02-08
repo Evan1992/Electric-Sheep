@@ -76,6 +76,18 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col">
+                            Categories:
+                            <% if(channel.categories.length !== 0) { %>
+                                <% channel.categories.forEach(category => { %>
+                                    <div class="selected-item">
+                                        <%= category %>
+                                    </div>
+                                <% }) %>
+                            <% } %>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-auto" style="padding-right: 3px;">
                             Rate:
                         </div>
