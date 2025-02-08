@@ -520,11 +520,16 @@ router.post('/channel/new', upload.single('cover'), isAdmin, (req, res)=>{
     if (req.body.platforms) {
         platforms = req.body.platforms.split(',');
     }
+    let categories = []
+    if (req.body.categories) {
+        categories = req.body.categories.split(',');
+    }
 
     data = {
         name:         req.body.name,
         influencer:   req.body.influencer,
         platforms:    platforms,
+        categories:   categories,
         stars:        0,
         comments:     [],
         haveWatched: false,
