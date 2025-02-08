@@ -61,13 +61,15 @@
                 <div class="dropdown">
                     <span class="dropdown-label">Select an option</span>
                     <div class="dropdown-content">
-                        <a href="#" data-value="bilibli">bilibili</a>
-                        <a href="#" data-value="YouTube">YouTube</a>
+                        <div class="dropdown-content-platform">
+                            <a href="#" data-value="bilibli">bilibili</a>
+                            <a href="#" data-value="YouTube">YouTube</a>
+                        </div>
                     </div>
                 </div>
                 <div class="selected-items">
                     <% channel.platforms.forEach(platform => { %>
-                        <div class="selected-item">
+                        <div class="selected-item selected-platform">
                             <%= platform %>
                             <span class="remove-btn">✖</span>
                         </div>
@@ -75,6 +77,33 @@
                 </div>
                 <!-- Hidden input to store the selected option -->
                 <input type="hidden" name="platforms" id="platform-input">
+            </div>
+            <div class="form-item">
+                <label for="categories">Categories</label>
+                <div class="dropdown">
+                    <span class="dropdown-label">Select an option</span>
+                    <div class="dropdown-content">
+                        <div class="dropdown-content-category">
+                            <a href="#" data-value="Technology">Technology</a>
+                            <a href="#" data-value="Sports">Sports</a>
+                            <a href="#" data-value="Music">Music</a>
+                            <a href="#" data-value="Gaming">Gaming</a>
+                            <a href="#" data-value="Economy">Economy</a>
+                            <a href="#" data-value="Entertainment">Entertainment</a>
+                            <a href="#" data-value="Society">Society</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="selected-items">
+                    <% channel.categories.forEach(category => { %>
+                        <div class="selected-item selected-category">
+                            <%= category %>
+                            <span class="remove-btn">✖</span>
+                        </div>
+                    <% }) %>
+                </div>
+                <!-- Hidden input to store the selected option -->
+                <input type="hidden" name="categories" id="category-input">
             </div>
 
             <div class="form-item">
@@ -88,58 +117,93 @@
 
         <script type="text/javascript">
             // Select the dropdown elements
-            const dropdown = document.querySelector('.dropdown');
-            const dropdownContent = document.querySelector('.dropdown-content');
-            const dropdownLabel = document.querySelector('.dropdown-label');
-            const dropdownOptions = document.querySelectorAll('.dropdown-content a');
+            const dropdowns = document.querySelectorAll('.dropdown');
+            const dropdownContents = document.querySelectorAll('.dropdown-content');
+            const dropdownLabels = document.querySelectorAll('.dropdown-label');
+            const dropdownOptionsPlatform = document.querySelectorAll('.dropdown-content-platform a');
+            const dropdownOptionsCategory = document.querySelectorAll('.dropdown-content-category a');
             const platformInput = document.getElementById('platform-input'); // Hidden input
-            const selectedItemsList = document.querySelectorAll('.selected-item');
-            const selectedItemsContainer = document.querySelector('.selected-items');
-            let selectedValues = [];
+            const categoryInput = document.getElementById('category-input'); // Hidden input
+            const inputContainers = [platformInput, categoryInput];
+            const alreadySelectedPlatforms = document.querySelectorAll('.selected-platform');
+            const alreadySelectedCategories = document.querySelectorAll('.selected-category');
+            const selectedItemsContainers = document.querySelectorAll('.selected-items');
+            let selectedPlatforms = [];
+            let selectedCategories = [];
+            let selectedItems = [selectedPlatforms, selectedCategories];
 
             // Toggle dropdown visibility on click
-            dropdownLabel.addEventListener('click', () => {
-                const isVisible = dropdownContent.style.display === 'block';
-                dropdownContent.style.display = isVisible ? 'none' : 'block';
+            dropdownLabels.forEach((dropdownLabel, index) => {
+                dropdownLabel.addEventListener('click', () => {
+                    const isVisible = dropdownContents[index].style.display === 'block';
+                    dropdownContents[index].style.display = isVisible ? 'none' : 'block';
+                });
             });
-
             // Close the dropdown when clicking outside of it
             document.addEventListener('click', (event) => {
-                if (!dropdown.contains(event.target)) {
-                    dropdownContent.style.display = 'none';
-                }
+                dropdowns.forEach((dropdown, index) => {
+                    if (!dropdown.contains(event.target)) {
+                        dropdownContents[index].style.display = 'none';
+                    }
+                });
             });
 
             // Add the selected item when an option is clicked
-            dropdownOptions.forEach(option => {
+            dropdownOptionsPlatform.forEach(option => {
                 option.addEventListener('click', (event) => {
                     event.preventDefault(); // Prevent navigation
                     const selectedValue = event.target.getAttribute('data-value'); // Get option value
-                    if (!selectedValues.includes(selectedValue)) {
-                        addSelectedItem(selectedValue);
+                    if (!selectedPlatforms.includes(selectedValue)) {
+                        addSelectedItem(selectedValue, 0);
                     }
-                    dropdownContent.style.display = 'none'; // Hide dropdown
+                    dropdownContents[0].style.display = 'none'; // Hide dropdown
                 });
             });
 
-            // Add the selected items from the database to the list selectedValues
-            selectedItemsList.forEach(item => {
-                const textContent = Array.from(item.childNodes)
+            dropdownOptionsCategory.forEach(option => {
+                option.addEventListener('click', (event) => {
+                    event.preventDefault(); // Prevent navigation
+                    const selectedValue = event.target.getAttribute('data-value'); // Get option value
+                    if (!selectedCategories.includes(selectedValue)) {
+                        addSelectedItem(selectedValue, 1);
+                    }
+                    dropdownContents[1].style.display = 'none'; // Hide dropdown
+                });
+            });
+
+            // Add the selected items from the database to the list selectedPlatforms and selectedCategories
+            alreadySelectedPlatforms.forEach(platform => {
+                const textContent = Array.from(platform.childNodes)
                     .filter(node => node.nodeType === Node.TEXT_NODE)
                     .map(node => node.textContent.trim())
                     .join('');
-                selectedValues.push(textContent);
-                const removeBtn = item.querySelector('.remove-btn');
+                selectedPlatforms.push(textContent);
+                platformInput.value = selectedPlatforms;
+                const removeBtn = platform.querySelector('.remove-btn');
                 removeBtn.addEventListener('click', () => {
-                    item.remove();
-                    selectedValues.splice(selectedValues.indexOf(textContent), 1);
-                    platformInput.value = selectedValues; // Update hidden input value
+                    platform.remove();
+                    selectedPlatforms.splice(selectedPlatforms.indexOf(textContent), 1);
+                    platformInput.value = selectedPlatforms; // Update hidden input value
+                });
+            });
+            alreadySelectedCategories.forEach(category => {
+                const textContent = Array.from(category.childNodes)
+                    .filter(node => node.nodeType === Node.TEXT_NODE)
+                    .map(node => node.textContent.trim())
+                    .join('');
+                selectedCategories.push(textContent);
+                categoryInput.value = selectedCategories;
+                const removeBtn = category.querySelector('.remove-btn');
+                removeBtn.addEventListener('click', () => {
+                    category.remove();
+                    selectedCategories.splice(selectedCategories.indexOf(textContent), 1);
+                    categoryInput.value = selectedCategories; // Update hidden input value
                 });
             });
 
-            function addSelectedItem(value) {
-                selectedValues.push(value);
-                platformInput.value = selectedValues; // Update hidden input value
+            function addSelectedItem(value, index) {
+                selectedItems[index].push(value);
+                inputContainers[index].value = selectedItems[index]; // Update hidden input value
 
                 const item = document.createElement('div');
                 item.classList.add('selected-item');
@@ -150,12 +214,12 @@
                 removeBtn.textContent = '✖';
                 removeBtn.addEventListener('click', () => {
                     item.remove();
-                    selectedValues.splice(selectedValues.indexOf(value), 1);
-                    platformInput.value = selectedValues; // Update hidden input value
+                    selectedItems[index].splice(selectedItems[index].indexOf(value), 1);
+                    inputContainers[index].value = selectedItems[index]; // Update hidden input value
                 });
 
                 item.appendChild(removeBtn);
-                selectedItemsContainer.appendChild(item);
+                selectedItemsContainers[index].appendChild(item);
             }
         </script>
     </body>

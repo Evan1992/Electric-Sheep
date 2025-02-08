@@ -560,6 +560,10 @@ router.put("/channel/:id", upload.single('cover'), isAdmin, async (req, res)=>{
     if (req.body.platforms) {
         platforms = req.body.platforms.split(',');
     }
+    let categories = []
+    if (req.body.categories) {
+        categories = req.body.categories.split(',');
+    }
 
     // Update havePlayed
     if(newData.haveWatched){
@@ -567,6 +571,8 @@ router.put("/channel/:id", upload.single('cover'), isAdmin, async (req, res)=>{
     }
     // Update platforms
     newData.platforms = platforms
+    // Update categories
+    newData.categories = categories
     // Update image
     if(req.file !== undefined) {
         newData.cover = {
