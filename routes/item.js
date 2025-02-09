@@ -570,9 +570,9 @@ router.put("/channel/:id", upload.single('cover'), isAdmin, async (req, res)=>{
         newData.haveWatched = true
     }
     // Update platforms
-    newData.platforms = platforms
+    platforms.length > 0 && (newData.platforms = platforms);
     // Update categories
-    newData.categories = categories
+    categories.length > 0 && (newData.categories = categories);
     // Update image
     if(req.file !== undefined) {
         newData.cover = {
