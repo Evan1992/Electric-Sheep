@@ -13,6 +13,7 @@ var RecordSchema = new mongoose.Schema({
     stars:       Number,
     comments:    Array,
     owned:       Boolean,
+    itemType:    String
 })
 
 module.exports = mongoose.model("Record", RecordSchema);

@@ -11,7 +11,8 @@ var GameSchema = new mongoose.Schema({
     },
     stars:       Number,
     comments:    Array,
-    havePlayed: Boolean,
+    havePlayed:  Boolean,
+    itemType:    String
 })
 
 module.exports = mongoose.model("Game", GameSchema);

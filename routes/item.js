@@ -56,7 +56,8 @@ router.post('/book/new', upload.single('cover'), isAdmin, (req, res)=>{
         stars:   0,
         Comment: "",
         haveRead: false,
-        extract: []
+        extract: [],
+        itemType: "book"
     }
 
     if(req.file !== undefined) {
@@ -226,6 +227,7 @@ router.post('/drama/new', upload.single('cover'), isAdmin, (req, res)=>{
         lines:        [],
         commentaries: [],
         haveWatched:  false,
+        itemType: "drama"
     }
 
     if(req.file !== undefined) {
@@ -336,6 +338,7 @@ router.post('/record/new', upload.single('cover'), isAdmin, (req, res)=>{
         stars:        0,
         comments:     [],
         owned:        false,
+        itemType:     "record"
     }
 
     if(req.file !== undefined) {
@@ -410,7 +413,8 @@ router.post('/game/new', upload.single('cover'), isAdmin, (req, res)=>{
         year:         req.body.year,
         stars:        0,
         comments:     [],
-        havePlayed: false,
+        havePlayed:   false,
+        itemType:     "game"
     }
 
     if(req.file !== undefined) {
@@ -532,7 +536,8 @@ router.post('/channel/new', upload.single('cover'), isAdmin, (req, res)=>{
         categories:   categories,
         stars:        0,
         comments:     [],
-        haveWatched: false,
+        haveWatched:  false,
+        itemType:     "channel"
     }
 
     if(req.file !== undefined) {
@@ -623,6 +628,7 @@ router.post('/podcast/new', upload.single('cover'), isAdmin, (req, res)=>{
         stars:        0,
         comments:     [],
         haveListened: false,
+        itemType:     "podcast"
     }
 
     if(req.file !== undefined) {

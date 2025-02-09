@@ -13,6 +13,7 @@ var DramaSchema = new mongoose.Schema({
     lines:        Array,
     commentaries: Array,
     haveWatched:  Boolean,
+    itemType:     String
 })
 
 module.exports = mongoose.model("Drama", DramaSchema);

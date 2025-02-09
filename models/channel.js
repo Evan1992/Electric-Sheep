@@ -13,6 +13,7 @@ var ChannelSchema = new mongoose.Schema({
     stars:        Number,
     commentaries: Array,
     haveWatched:  Boolean,
+    itemType:     String
 })
 
 module.exports = mongoose.model("Channel", ChannelSchema);

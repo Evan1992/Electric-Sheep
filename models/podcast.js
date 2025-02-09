@@ -10,6 +10,7 @@ var PodcastSchema = new mongoose.Schema({
     stars:        Number,
     comments:     Array,
     haveListened: Boolean,
+    itemType:     String
 })
 
 module.exports = mongoose.model("Podcast", PodcastSchema);

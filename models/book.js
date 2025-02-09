@@ -14,7 +14,8 @@ var BookSchema = new mongoose.Schema({
     stars:   Number,
     commentaries: Array,
     haveRead: Boolean,
-    excerpts: Array
+    excerpts: Array,
+    itemType: String
 
     /** 
      * Add more properties of the book model
