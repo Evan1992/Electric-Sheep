@@ -104,14 +104,14 @@ router.get("/admin/book/:id/edit", isAdmin, async (req, res) =>{
 
 router.get("/book/:id/commentary/new", async (req, res) =>{
     book = await Book.findById(req.params.id)
-    res.render("book/commentary/new", {book})
+    res.render("shared/commentary/new", {item: book})
 })
 
 router.get("/book/:id/commentary/:commentaryId", async (req, res) =>{
     book = await Book.findById(req.params.id)
     for (const commentary of commentaries) {
         if (commentary.id == req.params.commentaryId) {
-            res.render("book/commentary/show", {commentary})
+            res.render("shared/commentary/show", {commentary})
         }
     }
 })
@@ -200,14 +200,14 @@ router.get("/admin/drama/:id/show", isAdmin, async (req, res) =>{
 
 router.get("/drama/:id/commentary/new", async (req, res) =>{
     drama = await Drama.findById(req.params.id)
-    res.render("drama/commentary/new", {drama})
+    res.render("shared/commentary/new", {item: drama})
 })
 
 router.get("/drama/:id/commentary/:commentaryId", async (req, res) =>{
     drama = await Drama.findById(req.params.id)
     for (const commentary of commentaries) {
         if (commentary.id == req.params.commentaryId) {
-            res.render("drama/commentary/show", {commentary})
+            res.render("shared/commentary/show", {commentary})
         }
     }
 })
@@ -489,14 +489,14 @@ router.get("/admin/channel/:id/edit", isAdmin, async (req, res) =>{
 
 router.get("/channel/:id/commentary/new", isAdmin, async (req, res) =>{
     channel = await Channel.findById(req.params.id)
-    res.render("channel/commentary/new", {channel})
+    res.render("shared/commentary/new", {item: channel})
 })
 
 router.get("/channel/:id/commentary/:commentaryId", async (req, res) =>{
     channel = await Channel.findById(req.params.id)
     for (const commentary of commentaries) {
         if (commentary.id == req.params.commentaryId) {
-            res.render("channel/commentary/show", {commentary})
+            res.render("shared/commentary/show", {commentary})
         }
     }
 })
