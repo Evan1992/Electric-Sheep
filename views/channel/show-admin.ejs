@@ -230,16 +230,12 @@
                 <div class="col new_comment"><a href="/channel/<%= channel._id %>/commentary/new">New commentary</a></div>
             </div>
             <!-- Existing commentary list -->
-            <div class="row">
-                <% for(let i = 0; i < channel.commentaries.length; i++) { %>
-                    <% commentary = commentaries[i] %>
-                    <div class="col">
-                        <li>
-                            <a href="/channel/<%= channel._id %>/commentary/<%= commentary.id %>"><%= commentary.title %></a>
-                        </li>
-                    </div>
-                <% } %>
-            </div>
+            <% for(let i = 0; i < commentaries.length; i++) { %>
+                <% commentary = commentaries[i] %>
+                    <li>
+                        <a href="/channel/<%= channel._id %>/commentary/<%= commentary.id %>"><%= commentary.title %></a>
+                    </li>
+            <% } %>
         </div>
 
         <script type="text/javascript">

@@ -197,16 +197,12 @@
             </div>
 
             <!-- Existing commentary list -->
-            <div class="row">
-                <% for(let i = 0; i < commentaries.length; i++) { %>
-                    <% commentary = commentaries[i] %>
-                    <div class="col">
-                        <li>
-                            <a href="/book/<%= book._id %>/commentary/<%= commentary.id %>"><%= commentary.title %></a>
-                        </li>
-                    </div>
-                <% } %>
-            </div>
+            <% for(let i = 0; i < commentaries.length; i++) { %>
+                <% commentary = commentaries[i] %>
+                    <li>
+                        <a href="/book/<%= book._id %>/commentary/<%= commentary.id %>"><%= commentary.title %></a>
+                    </li>
+            <% } %>
         </div>
 
         <script type="text/javascript">

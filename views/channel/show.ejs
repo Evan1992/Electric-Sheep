@@ -176,10 +176,17 @@
                 </div>
             <% } %>
 
-            <!-- Comment of the channel -->
+            <!-- Commentary -->
             <div class="row">
-                <div class="col comments">Comments</div>
+                <div class="col comments">Commentaries</div>
             </div>
+            <!-- Existing commentary list -->
+            <% for(let i = 0; i < commentaries.length; i++) { %>
+                <% commentary = commentaries[i] %>
+                    <li>
+                        <a href="/channel/<%= channel._id %>/commentary/<%= commentary.id %>"><%= commentary.title %></a>
+                    </li>
+            <% } %>
         </div>
 
         <script type="text/javascript">
