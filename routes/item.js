@@ -70,11 +70,11 @@ router.post('/book/new', upload.single('cover'), isAdmin, (req, res)=>{
     Book.create(data)
     .then((book) => {
         console.log(book)
+        res.redirect(`/admin/book/${book._id}/show`);
     })
     .catch((error) => {
         console.error('Failed to create a new book', error)
     })
-    res.redirect("/book/new");
 })
 router.get("/book/new", isAdmin, (req, res)=>{
     res.render("book/new")
@@ -240,11 +240,11 @@ router.post('/drama/new', upload.single('cover'), isAdmin, (req, res)=>{
     Drama.create(data)
     .then((drama) => {
         console.log(drama)
+        res.redirect(`/admin/drama/${drama._id}/show`);
     })
     .catch((error) => {
         console.error('Failed to create a new drama', error)
     })
-    res.redirect("/drama/new")
 })
 
 router.put("/drama/:id", upload.single('cover'), isAdmin, async (req, res)=>{
@@ -351,11 +351,11 @@ router.post('/record/new', upload.single('cover'), isAdmin, (req, res)=>{
     Record.create(data)
     .then((record) => {
         console.log(record)
+        res.redirect(`/admin/record/${record._id}/show`);
     })
     .catch((error) => {
         console.error('Failed to create a new record', error)
     })
-    res.redirect("/record/new")
 })
 
 router.put("/record/:id", upload.single('cover'), isAdmin, async (req, res)=>{
@@ -427,11 +427,11 @@ router.post('/game/new', upload.single('cover'), isAdmin, (req, res)=>{
     Game.create(data)
     .then((game) => {
         console.log(game)
+        res.redirect(`/admin/game/${game._id}/show`);
     })
     .catch((error) => {
         console.error('Failed to create a new game', error)
     })
-    res.redirect("/game/new")
 })
 
 router.put("/game/:id", upload.single('cover'), isAdmin, async (req, res)=>{
@@ -550,11 +550,11 @@ router.post('/channel/new', upload.single('cover'), isAdmin, (req, res)=>{
     Channel.create(data)
     .then((channel) => {
         console.log(channel)
+        res.redirect(`/admin/channel/${channel._id}/show`);
     })
     .catch((error) => {
         console.error('Failed to create a new channel', error)
     })
-    res.redirect("/channel/new")
 })
 
 router.put("/channel/:id", upload.single('cover'), isAdmin, async (req, res)=>{
@@ -641,11 +641,11 @@ router.post('/podcast/new', upload.single('cover'), isAdmin, (req, res)=>{
     Podcast.create(data)
     .then((podcast) => {
         console.log(podcast)
+        res.redirect(`/admin/podcast/${podcast._id}/show`);
     })
     .catch((error) => {
         console.error('Failed to create a new podcast', error)
     })
-    res.redirect("/podcast/new")
 })
 
 router.put("/podcast/:id", upload.single('cover'), isAdmin, async (req, res)=>{
