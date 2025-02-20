@@ -56,7 +56,7 @@ router.post('/book/new', upload.single('cover'), isAdmin, (req, res)=>{
         stars:   0,
         Comment: "",
         haveRead: false,
-        extract: [],
+        excerpts: [],
         itemType: "book"
     }
 
