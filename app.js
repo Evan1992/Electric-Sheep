@@ -46,6 +46,10 @@ app.set('views', viewPath);
  *  app.use(express.static(__dirname+"/public"))
  *  app.use(express.static(path.join(__diranme, "public")))
  * They achieve the same result, which is to concatenate two strings to form the full path
+ * 
+ * app.use(express.static(path.join(__dirname, "scripts")))
+ *  Specify how the static files are served
+ *  URL to access dropDownSelect.js: http://yourdomain.com/scripts/dropDownSelect.js
  */
 app.use(express.static(__dirname + "/views"))
 app.use(express.static('public'));
