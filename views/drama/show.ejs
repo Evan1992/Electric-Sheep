@@ -59,6 +59,18 @@
                     <div class="row"><div class="col">Director: <%= drama.director %></div></div>
                     <div class="row"><div class="col">Year: <%= drama.year %></div></div>
                     <div class="row">
+                        <div class="col">
+                            Genres:
+                            <% if(drama.genres.length !== 0) { %>
+                                <% drama.genres.forEach(genre => { %>
+                                    <div class="selected-item">
+                                        <%= genre %>
+                                    </div>
+                                <% }) %>
+                            <% } %>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-auto" style="padding-right: 3px;">
                             Rate:
                         </div>
