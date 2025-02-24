@@ -1,16 +1,14 @@
 // Select the dropdown elements
 const dropdowns = document.querySelectorAll('.dropdown');
-const dropdownContents = document.querySelectorAll('.dropdown-content');
 const dropdownLabels = document.querySelectorAll('.dropdown-label');
-const dropdownOptionsPlatform = document.querySelectorAll('.dropdown-content-platform a');
-const dropdownOptionsCategory = document.querySelectorAll('.dropdown-content-category a');
-const platformInput = document.getElementById('platform-input'); // Hidden input
-const categoryInput = document.getElementById('category-input'); // Hidden input
-const inputContainers = [platformInput, categoryInput];
+const dropdownContents = document.querySelectorAll('.dropdown-content');
+const dropDownOptions = document.querySelectorAll('.dropdown-content a');
+const inputs = document.querySelectorAll('.hidden-input'); // Hidden input
 const selectedItemsContainers = document.querySelectorAll('.selected-items');
-let selectedPlatforms = [];
-let selectedCategories = [];
-let selectedItems = [selectedPlatforms, selectedCategories];
+let selectedItems = {
+    "platform": [],
+    "category": []
+}
 
 // Toggle dropdown visibility on click
 dropdownLabels.forEach((dropdownLabel, index) => {
@@ -30,31 +28,32 @@ document.addEventListener('click', (event) => {
 });
 
 // Add the selected item when an option is clicked
-dropdownOptionsPlatform.forEach(option => {
+dropDownOptions.forEach(option => {
     option.addEventListener('click', (event) => {
         event.preventDefault(); // Prevent navigation
+        const selectedKey = event.target.getAttribute('data-key'); // Get option key
         const selectedValue = event.target.getAttribute('data-value'); // Get option value
-        if (!selectedPlatforms.includes(selectedValue)) {
-            addSelectedItem(selectedValue, 0);
+
+        if (!selectedItems[selectedKey].includes(selectedValue)) {
+            addSelectedItem(selectedKey, selectedValue);
         }
-        dropdownContents[0].style.display = 'none'; // Hide dropdown
+
+        dropdownContents.forEach((dropdownContent) => {
+            if (dropdownContent.getAttribute('data-key') === selectedKey) {
+                dropdownContent.style.display = 'none'; // Hide dropdown
+            }
+        });
     });
 });
 
-dropdownOptionsCategory.forEach(option => {
-    option.addEventListener('click', (event) => {
-        event.preventDefault(); // Prevent navigation
-        const selectedValue = event.target.getAttribute('data-value'); // Get option value
-        if (!selectedCategories.includes(selectedValue)) {
-            addSelectedItem(selectedValue, 1);
+function addSelectedItem(key, value) {
+    // Update hidden input value
+    selectedItems[key].push(value);
+    inputs.forEach((input) => {
+        if (input.getAttribute('data-key') === key) {
+            input.value = selectedItems[key];
         }
-        dropdownContents[1].style.display = 'none'; // Hide dropdown
     });
-});
-
-function addSelectedItem(value, index) {
-    selectedItems[index].push(value);
-    inputContainers[index].value = selectedItems[index]; // Update hidden input value
 
     const item = document.createElement('div');
     item.classList.add('selected-item');
@@ -65,10 +64,18 @@ function addSelectedItem(value, index) {
     removeBtn.textContent = '✖';
     removeBtn.addEventListener('click', () => {
         item.remove();
-        selectedItems[index].splice(selectedItems[index].indexOf(value), 1);
-        inputContainers[index].value = selectedItems[index]; // Update hidden input value
+        selectedItems[key].splice(selectedItems[key].indexOf(value), 1);
+        inputs.forEach((input) => {
+            if (input.getAttribute('data-key') === key) {
+                input.value = selectedItems[key]; // Update hidden input value
+            }
+        });
     });
 
     item.appendChild(removeBtn);
-    selectedItemsContainers[index].appendChild(item);
+    selectedItemsContainers.forEach((selectedItemsContainer) => {
+        if (selectedItemsContainer.getAttribute('data-key') === key) {
+            selectedItemsContainer.appendChild(item);
+        }
+    });
 }

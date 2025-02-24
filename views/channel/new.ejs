@@ -58,36 +58,32 @@
                 <label for="platforms">Platforms</label>
                 <div class="dropdown">
                     <span class="dropdown-label">Select an option</span>
-                    <div class="dropdown-content">
-                        <div class="dropdown-content-platform">
-                            <a href="#" data-value="bilibli">bilibili</a>
-                            <a href="#" data-value="YouTube">YouTube</a>
-                        </div>
+                    <div class="dropdown-content" data-key="platform">
+                        <a href="#" data-value="bilibli" data-key="platform">bilibili</a>
+                        <a href="#" data-value="YouTube" data-key="platform">YouTube</a>
                     </div>
                 </div>
-                <div class="selected-items"></div>
+                <div class="selected-items" data-key="platform"></div>
                 <!-- Hidden input to store the selected option -->
-                <input type="hidden" name="platforms" id="platform-input">
+                <input type="hidden" name="platforms" class="hidden-input" data-key="platform">
             </div>
             <div class="form-item">
                 <label for="categories">Categories</label>
                 <div class="dropdown">
                     <span class="dropdown-label">Select an option</span>
-                    <div class="dropdown-content">
-                        <div class="dropdown-content-category">
-                            <a href="#" data-value="Technology">Technology</a>
-                            <a href="#" data-value="Sports">Sports</a>
-                            <a href="#" data-value="Music">Music</a>
-                            <a href="#" data-value="Gaming">Gaming</a>
-                            <a href="#" data-value="Economy">Economy</a>
-                            <a href="#" data-value="Entertainment">Entertainment</a>
-                            <a href="#" data-value="Society">Society</a>
-                        </div>
+                    <div class="dropdown-content" data-key="category">
+                        <a href="#" data-value="Technology" data-key="category">Technology</a>
+                        <a href="#" data-value="Sports" data-key="category">Sports</a>
+                        <a href="#" data-value="Music" data-key="category">Music</a>
+                        <a href="#" data-value="Gaming" data-key="category">Gaming</a>
+                        <a href="#" data-value="Economy" data-key="category">Economy</a>
+                        <a href="#" data-value="Entertainment" data-key="category">Entertainment</a>
+                        <a href="#" data-value="Society" data-key="category">Society</a>
                     </div>
                 </div>
-                <div class="selected-items"></div>
+                <div class="selected-items" data-key="category"></div>
                 <!-- Hidden input to store the selected option -->
-                <input type="hidden" name="categories" id="category-input">
+                <input type="hidden" name="categories" class="hidden-input" data-key="category">
             </div>
             <div class="form-item">
                 <label for="cover">Cover</label>
