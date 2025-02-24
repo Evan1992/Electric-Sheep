@@ -4,6 +4,7 @@ var DramaSchema = new mongoose.Schema({
     name:         String,
     director:     String,
     year:         String,
+    genres:       Array,
     cover:   {
         img_data: Buffer,
         contentType: String

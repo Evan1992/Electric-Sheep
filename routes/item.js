@@ -218,10 +218,15 @@ router.get("/admin/drama/:id/edit", isAdmin, async (req, res) =>{
 })
 
 router.post('/drama/new', upload.single('cover'), isAdmin, (req, res)=>{
+    let genres = []
+    if (req.body.categories) {
+        genres = req.body.categories.split(',');
+    }
     data = {
         name:         req.body.name,
         director:     req.body.director,
         year:         req.body.year,
+        genres:       genres,
         recurrence:   0,
         stars:        0,
         lines:        [],
