@@ -8,7 +8,7 @@ const selectedItemsContainers = document.querySelectorAll('.selected-items');
 const alreadySelectedItemsContainers = document.querySelectorAll('.selected-item');
 let selectedItems = {
     "platform": [],
-    "category": []
+    "genre": []
 }
 
 // Toggle dropdown visibility on click

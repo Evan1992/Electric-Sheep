@@ -219,8 +219,8 @@ router.get("/admin/drama/:id/edit", isAdmin, async (req, res) =>{
 
 router.post('/drama/new', upload.single('cover'), isAdmin, (req, res)=>{
     let genres = []
-    if (req.body.categories) {
-        genres = req.body.categories.split(',');
+    if (req.body.genres) {
+        genres = req.body.genres.split(',');
     }
     data = {
         name:         req.body.name,
@@ -273,8 +273,8 @@ router.put("/drama/:id", upload.single('cover'), isAdmin, async (req, res)=>{
     }
     // Update genres
     let genres = []
-    if (req.body.categories) {
-        genres = req.body.categories.split(',');
+    if (req.body.genres) {
+        genres = req.body.genres.split(',');
     }
     genres.length > 0 && (newData.genres = genres);
     // Update image
@@ -535,16 +535,16 @@ router.post('/channel/new', upload.single('cover'), isAdmin, (req, res)=>{
     if (req.body.platforms) {
         platforms = req.body.platforms.split(',');
     }
-    let categories = []
-    if (req.body.categories) {
-        categories = req.body.categories.split(',');
+    let genres = []
+    if (req.body.genres) {
+        genres = req.body.genres.split(',');
     }
 
     data = {
         name:         req.body.name,
         influencer:   req.body.influencer,
         platforms:    platforms,
-        categories:   categories,
+        genres:       genres,
         stars:        0,
         comments:     [],
         haveWatched:  false,
@@ -576,9 +576,9 @@ router.put("/channel/:id", upload.single('cover'), isAdmin, async (req, res)=>{
     if (req.body.platforms) {
         platforms = req.body.platforms.split(',');
     }
-    let categories = []
-    if (req.body.categories) {
-        categories = req.body.categories.split(',');
+    let genres = []
+    if (req.body.genres) {
+        genres = req.body.genres.split(',');
     }
 
     // Update havePlayed
@@ -587,8 +587,8 @@ router.put("/channel/:id", upload.single('cover'), isAdmin, async (req, res)=>{
     }
     // Update platforms
     platforms.length > 0 && (newData.platforms = platforms);
-    // Update categories
-    categories.length > 0 && (newData.categories = categories);
+    // Update genres
+    genres.length > 0 && (newData.genres = genres);
     // Update image
     if(req.file !== undefined) {
         newData.cover = {
