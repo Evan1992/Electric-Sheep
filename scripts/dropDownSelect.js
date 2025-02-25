@@ -5,6 +5,7 @@ const dropdownContents = document.querySelectorAll('.dropdown-content');
 const dropDownOptions = document.querySelectorAll('.dropdown-content a');
 const inputs = document.querySelectorAll('.hidden-input'); // Hidden input
 const selectedItemsContainers = document.querySelectorAll('.selected-items');
+const alreadySelectedItemsContainers = document.querySelectorAll('.selected-item');
 let selectedItems = {
     "platform": [],
     "category": []
@@ -41,6 +42,28 @@ dropDownOptions.forEach(option => {
         dropdownContents.forEach((dropdownContent) => {
             if (dropdownContent.getAttribute('data-key') === selectedKey) {
                 dropdownContent.style.display = 'none'; // Hide dropdown
+            }
+        });
+    });
+});
+
+// Add the selected items from the database to the list selectedPlatforms and selectedCategories
+alreadySelectedItemsContainers.forEach(item => {
+    const value = Array.from(item.childNodes)
+        .filter(node => node.nodeType === Node.TEXT_NODE)
+        .map(node => node.textContent.trim())
+        .join('');
+    key = item.getAttribute('data-key');
+    selectedItems[key].push(value);
+
+    const removeBtn = item.querySelector('.remove-btn');
+    removeBtn.addEventListener('click', () => {
+        item.remove();
+        selectedItems[key].splice(selectedItems[key].indexOf(value), 1);
+        inputs.forEach((input) => {
+            if (input.getAttribute('data-key') === key) {
+                input.value = selectedItems[key]; // Update hidden input value
+                console.log(input.value)
             }
         });
     });

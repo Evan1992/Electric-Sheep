@@ -271,6 +271,12 @@ router.put("/drama/:id", upload.single('cover'), isAdmin, async (req, res)=>{
         newData.lines = [...drama.lines]
         newData.lines.splice(newData.delete_line, 1)
     }
+    // Update genres
+    let genres = []
+    if (req.body.categories) {
+        genres = req.body.categories.split(',');
+    }
+    genres.length > 0 && (newData.genres = genres);
     // Update image
     if(req.file !== undefined) {
         newData.cover = {
