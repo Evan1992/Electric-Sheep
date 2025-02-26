@@ -63,7 +63,6 @@ alreadySelectedItemsContainers.forEach(item => {
         inputs.forEach((input) => {
             if (input.getAttribute('data-key') === key) {
                 input.value = selectedItems[key]; // Update hidden input value
-                console.log(input.value)
             }
         });
     });
