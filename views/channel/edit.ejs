@@ -79,11 +79,11 @@
                 <input type="hidden" name="platforms" id="platform-input">
             </div>
             <div class="form-item">
-                <label for="categories">Categories</label>
+                <label for="genres">Genres</label>
                 <div class="dropdown">
                     <span class="dropdown-label">Select an option</span>
                     <div class="dropdown-content">
-                        <div class="dropdown-content-category">
+                        <div class="dropdown-content-genre">
                             <a href="#" data-value="Technology">Technology</a>
                             <a href="#" data-value="Sports">Sports</a>
                             <a href="#" data-value="Music">Music</a>
@@ -95,15 +95,15 @@
                     </div>
                 </div>
                 <div class="selected-items">
-                    <% channel.categories.forEach(category => { %>
-                        <div class="selected-item selected-category">
-                            <%= category %>
+                    <% channel.genres.forEach(genre => { %>
+                        <div class="selected-item selected-genre">
+                            <%= genre %>
                             <span class="remove-btn">✖</span>
                         </div>
                     <% }) %>
                 </div>
                 <!-- Hidden input to store the selected option -->
-                <input type="hidden" name="categories" id="category-input">
+                <input type="hidden" name="genres" id="genre-input">
             </div>
 
             <div class="form-item">
@@ -121,16 +121,16 @@
             const dropdownContents = document.querySelectorAll('.dropdown-content');
             const dropdownLabels = document.querySelectorAll('.dropdown-label');
             const dropdownOptionsPlatform = document.querySelectorAll('.dropdown-content-platform a');
-            const dropdownOptionsCategory = document.querySelectorAll('.dropdown-content-category a');
+            const dropdownOptionsCategory = document.querySelectorAll('.dropdown-content-genre a');
             const platformInput = document.getElementById('platform-input'); // Hidden input
-            const categoryInput = document.getElementById('category-input'); // Hidden input
-            const inputContainers = [platformInput, categoryInput];
+            const genreInput = document.getElementById('genre-input'); // Hidden input
+            const inputContainers = [platformInput, genreInput];
             const alreadySelectedPlatforms = document.querySelectorAll('.selected-platform');
-            const alreadySelectedCategories = document.querySelectorAll('.selected-category');
+            const alreadySelectedGenres = document.querySelectorAll('.selected-genre');
             const selectedItemsContainers = document.querySelectorAll('.selected-items');
             let selectedPlatforms = [];
-            let selectedCategories = [];
-            let selectedItems = [selectedPlatforms, selectedCategories];
+            let selectedGenres = [];
+            let selectedItems = [selectedPlatforms, selectedGenres];
 
             // Toggle dropdown visibility on click
             dropdownLabels.forEach((dropdownLabel, index) => {
@@ -164,14 +164,14 @@
                 option.addEventListener('click', (event) => {
                     event.preventDefault(); // Prevent navigation
                     const selectedValue = event.target.getAttribute('data-value'); // Get option value
-                    if (!selectedCategories.includes(selectedValue)) {
+                    if (!selectedGenres.includes(selectedValue)) {
                         addSelectedItem(selectedValue, 1);
                     }
                     dropdownContents[1].style.display = 'none'; // Hide dropdown
                 });
             });
 
-            // Add the selected items from the database to the list selectedPlatforms and selectedCategories
+            // Add the selected items from the database to the list selectedPlatforms and selectedGenres
             alreadySelectedPlatforms.forEach(platform => {
                 const textContent = Array.from(platform.childNodes)
                     .filter(node => node.nodeType === Node.TEXT_NODE)
@@ -186,18 +186,18 @@
                     platformInput.value = selectedPlatforms; // Update hidden input value
                 });
             });
-            alreadySelectedCategories.forEach(category => {
-                const textContent = Array.from(category.childNodes)
+            alreadySelectedGenres.forEach(genre => {
+                const textContent = Array.from(genre.childNodes)
                     .filter(node => node.nodeType === Node.TEXT_NODE)
                     .map(node => node.textContent.trim())
                     .join('');
-                selectedCategories.push(textContent);
-                categoryInput.value = selectedCategories;
-                const removeBtn = category.querySelector('.remove-btn');
+                selectedGenres.push(textContent);
+                genreInput.value = selectedGenres;
+                const removeBtn = genre.querySelector('.remove-btn');
                 removeBtn.addEventListener('click', () => {
-                    category.remove();
-                    selectedCategories.splice(selectedCategories.indexOf(textContent), 1);
-                    categoryInput.value = selectedCategories; // Update hidden input value
+                    genre.remove();
+                    selectedGenres.splice(selectedGenres.indexOf(textContent), 1);
+                    genreInput.value = selectedGenres; // Update hidden input value
                 });
             });
 

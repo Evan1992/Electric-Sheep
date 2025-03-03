@@ -47,7 +47,7 @@ dropDownOptions.forEach(option => {
     });
 });
 
-// Add the selected items from the database to the list selectedPlatforms and selectedCategories
+// Add the selected items from the database to the list selectedPlatforms and selectedGenres
 alreadySelectedItemsContainers.forEach(item => {
     const value = Array.from(item.childNodes)
         .filter(node => node.nodeType === Node.TEXT_NODE)
