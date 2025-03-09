@@ -507,7 +507,16 @@ router.get("/channel/:id/commentary/:commentaryId", async (req, res) =>{
     channel = await Channel.findById(req.params.id)
     for (const commentary of commentaries) {
         if (commentary.id == req.params.commentaryId) {
-            res.render("shared/commentary/show", {commentary})
+            res.render("shared/commentary/show", {channel, commentary})
+        }
+    }
+})
+
+router.get("/channel/:id/commentary/:commentaryId/edit", isAdmin, async (req, res) =>{
+    channel = await Channel.findById(req.params.id)
+    for (const commentary of commentaries) {
+        if (commentary.id == req.params.commentaryId) {
+            res.render("shared/commentary/edit", {channel, commentary})
         }
     }
 })
@@ -524,6 +533,32 @@ router.put("/channel/:id/commentary/new", isAdmin, async (req, res) =>{
                 content: newData.content
             }
         )
+    }
+
+    await Channel.findByIdAndUpdate(req.params.id, req.body)
+    res.redirect(`/admin/channel/${channel._id}/show`)
+})
+
+router.put("/channel/:id/commentary/:commentaryId/edit", isAdmin, async (req, res) =>{
+    const newData = req.body
+    if(newData.title || newData.content) {
+        const channel = await Channel.findById(req.params.id)
+        newData.commentaries = [];
+        channel.commentaries.forEach((commentary) => {
+            if(commentary.id == req.params.commentaryId) {
+                const newTitle = newData.title ? newData.title : commentary.title
+                const newContent = newData.content ? newData.content : commentary.content
+                newData.commentaries.push(
+                    {
+                        id: commentary.id,
+                        title: newTitle,
+                        content: newContent
+                    }
+                )
+            } else {
+                newData.commentaries.push(commentary)
+            }
+        })
     }
 
     await Channel.findByIdAndUpdate(req.params.id, req.body)
