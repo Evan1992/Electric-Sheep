@@ -565,6 +565,20 @@ router.put("/channel/:id/commentary/:commentaryId/edit", isAdmin, async (req, re
     res.redirect(`/admin/channel/${channel._id}/show`)
 })
 
+router.delete("/channel/:id/commentary/:commentaryId", async (req, res) =>{
+    const newData = req.body
+    const channel = await Channel.findById(req.params.id)
+    newData.commentaries = [];
+    channel.commentaries.forEach((commentary) => {
+        if(commentary.id != req.params.commentaryId) {
+            newData.commentaries.push(commentary)
+        }
+    })
+
+    await Channel.findByIdAndUpdate(req.params.id, req.body)
+    res.redirect(`/admin/channel/${channel._id}/show`)
+})
+
 router.post('/channel/new', upload.single('cover'), isAdmin, (req, res)=>{
     let platforms = []
     if (req.body.platforms) {

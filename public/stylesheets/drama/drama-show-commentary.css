@@ -5,3 +5,21 @@
     padding-bottom: 10px;
     width: 1000px;
 }
+
+.delete-tag {
+    padding-left: 10px;
+}
+.delete-tag button{
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    /*optional*/
+    font-family: arial, sans-serif;
+    /*input has OS specific font-family*/
+    color: #007bff;;
+    text-decoration: none;
+    cursor: pointer;
+}
+.delete-tag button:hover{
+    text-decoration: underline;
+}
