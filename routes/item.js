@@ -505,10 +505,11 @@ router.get("/channel/:id/commentary/new", isAdmin, async (req, res) =>{
 })
 
 router.get("/channel/:id/commentary/:commentaryId", async (req, res) =>{
+    const isAdmin = req.query.isAdmin === 'true'; // Convert to boolean
     channel = await Channel.findById(req.params.id)
     for (const commentary of commentaries) {
         if (commentary.id == req.params.commentaryId) {
-            res.render("shared/commentary/show", {channel, commentary})
+            res.render("shared/commentary/show", {isAdmin, channel, commentary})
         }
     }
 })

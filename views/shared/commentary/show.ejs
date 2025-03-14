@@ -37,12 +37,14 @@
         <div class="container">
             <div class="row">
                 <div style="font-weight: bold;"><%= commentary.title %></div>
-                <div class="edit-tag">&nbsp;&nbsp;<a href="/channel/<%= channel.id %>/commentary/<%= commentary.id %>/edit">Edit</a></div>
-                <div class="delete-tag">
-                    <form action="/channel/<%= channel.id %>/commentary/<%= commentary.id %>?_method=DELETE" method=POST>
-                        <button type="submit">Delete</button>
-                    </form>
-                </div>
+                <% if (isAdmin) { %>
+                    <div class="edit-tag">&nbsp;&nbsp;<a href="/channel/<%= channel.id %>/commentary/<%= commentary.id %>/edit">Edit</a></div>
+                    <div class="delete-tag">
+                        <form action="/channel/<%= channel.id %>/commentary/<%= commentary.id %>?_method=DELETE" method=POST>
+                            <button type="submit">Delete</button>
+                        </form>
+                    </div>
+                <% } %>
             </div>
             <div class="row">
                 <div><%= commentary.content %></div>
