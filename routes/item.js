@@ -488,9 +488,10 @@ router.get("/channel/:id/show", async (req, res) =>{
 })
 
 router.get("/admin/channel/:id/show", isAdmin, async (req, res) =>{
+    const isAdmin = req.user && req.user.role === 'admin';
     channel = await Channel.findById(req.params.id)
     commentaries = channel.commentaries
-    res.render("channel/show-admin", {channel, commentaries})
+    res.render("channel/show-admin", { isAdmin, channel, commentaries})
 })
 
 router.get("/admin/channel/:id/edit", isAdmin, async (req, res) =>{

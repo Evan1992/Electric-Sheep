@@ -233,7 +233,8 @@
             <% for(let i = 0; i < commentaries.length; i++) { %>
                 <% commentary = commentaries[i] %>
                     <li>
-                        <a href="/channel/<%= channel._id %>/commentary/<%= commentary.id %>"><%= commentary.title %></a>
+                        <!-- Pass isAdmin as a Query Parameter in the URL -->
+                        <a href="/channel/<%= channel._id %>/commentary/<%= commentary.id %>?isAdmin=<%= isAdmin %>"><%= commentary.title %></a>
                     </li>
             <% } %>
         </div>
