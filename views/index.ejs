@@ -508,8 +508,11 @@
             </div>
         </div>
 
-        <script src="adminLogin.js"></script>
-        <script src="adminLogout.js"></script>
+        <% if (isAdmin) { %>
+            <script src="adminLogout.js"></script>
+        <% } else { %>
+            <script src="adminLogin.js"></script>
+        <% } %>
         <script src="visits.js"></script>
         <!-- <script src="weather.js"></script> -->
     </body>
