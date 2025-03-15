@@ -120,6 +120,7 @@ router.get("/", isAdminRedirect, async (req, res) => {
     const channels = await Channel.find({})
     const podcasts = await Podcast.find({})
     res.render("index", {
+        isAdmin: false,
         books: books,
         dramas: dramas,
         records: records,
@@ -174,7 +175,8 @@ router.get("/admin", isAdmin, async (req, res) => {
     const games = await Game.find({})
     const channels = await Channel.find({})
     const podcasts = await Podcast.find({})
-    res.render("index-admin", {
+    res.render("index", {
+        isAdmin: true,
         books: books,
         dramas: dramas,
         records: records,

@@ -7,7 +7,7 @@
 
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700" rel="stylesheet">
-        
+
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
@@ -19,7 +19,7 @@
     </head>
 
     <body>
-        <!--  
+        <!--
         # Navbar supported content
         Navbars come with built-in support for a handful of sub-components.
         .navbar-brand: for your company, product, or project name.
@@ -38,14 +38,25 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" id="openModal">Admin</a></li>
+                    <% if (isAdmin) { %>
+                        <li class="nav-item"><a class="nav-link" id="logout">Visitor</a></li>
+                    <% } else { %>
+                        <li class="nav-item"><a class="nav-link" id="openModal">Admin</a></li>
+                    <% } %>
                     <li class="nav-item"><a class="nav-link" href="/bucket-list/show">Bucket List</a></li>
                 </ul>
+                <% if (isAdmin) { %>
+                    <!-- <span class="navbar-text" id="count"> visits</span> -->
+                    <span class="navbar-text" id="visitor_counts"><%= num_visitors %></span>
+                    <span class="navbar-text">&nbsp;visitors&nbsp;&nbsp;&nbsp;</span>
+                    <span class="navbar-text" id="visit_counts">0</span>
+                    <span class="navbar-text">&nbsp;visits</span>
+                <% } %>
             </div>
         </nav>
 
         <div class="hello_world">
-            _   _      _ _    __        __         _     _ 
+            _   _      _ _    __        __         _     _
            | | | | ___| | | __\ \      / /__  _ __| | __| |
            | |_| |/ _ \ | |/ _ \ \ /\ / / _ \| '__| |/ _` |
            |  _  |  __/ | | (_) \ V  V / (_) | |  | | (_| |
@@ -64,7 +75,7 @@
                 <p id="message" style="color: red; display: none;"></p>
             </div>
         </div>
-        
+
         <div class="container">
             <div class="row">
                 <!-- left part -->
@@ -81,10 +92,10 @@
                                 <img src="/pictures/user_img.png" class="user_img">
                                 <div class="user_info">
                                     <div class="user_name">
-                                        <span>Yi</span>    
+                                        <span>Yi</span>
                                     </div>
                                     <div class="user_saySomething">
-                                        <span>竹杖芒鞋轻胜马，一蓑烟雨任平生</span>    
+                                        <span>竹杖芒鞋轻胜马，一蓑烟雨任平生</span>
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +107,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- card of links -->
                     <div class="card">
                         <div class="card_head">
@@ -141,7 +152,7 @@
                                     <div class="tool_wrapper">
                                         <img src="pictures/icons/timer_icon.png" alt="">
                                         <a href="https://release.d2dcd9t8v0opau.amplifyapp.com/" class="tool_title">Echo of time</a>
-                                    
+
                                         <img src="pictures/icons/cart_icon.png" alt="">
                                         <a href="https://github.com/Evan1992/Smart-Cart" class="tool_title">Smart Cart</a>
                                     </div>
@@ -149,7 +160,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- card of weather -->
                     <!-- <div class="card">
                         <div class="card_head">
@@ -183,7 +194,7 @@
 
                     </div>
                 </div>
-                
+
                 <!-- right part -->
                 <div class="col-8">
                     <div class="sort" id="book">
@@ -203,7 +214,7 @@
                                         <% book = books[i] %>
                                         <% count++ %>
                                         <div class="col-2">
-                                            <a href="/book/<%= book._id %>/show">
+                                            <a href="/book/<%= book._id %>/show?isAdmin=<%= isAdmin %>">
                                                 <% if(book.cover.img_data !== undefined) { %>
                                                     <img src="data:book/<%= book.cover.contentType%>;base64, <%= book.cover.img_data.toString('base64')%>" class="item-img">
                                                 <% } else { %>
@@ -212,6 +223,13 @@
                                             </a>
                                         </div>
                                         <% if(count==4) break %>
+                                    <% } %>
+                                    <% if (isAdmin) { %>
+                                        <div class="col-2">
+                                            <div class="image-box">
+                                                <a href="/book/new"><img src="/pictures/add_icon.png"></a>
+                                            </div>
+                                        </div>
                                     <% } %>
                                 </div>
                                 <!-- Row for book names -->
@@ -247,7 +265,7 @@
                                         <% drama = dramas[i] %>
                                         <% count++ %>
                                         <div class="col-2">
-                                            <a href="/drama/<%= drama._id %>/show">
+                                            <a href="/drama/<%= drama._id %>/show?isAdmin=<%= isAdmin %>">
                                                 <% if(drama.cover.img_data !== undefined) { %>
                                                     <img src="data:drama/<%= drama.cover.contentType%>;base64, <%= drama.cover.img_data.toString('base64')%>" class="item-img">
                                                 <% } else { %>
@@ -256,6 +274,13 @@
                                             </a>
                                         </div>
                                         <% if(count==4) break %>
+                                    <% } %>
+                                    <% if (isAdmin) { %>
+                                        <div class="col-2">
+                                            <div class="image-box">
+                                                <a href="/drama/new"><img src="/pictures/add_icon.png"></a>
+                                            </div>
+                                        </div>
                                     <% } %>
                                 </div>
                                 <!-- Row for drama names -->
@@ -290,7 +315,7 @@
                                         <% record = records[i] %>
                                         <% count++ %>
                                         <div class="col-2">
-                                            <a href="/record/<%= record._id %>/show">
+                                            <a href="/record/<%= record._id %>/show?isAdmin=<%= isAdmin %>">
                                                 <% if(record.cover.img_data !== undefined) { %>
                                                     <img src="data:record/<%= record.cover.contentType%>;base64, <%= record.cover.img_data.toString('base64')%>" class="item-img">
                                                 <% } else { %>
@@ -299,6 +324,13 @@
                                             </a>
                                         </div>
                                         <% if(count==4) break %>
+                                    <% } %>
+                                    <% if (isAdmin) { %>
+                                        <div class="col-2">
+                                            <div class="image-box">
+                                                <a href="/record/new"><img src="/pictures/add_icon.png"></a>
+                                            </div>
+                                        </div>
                                     <% } %>
                                 </div>
                                 <!-- Row for record names -->
@@ -333,7 +365,7 @@
                                         <% game = games[i] %>
                                         <% count++ %>
                                         <div class="col-2">
-                                            <a href="/game/<%= game._id %>/show">
+                                            <a href="/game/<%= game._id %>/show?isAdmin=<%= isAdmin %>">
                                                 <% if(game.cover.img_data !== undefined) { %>
                                                     <img src="data:game/<%= game.cover.contentType%>;base64, <%= game.cover.img_data.toString('base64')%>" class="item-img">
                                                 <% } else { %>
@@ -342,6 +374,13 @@
                                             </a>
                                         </div>
                                         <% if(count==4) break %>
+                                    <% } %>
+                                    <% if (isAdmin) { %>
+                                        <div class="col-2">
+                                            <div class="image-box">
+                                                <a href="/game/new"><img src="/pictures/add_icon.png"></a>
+                                            </div>
+                                        </div>
                                     <% } %>
                                 </div>
                                 <!-- Row for record names -->
@@ -376,7 +415,7 @@
                                         <% channel = channels[i] %>
                                         <% count++ %>
                                         <div class="col-2">
-                                            <a href="/channel/<%= channel._id %>/show">
+                                            <a href="/channel/<%= channel._id %>/show?isAdmin=<%= isAdmin %>">
                                                 <% if(channel.cover.img_data !== undefined) { %>
                                                     <img src="data:channel/<%= channel.cover.contentType%>;base64, <%= channel.cover.img_data.toString('base64')%>" class="item-img">
                                                 <% } else { %>
@@ -385,6 +424,13 @@
                                             </a>
                                         </div>
                                         <% if(count==4) break %>
+                                    <% } %>
+                                    <% if (isAdmin) { %>
+                                        <div class="col-2">
+                                            <div class="image-box">
+                                                <a href="/channel/new"><img src="/pictures/add_icon.png"></a>
+                                            </div>
+                                        </div>
                                     <% } %>
                                 </div>
                                 <!-- Row for channel names -->
@@ -419,7 +465,7 @@
                                         <% podcast = podcasts[i] %>
                                         <% count++ %>
                                         <div class="col-2">
-                                            <a href="/podcast/<%= podcast._id %>/show">
+                                            <a href="/podcast/<%= podcast._id %>/show?isAdmin=<%= isAdmin %>">
                                                 <% if(podcast.cover.img_data !== undefined) { %>
                                                     <img src="data:podcast/<%= podcast.cover.contentType%>;base64, <%= podcast.cover.img_data.toString('base64')%>" class="item-img">
                                                 <% } else { %>
@@ -428,6 +474,13 @@
                                             </a>
                                         </div>
                                         <% if(count==4) break %>
+                                    <% } %>
+                                    <% if (isAdmin) { %>
+                                        <div class="col-2">
+                                            <div class="image-box">
+                                                <a href="/podcast/new"><img src="/pictures/add_icon.png"></a>
+                                            </div>
+                                        </div>
                                     <% } %>
                                 </div>
                                 <!-- Row for podcast names -->
@@ -456,6 +509,8 @@
         </div>
 
         <script src="adminLogin.js"></script>
+        <script src="adminLogout.js"></script>
+        <script src="visits.js"></script>
         <!-- <script src="weather.js"></script> -->
     </body>
 </html>
