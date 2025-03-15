@@ -70,7 +70,7 @@ router.post('/book/new', upload.single('cover'), isAdmin, (req, res)=>{
     Book.create(data)
     .then((book) => {
         console.log(book)
-        res.redirect(`/admin/book/${book._id}/show`);
+        res.redirect(`/book/${book._id}/show?isAdmin=true`);
     })
     .catch((error) => {
         console.error('Failed to create a new book', error)
@@ -92,7 +92,7 @@ router.get("/book/:id/show", async (req, res) =>{
     res.render("book/show", {isAdmin, book, commentaries})
 })
 
-router.get("/admin/book/:id/edit", isAdmin, async (req, res) =>{
+router.get("/book/:id/edit", isAdmin, async (req, res) =>{
     book = await Book.findById(req.params.id)
     res.render("book/edit", {book})
 })
@@ -162,7 +162,7 @@ router.put("/book/:id/commentary/new", isAdmin, async (req, res) =>{
     }
 
     await Book.findByIdAndUpdate(req.params.id, req.body)
-    res.redirect(`/admin/book/${book._id}/show`)
+    res.redirect(`/book/${book._id}/show?isAdmin=true`)
 })
 
 router.delete("/book/:id", isAdmin, async (req, res) =>{
