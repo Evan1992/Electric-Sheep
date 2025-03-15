@@ -86,15 +86,10 @@ router.get("/book/index", async (req, res)=>{
 })
 
 router.get("/book/:id/show", async (req, res) =>{
+    const isAdmin = req.query.isAdmin === 'true';
     book = await Book.findById(req.params.id)
     commentaries = book.commentaries
-    res.render("book/show", {book, commentaries})
-})
-
-router.get("/admin/book/:id/show", isAdmin, async (req, res) =>{
-    book = await Book.findById(req.params.id)
-    commentaries = book.commentaries
-    res.render("book/show-admin", {book, commentaries})
+    res.render("book/show", {isAdmin, book, commentaries})
 })
 
 router.get("/admin/book/:id/edit", isAdmin, async (req, res) =>{
@@ -148,7 +143,7 @@ router.put("/book/:id", upload.single('cover'), isAdmin, async (req, res)=>{
     }
 
     const book = await Book.findByIdAndUpdate(id, req.body)
-    res.redirect(`/admin/book/${book._id}/show`)
+    res.redirect(`/book/${book._id}/show?isAdmin=true`)
 })
 
 router.put("/book/:id/commentary/new", isAdmin, async (req, res) =>{
