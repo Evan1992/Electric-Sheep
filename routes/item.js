@@ -315,16 +315,12 @@ router.get("/record/index", async (req, res)=>{
 })
 
 router.get("/record/:id/show", async (req, res) =>{
+    const isAdmin = req.query.isAdmin === 'true';
     record = await Record.findById(req.params.id)
-    res.render("record/show", {record})
+    res.render("record/show", {isAdmin, record})
 })
 
-router.get("/admin/record/:id/show", async (req, res) =>{
-    record = await Record.findById(req.params.id)
-    res.render("record/show-admin", {record})
-})
-
-router.get("/admin/record/:id/edit", isAdmin, async (req, res) =>{
+router.get("/record/:id/edit", isAdmin, async (req, res) =>{
     record = await Record.findById(req.params.id)
     res.render("record/edit", {record})
 })
@@ -352,7 +348,7 @@ router.post('/record/new', upload.single('cover'), isAdmin, (req, res)=>{
     Record.create(data)
     .then((record) => {
         console.log(record)
-        res.redirect(`/admin/record/${record._id}/show`);
+        res.redirect(`/record/${record._id}/show?isAdmin=true`);
     })
     .catch((error) => {
         console.error('Failed to create a new record', error)
@@ -372,7 +368,7 @@ router.put("/record/:id", upload.single('cover'), isAdmin, async (req, res)=>{
     }
 
     const record = await Record.findByIdAndUpdate(id, req.body)
-    res.redirect(`/admin/record/${record._id}/show`)
+    res.redirect(`/record/${record._id}/show?isAdmin=true`)
 })
 
 router.delete("/record/:id", async (req, res) =>{
