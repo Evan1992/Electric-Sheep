@@ -182,15 +182,10 @@ router.get("/drama/index", async (req, res)=>{
 })
 
 router.get("/drama/:id/show", async (req, res) =>{
+    const isAdmin = req.query.isAdmin === 'true';
     drama = await Drama.findById(req.params.id)
     commentaries = drama.commentaries;
-    res.render("drama/show", {drama, commentaries})
-})
-
-router.get("/admin/drama/:id/show", isAdmin, async (req, res) =>{
-    drama = await Drama.findById(req.params.id)
-    commentaries = drama.commentaries;
-    res.render("drama/show-admin", {drama, commentaries})
+    res.render("drama/show", {isAdmin, drama, commentaries})
 })
 
 router.get("/drama/:id/commentary/new", async (req, res) =>{
@@ -207,7 +202,7 @@ router.get("/drama/:id/commentary/:commentaryId", async (req, res) =>{
     }
 })
 
-router.get("/admin/drama/:id/edit", isAdmin, async (req, res) =>{
+router.get("/drama/:id/edit", isAdmin, async (req, res) =>{
     drama = await Drama.findById(req.params.id)
     res.render("drama/edit", {drama})
 })
@@ -240,7 +235,7 @@ router.post('/drama/new', upload.single('cover'), isAdmin, (req, res)=>{
     Drama.create(data)
     .then((drama) => {
         console.log(drama)
-        res.redirect(`/admin/drama/${drama._id}/show`);
+        res.redirect(`/drama/${drama._id}/show?isAdmin=true`);
     })
     .catch((error) => {
         console.error('Failed to create a new drama', error)
@@ -281,7 +276,7 @@ router.put("/drama/:id", upload.single('cover'), isAdmin, async (req, res)=>{
     }
 
     const drama = await Drama.findByIdAndUpdate(id, req.body)
-    res.redirect(`/admin/drama/${drama._id}/show`)
+    res.redirect(`/drama/${drama._id}/show?isAdmin=true`)
 })
 
 router.put("/drama/:id/commentary/new", isAdmin, async (req, res) =>{
@@ -300,7 +295,7 @@ router.put("/drama/:id/commentary/new", isAdmin, async (req, res) =>{
     }
 
     await Drama.findByIdAndUpdate(req.params.id, req.body)
-    res.redirect(`/admin/drama/${drama._id}/show`)
+    res.redirect(`/drama/${drama._id}/show?isAdmin=true`)
 })
 
 router.delete("/drama/:id", isAdmin, async (req, res) =>{
