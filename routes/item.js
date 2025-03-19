@@ -645,16 +645,12 @@ router.get("/podcast/index", async (req, res)=>{
 })
 
 router.get("/podcast/:id/show", async (req, res) =>{
+    const isAdmin = req.query.isAdmin === 'true';
     podcast = await Podcast.findById(req.params.id)
-    res.render("podcast/show", {podcast})
+    res.render("podcast/show", {isAdmin, podcast})
 })
 
-router.get("/admin/podcast/:id/show", isAdmin, async (req, res) =>{
-    podcast = await Podcast.findById(req.params.id)
-    res.render("podcast/show-admin", {podcast})
-})
-
-router.get("/admin/podcast/:id/edit", isAdmin, async (req, res) =>{
+router.get("/podcast/:id/edit", isAdmin, async (req, res) =>{
     podcast = await Podcast.findById(req.params.id)
     res.render("podcast/edit", {podcast})
 })
@@ -679,7 +675,7 @@ router.post('/podcast/new', upload.single('cover'), isAdmin, (req, res)=>{
     Podcast.create(data)
     .then((podcast) => {
         console.log(podcast)
-        res.redirect(`/admin/podcast/${podcast._id}/show`);
+        res.redirect(`/podcast/${podcast._id}/show?isAdmin=true`);
     })
     .catch((error) => {
         console.error('Failed to create a new podcast', error)
@@ -703,7 +699,7 @@ router.put("/podcast/:id", upload.single('cover'), isAdmin, async (req, res)=>{
     }
 
     const podcast = await Podcast.findByIdAndUpdate(id, req.body)
-    res.redirect(`/admin/podcast/${podcast._id}/show`)
+    res.redirect(`/podcast/${podcast._id}/show?isAdmin=true`)
 })
 
 router.delete("/podcast/:id", async (req, res) =>{
