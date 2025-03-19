@@ -44,6 +44,14 @@
             <div class="row">
                 <div class="d-flex flex-row">
                     <div class="game-name"><%= game.name %></div>
+                    <% if (isAdmin) { %>
+                        <div class="edit-tag">&nbsp;&nbsp;<a href="edit">Edit</a></div>
+                        <div class="delete-tag">
+                            <form action="/game/<%= game._id %>?_method=DELETE" method=POST>
+                                <button type="submit">Delete</button>
+                            </form>
+                        </div>
+                    <% } %>
                 </div>
             </div>
 
@@ -53,7 +61,7 @@
                     <% if(game.cover.img_data !== undefined) { %>
                         <img src="data:game/<%= game.cover.contentType%>;base64, <%= game.cover.img_data.toString('base64')%>" class="item-img">
                     <% } else { %>
-                        <img src="../../pictures/records/record-default.gif" class="item-img">
+                        <img src="../../../pictures/records/record-default.gif" class="item-img">
                     <% } %>
                 </div>
                 <div class="col">
@@ -64,81 +72,162 @@
                             Rate:
                         </div>
                         <div class="col" style="padding-left: 0px;">
-                            <form class="star-widget">
-                                <!-- Add "disabled" to make the stars only visible, but not clickable -->
-                                <% if(game.stars === 10) { %>
-                                    <input type="radio" name="rate" id="rate-1" checked disabled>
-                                    <label id="rate-1" for="rate-1" class="fas fa-star"></label>
-                                <% } else { %>
-                                    <input type="radio" name="rate" id="rate-1" disabled>
-                                    <label id="rate-1" for="rate-1" class="fas fa-star"></label>
-                                <% } %>
-                                <% if(game.stars === 9) { %>
-                                    <input type="radio" name="rate" id="rate-2" checked disabled>
-                                    <label id="rate-2" for="rate-2" class="fas fa-star"></label>
-                                <% } else { %>
-                                    <input type="radio" name="rate" id="rate-2" disabled>
-                                    <label id="rate-2" for="rate-2" class="fas fa-star"></label>
-                                <% } %>
-                                <% if(game.stars === 8) { %>
-                                    <input type="radio" name="rate" id="rate-3" checked disabled>
-                                    <label id="rate-3" for="rate-3" class="fas fa-star"></label>
-                                <% } else { %>
-                                    <input type="radio" name="rate" id="rate-3" disabled>
-                                    <label id="rate-3" for="rate-3" class="fas fa-star"></label>
-                                <% } %>
-                                <% if(game.stars === 7) { %>
-                                    <input type="radio" name="rate" id="rate-4" checked disabled>
-                                    <label id="rate-4" for="rate-4" class="fas fa-star"></label>
-                                <% } else { %>
-                                    <input type="radio" name="rate" id="rate-4" disabled>
-                                    <label id="rate-4" for="rate-4" class="fas fa-star"></label>
-                                <% } %>
-                                <% if(game.stars === 6) { %>
-                                    <input type="radio" name="rate" id="rate-5" checked disabled>
-                                    <label id="rate-5" for="rate-5" class="fas fa-star"></label>
-                                <% } else { %>
-                                    <input type="radio" name="rate" id="rate-5" disabled>
-                                    <label id="rate-5" for="rate-5" class="fas fa-star"></label>
-                                <% } %>
-                                <% if(game.stars === 5) { %>
-                                    <input type="radio" name="rate" id="rate-6" checked disabled>
-                                    <label id="rate-6" for="rate-6" class="fas fa-star"></label>
-                                <% } else { %>
-                                    <input type="radio" name="rate" id="rate-6" disabled>
-                                    <label id="rate-6" for="rate-6" class="fas fa-star"></label>
-                                <% } %>
-                                <% if(game.stars === 4) { %>
-                                    <input type="radio" name="rate" id="rate-7" checked disabled>
-                                    <label id="rate-7" for="rate-7" class="fas fa-star"></label>
-                                <% } else { %>
-                                    <input type="radio" name="rate" id="rate-7" disabled>
-                                    <label id="rate-7" for="rate-7" class="fas fa-star"></label>
-                                <% } %>
-                                <% if(game.stars === 3) { %>
-                                    <input type="radio" name="rate" id="rate-8" checked disabled>
-                                    <label id="rate-8" for="rate-8" class="fas fa-star"></label>
-                                <% } else { %>
-                                    <input type="radio" name="rate" id="rate-8" disabled>
-                                    <label id="rate-8" for="rate-8" class="fas fa-star"></label>
-                                <% } %>
-                                <% if(game.stars === 2) { %>
-                                    <input type="radio" name="rate" id="rate-9" checked disabled>
-                                    <label id="rate-9" for="rate-9" class="fas fa-star"></label>
-                                <% } else { %>
-                                    <input type="radio" name="rate" id="rate-9" disabled>
-                                    <label id="rate-9" for="rate-9" class="fas fa-star"></label>
-                                <% } %>
-                                <% if(game.stars === 1) { %>
-                                    <input type="radio" name="rate" id="rate-10" checked disabled>
-                                    <label id="rate-10" for="rate-10" class="fas fa-star"></label>
-                                <% } else { %>
-                                    <input type="radio" name="rate" id="rate-10" disabled>
-                                    <label id="rate-10" for="rate-10" class="fas fa-star"></label>
-                                <% } %>
-                            </form>
+                            <% if (isAdmin) { %>
+                                <form class="star-widget" id="updateRate" action="/game/<%= game._id %>?_method=PUT" method=POST enctype="multipart/form-data">
+                                    <% if(game.stars === 10) { %>
+                                        <input type="radio" name="rate" id="rate-1" checked>
+                                        <label id="rate-1" for="rate-1" class="fas fa-star"></label>
+                                    <% } else { %>
+                                        <input type="radio" name="rate" id="rate-1">
+                                        <label id="rate-1" for="rate-1" class="fas fa-star"></label>
+                                    <% } %>
+                                    <% if(game.stars === 9) { %>
+                                        <input type="radio" name="rate" id="rate-2" checked>
+                                        <label id="rate-2" for="rate-2" class="fas fa-star"></label>
+                                    <% } else { %>
+                                        <input type="radio" name="rate" id="rate-2">
+                                        <label id="rate-2" for="rate-2" class="fas fa-star"></label>
+                                    <% } %>
+                                    <% if(game.stars === 8) { %>
+                                        <input type="radio" name="rate" id="rate-3" checked>
+                                        <label id="rate-3" for="rate-3" class="fas fa-star"></label>
+                                    <% } else { %>
+                                        <input type="radio" name="rate" id="rate-3">
+                                        <label id="rate-3" for="rate-3" class="fas fa-star"></label>
+                                    <% } %>
+                                    <% if(game.stars === 7) { %>
+                                        <input type="radio" name="rate" id="rate-4" checked>
+                                        <label id="rate-4" for="rate-4" class="fas fa-star"></label>
+                                    <% } else { %>
+                                        <input type="radio" name="rate" id="rate-4">
+                                        <label id="rate-4" for="rate-4" class="fas fa-star"></label>
+                                    <% } %>
+                                    <% if(game.stars === 6) { %>
+                                        <input type="radio" name="rate" id="rate-5" checked>
+                                        <label id="rate-5" for="rate-5" class="fas fa-star"></label>
+                                    <% } else { %>
+                                        <input type="radio" name="rate" id="rate-5">
+                                        <label id="rate-5" for="rate-5" class="fas fa-star"></label>
+                                    <% } %>
+                                    <% if(game.stars === 5) { %>
+                                        <input type="radio" name="rate" id="rate-6" checked>
+                                        <label id="rate-6" for="rate-6" class="fas fa-star"></label>
+                                    <% } else { %>
+                                        <input type="radio" name="rate" id="rate-6">
+                                        <label id="rate-6" for="rate-6" class="fas fa-star"></label>
+                                    <% } %>
+                                    <% if(game.stars === 4) { %>
+                                        <input type="radio" name="rate" id="rate-7" checked>
+                                        <label id="rate-7" for="rate-7" class="fas fa-star"></label>
+                                    <% } else { %>
+                                        <input type="radio" name="rate" id="rate-7">
+                                        <label id="rate-7" for="rate-7" class="fas fa-star"></label>
+                                    <% } %>
+                                    <% if(game.stars === 3) { %>
+                                        <input type="radio" name="rate" id="rate-8" checked>
+                                        <label id="rate-8" for="rate-8" class="fas fa-star"></label>
+                                    <% } else { %>
+                                        <input type="radio" name="rate" id="rate-8">
+                                        <label id="rate-8" for="rate-8" class="fas fa-star"></label>
+                                    <% } %>
+                                    <% if(game.stars === 2) { %>
+                                        <input type="radio" name="rate" id="rate-9" checked>
+                                        <label id="rate-9" for="rate-9" class="fas fa-star"></label>
+                                    <% } else { %>
+                                        <input type="radio" name="rate" id="rate-9">
+                                        <label id="rate-9" for="rate-9" class="fas fa-star"></label>
+                                    <% } %>
+                                    <% if(game.stars === 1) { %>
+                                        <input type="radio" name="rate" id="rate-10" checked>
+                                        <label id="rate-10" for="rate-10" class="fas fa-star"></label>
+                                    <% } else { %>
+                                        <input type="radio" name="rate" id="rate-10">
+                                        <label id="rate-10" for="rate-10" class="fas fa-star"></label>
+                                    <% } %>
+                                    <input type="hidden" name="stars" id="stars" value=0 />
+                                </form>
+                            <% } else { %>
+                                <form class="star-widget">
+                                    <!-- Add "disabled" to make the stars only visible, but not clickable -->
+                                    <% if(game.stars === 10) { %>
+                                        <input type="radio" name="rate" id="rate-1" checked disabled>
+                                        <label id="rate-1" for="rate-1" class="fas fa-star"></label>
+                                    <% } else { %>
+                                        <input type="radio" name="rate" id="rate-1" disabled>
+                                        <label id="rate-1" for="rate-1" class="fas fa-star"></label>
+                                    <% } %>
+                                    <% if(game.stars === 9) { %>
+                                        <input type="radio" name="rate" id="rate-2" checked disabled>
+                                        <label id="rate-2" for="rate-2" class="fas fa-star"></label>
+                                    <% } else { %>
+                                        <input type="radio" name="rate" id="rate-2" disabled>
+                                        <label id="rate-2" for="rate-2" class="fas fa-star"></label>
+                                    <% } %>
+                                    <% if(game.stars === 8) { %>
+                                        <input type="radio" name="rate" id="rate-3" checked disabled>
+                                        <label id="rate-3" for="rate-3" class="fas fa-star"></label>
+                                    <% } else { %>
+                                        <input type="radio" name="rate" id="rate-3" disabled>
+                                        <label id="rate-3" for="rate-3" class="fas fa-star"></label>
+                                    <% } %>
+                                    <% if(game.stars === 7) { %>
+                                        <input type="radio" name="rate" id="rate-4" checked disabled>
+                                        <label id="rate-4" for="rate-4" class="fas fa-star"></label>
+                                    <% } else { %>
+                                        <input type="radio" name="rate" id="rate-4" disabled>
+                                        <label id="rate-4" for="rate-4" class="fas fa-star"></label>
+                                    <% } %>
+                                    <% if(game.stars === 6) { %>
+                                        <input type="radio" name="rate" id="rate-5" checked disabled>
+                                        <label id="rate-5" for="rate-5" class="fas fa-star"></label>
+                                    <% } else { %>
+                                        <input type="radio" name="rate" id="rate-5" disabled>
+                                        <label id="rate-5" for="rate-5" class="fas fa-star"></label>
+                                    <% } %>
+                                    <% if(game.stars === 5) { %>
+                                        <input type="radio" name="rate" id="rate-6" checked disabled>
+                                        <label id="rate-6" for="rate-6" class="fas fa-star"></label>
+                                    <% } else { %>
+                                        <input type="radio" name="rate" id="rate-6" disabled>
+                                        <label id="rate-6" for="rate-6" class="fas fa-star"></label>
+                                    <% } %>
+                                    <% if(game.stars === 4) { %>
+                                        <input type="radio" name="rate" id="rate-7" checked disabled>
+                                        <label id="rate-7" for="rate-7" class="fas fa-star"></label>
+                                    <% } else { %>
+                                        <input type="radio" name="rate" id="rate-7" disabled>
+                                        <label id="rate-7" for="rate-7" class="fas fa-star"></label>
+                                    <% } %>
+                                    <% if(game.stars === 3) { %>
+                                        <input type="radio" name="rate" id="rate-8" checked disabled>
+                                        <label id="rate-8" for="rate-8" class="fas fa-star"></label>
+                                    <% } else { %>
+                                        <input type="radio" name="rate" id="rate-8" disabled>
+                                        <label id="rate-8" for="rate-8" class="fas fa-star"></label>
+                                    <% } %>
+                                    <% if(game.stars === 2) { %>
+                                        <input type="radio" name="rate" id="rate-9" checked disabled>
+                                        <label id="rate-9" for="rate-9" class="fas fa-star"></label>
+                                    <% } else { %>
+                                        <input type="radio" name="rate" id="rate-9" disabled>
+                                        <label id="rate-9" for="rate-9" class="fas fa-star"></label>
+                                    <% } %>
+                                    <% if(game.stars === 1) { %>
+                                        <input type="radio" name="rate" id="rate-10" checked disabled>
+                                        <label id="rate-10" for="rate-10" class="fas fa-star"></label>
+                                    <% } else { %>
+                                        <input type="radio" name="rate" id="rate-10" disabled>
+                                        <label id="rate-10" for="rate-10" class="fas fa-star"></label>
+                                    <% } %>
+                                </form>
+                            <% } %>
                         </div>
                     </div>
+                    <% if(!game.havePlayed & isAdmin) { %>
+                        <form action="/game/<%= game._id %>?_method=PUT" method=POST enctype="multipart/form-data" novalidate class="validated-form">
+                            <input type="submit" name="havePlayed" value="Have Played">
+                        </form>
+                    <% } %>
                 </div>
             </div>
 
@@ -147,5 +236,30 @@
                 <div class="col comments">Comments</div>
             </div>
         </div>
+
+        <script type="text/javascript">
+            // change event listener
+            // Reference: https://stackoverflow.com/questions/69473874/html-radio-button-action-open-input
+            document.getElementsByName("rate").forEach(rate => {
+                rate.addEventListener('change', function() {
+                    if(this.checked) {
+                        // Get updated stars
+                        const rate = document.getElementsByName("rate")
+                        let stars = 0
+                        for(let i = 0; i < rate.length; i++) {
+                            if(rate[i].checked === true) {
+                                stars = rate.length - i
+                            }
+                        }
+
+                        // Send the updated stars to database
+                        // Reference: https://stackoverflow.com/questions/6912197/change-value-of-input-and-submit-form-in-javascript
+                        document.getElementById("stars").value = stars
+                        document.getElementById("updateRate").submit()
+                    }
+                })
+            })
+        </script>
+
     </body>
 </html>

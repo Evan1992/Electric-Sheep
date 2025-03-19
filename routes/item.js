@@ -388,16 +388,12 @@ router.get("/game/index", async (req, res)=>{
 })
 
 router.get("/game/:id/show", async (req, res) =>{
+    const isAdmin = req.user && req.user.role === 'admin';
     game = await Game.findById(req.params.id)
-    res.render("game/show", {game})
+    res.render("game/show", {isAdmin, game})
 })
 
-router.get("/admin/game/:id/show", isAdmin, async (req, res) =>{
-    game = await Game.findById(req.params.id)
-    res.render("game/show-admin", {game})
-})
-
-router.get("/admin/game/:id/edit", isAdmin, async (req, res) =>{
+router.get("/game/:id/edit", isAdmin, async (req, res) =>{
     game = await Game.findById(req.params.id)
     res.render("game/edit", {game})
 })
@@ -424,7 +420,7 @@ router.post('/game/new', upload.single('cover'), isAdmin, (req, res)=>{
     Game.create(data)
     .then((game) => {
         console.log(game)
-        res.redirect(`/admin/game/${game._id}/show`);
+        res.redirect(`/game/${game._id}/show?isAdmin=true`);
     })
     .catch((error) => {
         console.error('Failed to create a new game', error)
@@ -448,7 +444,7 @@ router.put("/game/:id", upload.single('cover'), isAdmin, async (req, res)=>{
     }
 
     const game = await Game.findByIdAndUpdate(id, req.body)
-    res.redirect(`/admin/game/${game._id}/show`)
+    res.redirect(`/game/${game._id}/show?isAdmin=true`)
 })
 
 router.delete("/game/:id", isAdmin, async (req, res) =>{
