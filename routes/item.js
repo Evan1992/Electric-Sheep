@@ -388,7 +388,7 @@ router.get("/game/index", async (req, res)=>{
 })
 
 router.get("/game/:id/show", async (req, res) =>{
-    const isAdmin = req.user && req.user.role === 'admin';
+    const isAdmin = req.query.isAdmin === 'true';
     game = await Game.findById(req.params.id)
     res.render("game/show", {isAdmin, game})
 })
@@ -464,19 +464,13 @@ router.get("/channel/index", async (req, res)=>{
 })
 
 router.get("/channel/:id/show", async (req, res) =>{
+    const isAdmin = req.query.isAdmin === 'true';
     channel = await Channel.findById(req.params.id)
     commentaries = channel.commentaries
-    res.render("channel/show", {channel, commentaries})
+    res.render("channel/show", {isAdmin, channel, commentaries})
 })
 
-router.get("/admin/channel/:id/show", isAdmin, async (req, res) =>{
-    const isAdmin = req.user && req.user.role === 'admin';
-    channel = await Channel.findById(req.params.id)
-    commentaries = channel.commentaries
-    res.render("channel/show-admin", { isAdmin, channel, commentaries})
-})
-
-router.get("/admin/channel/:id/edit", isAdmin, async (req, res) =>{
+router.get("/channel/:id/edit", isAdmin, async (req, res) =>{
     channel = await Channel.findById(req.params.id)
     res.render("channel/edit", {channel})
 })
@@ -520,7 +514,7 @@ router.put("/channel/:id/commentary/new", isAdmin, async (req, res) =>{
     }
 
     await Channel.findByIdAndUpdate(req.params.id, req.body)
-    res.redirect(`/admin/channel/${channel._id}/show`)
+    res.redirect(`/channel/${channel._id}/show?isAdmin=true`)
 })
 
 router.put("/channel/:id/commentary/:commentaryId/edit", isAdmin, async (req, res) =>{
@@ -546,7 +540,7 @@ router.put("/channel/:id/commentary/:commentaryId/edit", isAdmin, async (req, re
     }
 
     await Channel.findByIdAndUpdate(req.params.id, req.body)
-    res.redirect(`/admin/channel/${channel._id}/show`)
+    res.redirect(`/channel/${channel._id}/show?isAdmin=true`)
 })
 
 router.delete("/channel/:id/commentary/:commentaryId", async (req, res) =>{
@@ -560,7 +554,7 @@ router.delete("/channel/:id/commentary/:commentaryId", async (req, res) =>{
     })
 
     await Channel.findByIdAndUpdate(req.params.id, req.body)
-    res.redirect(`/admin/channel/${channel._id}/show`)
+    res.redirect(`/channel/${channel._id}/show?isAdmin=true`)
 })
 
 router.post('/channel/new', upload.single('cover'), isAdmin, (req, res)=>{
@@ -594,7 +588,7 @@ router.post('/channel/new', upload.single('cover'), isAdmin, (req, res)=>{
     Channel.create(data)
     .then((channel) => {
         console.log(channel)
-        res.redirect(`/admin/channel/${channel._id}/show`);
+        res.redirect(`/channel/${channel._id}/show?isAdmin=true`);
     })
     .catch((error) => {
         console.error('Failed to create a new channel', error)
@@ -631,7 +625,7 @@ router.put("/channel/:id", upload.single('cover'), isAdmin, async (req, res)=>{
     }
 
     const channel = await Channel.findByIdAndUpdate(id, req.body)
-    res.redirect(`/admin/channel/${channel._id}/show`)
+    res.redirect(`/channel/${channel._id}/show?isAdmin=true`)
 })
 
 router.delete("/channel/:id", async (req, res) =>{
