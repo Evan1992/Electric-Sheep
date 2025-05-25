@@ -62,6 +62,12 @@
                 <label for="ISBN">ISBN</label>
                 <input type="text" name="ISBN" placeholder="ISBN" value="<%= book.ISBN %>">
             </div>
+            <% if(book.haveRead) { %>
+                <div class="form-item">
+                    <label for="recurrence">Recurrence</label>
+                    <input type="text" name="recurrence" placeholder="Recurrence" value="<%= book.recurrence %>">
+                </div>
+            <% } %>
             <div class="form-item">
                 <label for="cover">Cover</label>
                 <input type="file" name="cover" accept="image/png, image/jpeg, image/webp">
