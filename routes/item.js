@@ -134,6 +134,8 @@ router.put("/book/:id", upload.single('cover'), isAdmin, async (req, res)=>{
         newData.excerpts = [...book.excerpts]
         newData.excerpts.splice(newData.delete_excerpt, 1)
     }
+    // Update recurrence
+    newData.recurrence = 1
     // Update image
     if(req.file !== undefined) {
         newData.cover = {
