@@ -228,6 +228,8 @@
                         <form action="/book/<%= book._id %>?_method=PUT" method=POST enctype="multipart/form-data" novalidate class="validated-form">
                             <input type="submit" name="haveRead" value="Have Read">
                         </form>
+                    <% } else { %>
+                        <div>Recurrence: <%= book.recurrence %></div>
                     <% } %>
                 </div>
             </div>
