@@ -45,7 +45,7 @@
 
         <form action="/drama/<%= drama._id %>?_method=PUT" method=POST enctype="multipart/form-data" novalidate class="validated-form">
             <div class="form-item">
-                <div class=form-title>Edit Book</div>
+                <div class=form-title>Edit Drama</div>
             </div>
             <div class="form-item">
                 <label for="name">Name</label>   
@@ -90,6 +90,12 @@
                 <!-- Hidden input to store the selected option -->
                 <input type="hidden" name="genres" class="hidden-input" data-key="genre">
             </div>
+            <% if(drama.haveWatched) { %>
+                <div class="form-item">
+                    <label for="recurrence">Recurrence</label>
+                    <input type="text" name="recurrence" placeholder="Recurrence" value="<%= drama.recurrence %>">
+                </div>
+            <% } %>
             <div class="form-item">
                 <label for="cover">Cover</label>
                 <input type="file" name="cover" accept="image/png, image/jpeg, image/webp">

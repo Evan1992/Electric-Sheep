@@ -254,6 +254,7 @@ router.put("/drama/:id", upload.single('cover'), isAdmin, async (req, res)=>{
     // Update haveWatched
     if(newData.haveWatched){
         newData.haveWatched = true
+        newData.recurrence = 1
     }
     // Update lines
     if(newData.add_line){
@@ -272,6 +273,10 @@ router.put("/drama/:id", upload.single('cover'), isAdmin, async (req, res)=>{
         genres = req.body.genres.split(',');
     }
     genres.length > 0 && (newData.genres = genres);
+    // Update recurrence
+    if(newData.recurrence) {
+        newData.recurrence = parseInt(newData.recurrence)
+    }
     // Update image
     if(req.file !== undefined) {
         newData.cover = {
