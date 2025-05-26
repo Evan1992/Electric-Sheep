@@ -78,6 +78,7 @@
                             <% } %>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-auto" style="padding-right: 3px;">
                             Rate:
@@ -238,6 +239,8 @@
                         <form action="/drama/<%= drama._id %>?_method=PUT" method=POST enctype="multipart/form-data" novalidate class="validated-form">
                             <input type="submit" name="haveWatched" value="Have Watched">
                         </form>
+                    <% } else { %>
+                        <div>Recurrence: <%= drama.recurrence %></div>
                     <% } %>
                 </div>
             </div>
