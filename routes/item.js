@@ -655,6 +655,12 @@ router.get("/software/index", async (req, res)=>{
     res.render("software/index", {softwares})
 })
 
+router.get("/software/:id/show", async (req, res) =>{
+    const isAdmin = req.query.isAdmin === 'true';
+    software = await Software.findById(req.params.id)
+    res.render("software/show", {isAdmin, software})
+})
+
 router.post('/software/new', upload.single('cover'), isAdmin, (req, res)=>{
     let platforms = []
     if (req.body.platforms) {
