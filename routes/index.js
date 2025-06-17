@@ -12,6 +12,7 @@ const express   = require("express"),
       Record    = require("../models/record"),
       Game      = require("../models/game"),
       Channel   = require("../models/channel"),
+      Software  = require("../models/software"),
       Podcast   = require("../models/podcast"),
       Log       = require("../models/logs"),
       requestIP = require("request-ip"),
@@ -118,6 +119,7 @@ router.get("/", isAdminRedirect, async (req, res) => {
     const records = await Record.find({})
     const games = await Game.find({})
     const channels = await Channel.find({})
+    const softwares = await Software.find({})
     const podcasts = await Podcast.find({})
     res.render("index", {
         isAdmin: false,
@@ -126,6 +128,7 @@ router.get("/", isAdminRedirect, async (req, res) => {
         records: records,
         games: games,
         channels: channels,
+        softwares: softwares,
         podcasts: podcasts,
         num_visitors: num_visitors
     })
@@ -174,6 +177,7 @@ router.get("/admin", isAdmin, async (req, res) => {
     const records = await Record.find({})
     const games = await Game.find({})
     const channels = await Channel.find({})
+    const softwares = await Software.find({})
     const podcasts = await Podcast.find({})
     res.render("index", {
         isAdmin: true,
@@ -182,6 +186,7 @@ router.get("/admin", isAdmin, async (req, res) => {
         records: records,
         games: games,
         channels: channels,
+        softwares: softwares,
         podcasts: podcasts,
         num_visitors: num_visitors
     })
