@@ -655,6 +655,38 @@ router.get("/software/index", async (req, res)=>{
     res.render("software/index", {softwares})
 })
 
+router.post('/software/new', upload.single('cover'), isAdmin, (req, res)=>{
+    let platforms = []
+    if (req.body.platforms) {
+        platforms = req.body.platforms.split(',');
+    }
+
+    data = {
+        name:         req.body.name,
+        company:      req.body.company,
+        year:         req.body.year,
+        platforms:    platforms,
+        stars:        0,
+        itemType:     "software"
+    }
+
+    if(req.file !== undefined) {
+        data.cover = {
+            img_data: fs.readFileSync(req.file.path),
+            contentType: String
+        }
+    }
+
+    Software.create(data)
+    .then((software) => {
+        console.log(software)
+        res.redirect(`/software/${software._id}/show?isAdmin=true`);
+    })
+    .catch((error) => {
+        console.error('Failed to create a new software', error)
+    })
+})
+
 /* =================== Podcasts =================== */
 router.get("/podcast/new", isAdmin, (req, res)=>{
     res.render("podcast/new")
