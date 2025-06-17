@@ -645,7 +645,11 @@ router.delete("/channel/:id", async (req, res) =>{
     res.redirect("/")
 })
 
-/* =================== Channels =================== */
+/* =================== Softwares =================== */
+router.get("/software/new", isAdmin, (req, res)=>{
+    res.render("software/new")
+})
+
 router.get("/software/index", async (req, res)=>{
     softwares = await Software.find({})
     res.render("software/index", {softwares})
