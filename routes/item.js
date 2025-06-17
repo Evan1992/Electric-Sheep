@@ -15,6 +15,7 @@ const express        = require("express"),
       Record         = require("../models/record"),
       Game           = require("../models/game"),
       Channel        = require("../models/channel"),
+      Software       = require("../models/software"),
       Podcast        = require("../models/podcast"),
       fs             = require("fs"),
       multer         = require("multer"),
@@ -642,6 +643,12 @@ router.delete("/channel/:id", async (req, res) =>{
     const { id } = req.params
     await Channel.findByIdAndDelete(id)
     res.redirect("/")
+})
+
+/* =================== Channels =================== */
+router.get("/software/index", async (req, res)=>{
+    softwares = await Software.find({})
+    res.render("software/index", {softwares})
 })
 
 /* =================== Podcasts =================== */
