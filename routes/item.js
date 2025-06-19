@@ -721,6 +721,12 @@ router.put("/software/:id", upload.single('cover'), isAdmin, async (req, res)=>{
     res.redirect(`/software/${software._id}/show?isAdmin=true`)
 })
 
+router.delete("/software/:id", async (req, res) =>{
+    const { id } = req.params
+    await Software.findByIdAndDelete(id)
+    res.redirect("/")
+})
+
 /* =================== Podcasts =================== */
 router.get("/podcast/new", isAdmin, (req, res)=>{
     res.render("podcast/new")
