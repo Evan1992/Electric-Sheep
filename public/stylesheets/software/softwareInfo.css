@@ -1,0 +1,18 @@
+.intro {
+    font-size: 20px;
+    margin-top: 15px;
+}
+
+.hidden {
+    display: none;
+}
+
+.selected-item {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 5px;
+    border: 1px solid #ccc;
+    margin-right: 5px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+}
