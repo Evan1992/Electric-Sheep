@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700" rel="stylesheet">
+        
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+        <!-- Customized CSS -->
+        <link rel="stylesheet" href="/stylesheets/app.css">
+        <link rel="stylesheet" href="/stylesheets/shared/new.css">
+        <link rel="stylesheet" href="/stylesheets/shared/dropDown.css">
+
+        <title>Edit Software</title>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/" style="font-weight: 500;">Yi Long</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/bucket-list/show">Bucket List</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="hello_world">
+            _   _      _ _    __        __         _     _ 
+           | | | | ___| | | __\ \      / /__  _ __| | __| |
+           | |_| |/ _ \ | |/ _ \ \ /\ / / _ \| '__| |/ _` |
+           |  _  |  __/ | | (_) \ V  V / (_) | |  | | (_| |
+           |_| |_|\___|_|_|\___/ \_/\_/ \___/|_|  |_|\__,_|
+
+        </div>
+
+        <form action="/software/<%= software._id %>?_method=PUT" method=POST enctype="multipart/form-data" novalidate class="validated-form">
+            <div class="form-item">
+                <div class=form-title>Edit Software</div>
+            </div>
+            <div class="form-item">
+                <label for="name">Name</label>   
+                <input type="text" name="name" placeholder="Name" value="<%= software.name %>">
+            </div>
+            <div class="form-item">
+                <label for="company">Company</label>
+                <input type="text" name="company" placeholder="Company" value="<%= software.company %>">
+            </div>
+
+            <div class="form-item">
+                <label for="platforms">Platforms</label>
+                <div class="dropdown">
+                    <span class="dropdown-label">Select an option</span>
+                    <div class="dropdown-content">
+                        <div class="dropdown-content-platform">
+                            <a href="#" data-value="MacOS">MacOS</a>
+                            <a href="#" data-value="Linux">Linux</a>
+                            <a href="#" data-value="Windows">Windows</a>
+                            <a href="#" data-value="iOS">iOS</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="selected-items">
+                    <% software.platforms.forEach(platform => { %>
+                        <div class="selected-item selected-platform">
+                            <%= platform %>
+                            <span class="remove-btn">✖</span>
+                        </div>
+                    <% }) %>
+                </div>
+                <!-- Hidden input to store the selected option -->
+                <input type="hidden" name="platforms" id="platform-input">
+            </div>
+
+            <div class="form-item">
+                <label for="cover">Cover</label>
+                <input type="file" name="cover" accept="image/png, image/jpeg, image/webp">
+            </div>
+            <div class="form-item">
+                <input type="submit" value="Update">
+            </div>
+        </form>
+
+        <script type="text/javascript">
+            // Select the dropdown elements
+            const dropdowns = document.querySelectorAll('.dropdown');
+            const dropdownContents = document.querySelectorAll('.dropdown-content');
+            const dropdownLabels = document.querySelectorAll('.dropdown-label');
+            const dropdownOptionsPlatform = document.querySelectorAll('.dropdown-content-platform a');
+            const dropdownOptionsCategory = document.querySelectorAll('.dropdown-content-genre a');
+            const platformInput = document.getElementById('platform-input'); // Hidden input
+            const genreInput = document.getElementById('genre-input'); // Hidden input
+            const inputContainers = [platformInput, genreInput];
+            const alreadySelectedPlatforms = document.querySelectorAll('.selected-platform');
+            const alreadySelectedGenres = document.querySelectorAll('.selected-genre');
+            const selectedItemsContainers = document.querySelectorAll('.selected-items');
+            let selectedPlatforms = [];
+            let selectedGenres = [];
+            let selectedItems = [selectedPlatforms, selectedGenres];
+
+            // Toggle dropdown visibility on click
+            dropdownLabels.forEach((dropdownLabel, index) => {
+                dropdownLabel.addEventListener('click', () => {
+                    const isVisible = dropdownContents[index].style.display === 'block';
+                    dropdownContents[index].style.display = isVisible ? 'none' : 'block';
+                });
+            });
+            // Close the dropdown when clicking outside of it
+            document.addEventListener('click', (event) => {
+                dropdowns.forEach((dropdown, index) => {
+                    if (!dropdown.contains(event.target)) {
+                        dropdownContents[index].style.display = 'none';
+                    }
+                });
+            });
+
+            // Add the selected item when an option is clicked
+            dropdownOptionsPlatform.forEach(option => {
+                option.addEventListener('click', (event) => {
+                    event.preventDefault(); // Prevent navigation
+                    const selectedValue = event.target.getAttribute('data-value'); // Get option value
+                    if (!selectedPlatforms.includes(selectedValue)) {
+                        addSelectedItem(selectedValue, 0);
+                    }
+                    dropdownContents[0].style.display = 'none'; // Hide dropdown
+                });
+            });
+
+            dropdownOptionsCategory.forEach(option => {
+                option.addEventListener('click', (event) => {
+                    event.preventDefault(); // Prevent navigation
+                    const selectedValue = event.target.getAttribute('data-value'); // Get option value
+                    if (!selectedGenres.includes(selectedValue)) {
+                        addSelectedItem(selectedValue, 1);
+                    }
+                    dropdownContents[1].style.display = 'none'; // Hide dropdown
+                });
+            });
+
+            // Add the selected items from the database to the list selectedPlatforms and selectedGenres
+            alreadySelectedPlatforms.forEach(platform => {
+                const textContent = Array.from(platform.childNodes)
+                    .filter(node => node.nodeType === Node.TEXT_NODE)
+                    .map(node => node.textContent.trim())
+                    .join('');
+                selectedPlatforms.push(textContent);
+                platformInput.value = selectedPlatforms;
+                const removeBtn = platform.querySelector('.remove-btn');
+                removeBtn.addEventListener('click', () => {
+                    platform.remove();
+                    selectedPlatforms.splice(selectedPlatforms.indexOf(textContent), 1);
+                    platformInput.value = selectedPlatforms; // Update hidden input value
+                });
+            });
+            alreadySelectedGenres.forEach(genre => {
+                const textContent = Array.from(genre.childNodes)
+                    .filter(node => node.nodeType === Node.TEXT_NODE)
+                    .map(node => node.textContent.trim())
+                    .join('');
+                selectedGenres.push(textContent);
+                genreInput.value = selectedGenres;
+                const removeBtn = genre.querySelector('.remove-btn');
+                removeBtn.addEventListener('click', () => {
+                    genre.remove();
+                    selectedGenres.splice(selectedGenres.indexOf(textContent), 1);
+                    genreInput.value = selectedGenres; // Update hidden input value
+                });
+            });
+
+            function addSelectedItem(value, index) {
+                selectedItems[index].push(value);
+                inputContainers[index].value = selectedItems[index]; // Update hidden input value
+
+                const item = document.createElement('div');
+                item.classList.add('selected-item');
+                item.textContent = value;
+
+                const removeBtn = document.createElement('span');
+                removeBtn.classList.add('remove-btn');
+                removeBtn.textContent = '✖';
+                removeBtn.addEventListener('click', () => {
+                    item.remove();
+                    selectedItems[index].splice(selectedItems[index].indexOf(value), 1);
+                    inputContainers[index].value = selectedItems[index]; // Update hidden input value
+                });
+
+                item.appendChild(removeBtn);
+                selectedItemsContainers[index].appendChild(item);
+            }
+        </script>
+    </body>
+</html>

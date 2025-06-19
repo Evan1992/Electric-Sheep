@@ -661,6 +661,11 @@ router.get("/software/:id/show", async (req, res) =>{
     res.render("software/show", {isAdmin, software})
 })
 
+router.get("/software/:id/edit", isAdmin, async (req, res) =>{
+    software = await Software.findById(req.params.id)
+    res.render("software/edit", {software})
+})
+
 router.post('/software/new', upload.single('cover'), isAdmin, (req, res)=>{
     let platforms = []
     if (req.body.platforms) {
@@ -691,6 +696,29 @@ router.post('/software/new', upload.single('cover'), isAdmin, (req, res)=>{
     .catch((error) => {
         console.error('Failed to create a new software', error)
     })
+})
+
+router.put("/software/:id", upload.single('cover'), isAdmin, async (req, res)=>{
+    const { id } = req.params
+    const newData = req.body
+
+    let platforms = []
+    if (req.body.platforms) {
+        platforms = req.body.platforms.split(',');
+    }
+
+    // Update platforms
+    platforms.length > 0 && (newData.platforms = platforms);
+    // Update image
+    if(req.file !== undefined) {
+        newData.cover = {
+            img_data: fs.readFileSync(req.file.path),
+            contentType: String
+        }
+    }
+
+    const software = await Software.findByIdAndUpdate(id, req.body)
+    res.redirect(`/software/${software._id}/show?isAdmin=true`)
 })
 
 /* =================== Podcasts =================== */
