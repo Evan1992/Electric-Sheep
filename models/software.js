@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 var SoftwareSchema = new mongoose.Schema({
     name:        String,
     company:     String,
+    founders:    String,
     year:        String,
     intro:       String,
     platforms:   Array,

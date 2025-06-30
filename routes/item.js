@@ -675,6 +675,7 @@ router.post('/software/new', upload.single('cover'), isAdmin, (req, res)=>{
     data = {
         name:         req.body.name,
         company:      req.body.company,
+        founders:     req.body.founders,
         year:         req.body.year,
         platforms:    platforms,
         stars:        0,
