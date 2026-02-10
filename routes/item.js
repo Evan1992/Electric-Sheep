@@ -37,7 +37,7 @@ const express        = require("express"),
  * 
  *  fs-extra
  *      Introduction
- *          fs-extra adds file system methods that aren't included in the natvie fs
+ *          fs-extra adds file system methods that aren't included in the native fs
  *          module and adds promise support to the fs methods. It also uses graceful-fs
  *          to prevent EMFILE errors. It should be a drop in the replacement for fs 
  */
