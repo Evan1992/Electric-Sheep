@@ -20,7 +20,8 @@ const express        = require("express"),
       fs             = require("fs"),
       multer         = require("multer"),
       upload         = multer({dest: 'uploads/'}),
-      { isAdmin }    = require("./auth-middleware")
+      { isAdmin }    = require("./auth-middleware"),
+      { fetchCover } = require("../services/doubanClient")
 
 /**
  * @brief Upload the image to mongodb
@@ -213,7 +214,7 @@ router.get("/drama/:id/edit", isAdmin, async (req, res) =>{
     res.render("drama/edit", {drama})
 })
 
-router.post('/drama/new', upload.single('cover'), isAdmin, (req, res)=>{
+router.post('/drama/new', upload.single('cover'), isAdmin, async (req, res)=>{
     let genres = []
     if (req.body.genres) {
         genres = req.body.genres.split(',');
@@ -231,10 +232,19 @@ router.post('/drama/new', upload.single('cover'), isAdmin, (req, res)=>{
         itemType: "drama"
     }
 
-    if(req.file !== undefined) {
+    if (req.file !== undefined) {
         data.cover = {
             img_data: fs.readFileSync(req.file.path),
             contentType: String
+        }
+    } else {
+        try {
+            const buffer = await fetchCover(req.body.name);
+            if (buffer) {
+                data.cover = { img_data: buffer, contentType: String };
+            }
+        } catch (err) {
+            console.error('Douban image fetch failed:', err.message, err.cause);
         }
     }
 

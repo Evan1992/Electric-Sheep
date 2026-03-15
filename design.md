@@ -64,6 +64,8 @@ Electric-Sheep/
 │   ├── item.js             # Generic CRUD for all item types (~730 lines)
 │   ├── bucket-list.js      # Bucket list page
 │   └── auth-middleware.js  # JWT verification middleware
+├── services/
+│   └── doubanClient.js     # Fetches cover images from the local DoubanScraper service
 ├── views/                  # EJS templates per item type
 │   ├── shared/commentary/  # Reusable commentary templates
 │   └── {book,drama,record,game,channel,software,bucket-list}/
@@ -144,11 +146,21 @@ Note: PUT/DELETE are tunneled through POST via `method-override` since HTML form
 - **Serving**: Images are rendered as base64 data URIs in EJS templates — the app never serves files from `uploads/` directly.
 - **Known issue**: Multer temp files in `uploads/` are **never cleaned up** after being stored in the database — they accumulate indefinitely.
 
-### Planned: Auto Image Upload
-Fetch cover images automatically via Douban API:
-1. Call Douban API to retrieve image URL by ISBN/title
-2. Download and store locally
-3. Upload to the app via internal API call
+### Auto Image Fetch via DoubanScraper
+
+When creating a new drama without a manually uploaded cover, the app automatically fetches one from Douban via a local microservice ([DoubanScraper](https://github.com/Evan1992/DoubanScraper)).
+
+**Flow:**
+1. `POST /drama/new` — if no file uploaded, calls `services/doubanClient.js`
+2. `fetchCover(name)` posts `{ name }` to the DoubanScraper at `http://127.0.0.1:8000/crawl`
+3. Scraper returns an image URL + required `Referer` header
+4. Node fetches the image bytes with `Referer` + a browser `User-Agent` (required — Douban CDN blocks default Node agent)
+5. Buffer is stored in MongoDB identically to a manual upload
+
+**Key gotchas:**
+- Use `127.0.0.1` not `localhost` — Node 18+ resolves `localhost` to `::1` (IPv6) but the scraper listens on IPv4 only, causing `ECONNREFUSED`
+- Douban's CDN requires a `User-Agent` mimicking a real browser, otherwise the image fetch fails silently
+- The DoubanScraper must be running locally before this works; if it's down, the drama is created without a cover (error is caught and logged)
 
 ---
 
@@ -212,4 +224,4 @@ AWS Certificate Manager (ACM) does **not** issue certificates for default `*.ela
 - Location API integration
 - Time Logger for task tracking
 - Multi-language support
-- Auto image fetch from Douban API
+- Extend auto image fetch to books, records, games, channels (currently drama only)
