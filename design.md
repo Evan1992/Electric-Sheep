@@ -2,7 +2,7 @@
 
 ## Overview
 
-Electric Sheep is a personal catalogue web app for tracking and organizing media — books, dramas, records, games, YouTube channels, software, and podcasts. It supports one admin account for writing/editing, while visitors can browse publicly.
+Electric Sheep is a personal catalogue web app for tracking and organizing media — books, dramas, records, games, channels, software, and podcasts. It supports one admin account for writing/editing, while visitors can browse publicly.
 
 ---
 
@@ -146,7 +146,7 @@ Note: PUT/DELETE are tunneled through POST via `method-override` since HTML form
 - **Serving**: Images are rendered as base64 data URIs in EJS templates — the app never serves files from `uploads/` directly.
 - **Known issue**: Multer temp files in `uploads/` are **never cleaned up** after being stored in the database — they accumulate indefinitely.
 
-### Auto Image Fetch via DoubanScraper
+### Auto Image Fetch via DoubanScraper microservice
 
 When creating a new drama without a manually uploaded cover, the app automatically fetches one from Douban via a local microservice ([DoubanScraper](https://github.com/Evan1992/DoubanScraper)).
 
@@ -217,11 +217,9 @@ AWS Certificate Manager (ACM) does **not** issue certificates for default `*.ela
 
 ## Planned Features
 
-- News section
 - Data extraction / scraping
 - Visitor tracking improvements
 - Message board
 - Location API integration
-- Time Logger for task tracking
 - Multi-language support
 - Extend auto image fetch to books, records, games, channels (currently drama only)
