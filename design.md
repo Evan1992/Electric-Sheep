@@ -8,17 +8,17 @@ Electric Sheep is a personal catalogue web app for tracking and organizing media
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Runtime | Node.js |
-| Framework | Express.js 4.19.2 |
-| Database | MongoDB Atlas via Mongoose 8.7.2 |
-| Templating | EJS (server-side rendered) |
-| Frontend | Bootstrap 4.1.3 + custom CSS |
-| Auth | JWT (jsonwebtoken) + bcrypt |
-| File Uploads | Multer 1.4.2 |
-| HTTP Client | request 2.88.2 |
-| Dev | nodemon, dotenv |
+| Layer        | Technology                       |
+| ------------ | -------------------------------- |
+| Runtime      | Node.js                          |
+| Framework    | Express.js 4.19.2                |
+| Database     | MongoDB Atlas via Mongoose 8.7.2 |
+| Templating   | EJS (server-side rendered)       |
+| Frontend     | Bootstrap 4.1.3 + custom CSS     |
+| Auth         | JWT (jsonwebtoken) + bcrypt      |
+| File Uploads | Multer 1.4.2                     |
+| HTTP Client  | request 2.88.2                   |
+| Dev          | nodemon, dotenv                  |
 
 ---
 
