@@ -1,4 +1,7 @@
-const DOUBAN_API_URL = 'http://127.0.0.1:8000/crawl';
+const DOUBAN_BASE_URL = process.env.NODE_ENV === 'prod'
+    ? 'http://35.89.242.8:8000'
+    : 'http://127.0.0.1:8000';
+const DOUBAN_API_URL = `${DOUBAN_BASE_URL}/crawl`;
 
 /**
  * Fetches a cover image for the given name from the local DoubanScraper service.
