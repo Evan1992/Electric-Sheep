@@ -23,6 +23,21 @@ const express        = require("express"),
       { isAdmin }    = require("./auth-middleware"),
       { fetchCover } = require("../services/doubanClient")
 
+async function resolveCover(file, name) {
+    if (file !== undefined) {
+        return { img_data: fs.readFileSync(file.path), contentType: String };
+    }
+    try {
+        const buffer = await fetchCover(name);
+        if (buffer) {
+            return { img_data: buffer, contentType: String };
+        }
+    } catch (err) {
+        console.error('Douban image fetch failed:', err.message, err.cause);
+    }
+    return null;
+}
+
 /**
  * @brief Upload the image to mongodb
  *
@@ -42,7 +57,7 @@ const express        = require("express"),
  *          module and adds promise support to the fs methods. It also uses graceful-fs
  *          to prevent EMFILE errors. It should be a drop in the replacement for fs 
  */
-router.post('/book/new', upload.single('cover'), isAdmin, (req, res)=>{
+router.post('/book/new', upload.single('cover'), isAdmin, async (req, res)=>{
     // req.file is the 'cover' file
     // req.body will hold the text fields, if there were any
     console.log(req.body);
@@ -62,12 +77,8 @@ router.post('/book/new', upload.single('cover'), isAdmin, (req, res)=>{
         itemType: "book"
     }
 
-    if(req.file !== undefined) {
-        data.cover = {
-            img_data: fs.readFileSync(req.file.path),
-            contentType: String
-        }
-    }
+    const cover = await resolveCover(req.file, req.body.name);
+    if (cover) data.cover = cover;
 
     Book.create(data)
     .then((book) => {
@@ -232,21 +243,8 @@ router.post('/drama/new', upload.single('cover'), isAdmin, async (req, res)=>{
         itemType: "drama"
     }
 
-    if (req.file !== undefined) {
-        data.cover = {
-            img_data: fs.readFileSync(req.file.path),
-            contentType: String
-        }
-    } else {
-        try {
-            const buffer = await fetchCover(req.body.name);
-            if (buffer) {
-                data.cover = { img_data: buffer, contentType: String };
-            }
-        } catch (err) {
-            console.error('Douban image fetch failed:', err.message, err.cause);
-        }
-    }
+    const cover = await resolveCover(req.file, req.body.name);
+    if (cover) data.cover = cover;
 
     Drama.create(data)
     .then((drama) => {
@@ -346,7 +344,7 @@ router.get("/record/:id/edit", isAdmin, async (req, res) =>{
     res.render("record/edit", {record})
 })
 
-router.post('/record/new', upload.single('cover'), isAdmin, (req, res)=>{
+router.post('/record/new', upload.single('cover'), isAdmin, async (req, res)=>{
     data = {
         name:         req.body.name,
         artist:       req.body.artist,
@@ -359,12 +357,8 @@ router.post('/record/new', upload.single('cover'), isAdmin, (req, res)=>{
         itemType:     "record"
     }
 
-    if(req.file !== undefined) {
-        data.cover = {
-            img_data: fs.readFileSync(req.file.path),
-            contentType: String
-        }
-    }
+    const cover = await resolveCover(req.file, req.body.name);
+    if (cover) data.cover = cover;
 
     Record.create(data)
     .then((record) => {
@@ -419,7 +413,7 @@ router.get("/game/:id/edit", isAdmin, async (req, res) =>{
     res.render("game/edit", {game})
 })
 
-router.post('/game/new', upload.single('cover'), isAdmin, (req, res)=>{
+router.post('/game/new', upload.single('cover'), isAdmin, async (req, res)=>{
     data = {
         name:         req.body.name,
         developer:    req.body.developer,
@@ -431,12 +425,8 @@ router.post('/game/new', upload.single('cover'), isAdmin, (req, res)=>{
         itemType:     "game"
     }
 
-    if(req.file !== undefined) {
-        data.cover = {
-            img_data: fs.readFileSync(req.file.path),
-            contentType: String
-        }
-    }
+    const cover = await resolveCover(req.file, req.body.name);
+    if (cover) data.cover = cover;
 
     Game.create(data)
     .then((game) => {
@@ -578,7 +568,7 @@ router.delete("/channel/:id/commentary/:commentaryId", async (req, res) =>{
     res.redirect(`/channel/${channel._id}/show?isAdmin=true`)
 })
 
-router.post('/channel/new', upload.single('cover'), isAdmin, (req, res)=>{
+router.post('/channel/new', upload.single('cover'), isAdmin, async (req, res)=>{
     let platforms = []
     if (req.body.platforms) {
         platforms = req.body.platforms.split(',');
@@ -599,12 +589,8 @@ router.post('/channel/new', upload.single('cover'), isAdmin, (req, res)=>{
         itemType:     "channel"
     }
 
-    if(req.file !== undefined) {
-        data.cover = {
-            img_data: fs.readFileSync(req.file.path),
-            contentType: String
-        }
-    }
+    const cover = await resolveCover(req.file, req.body.name);
+    if (cover) data.cover = cover;
 
     Channel.create(data)
     .then((channel) => {
@@ -676,7 +662,7 @@ router.get("/software/:id/edit", isAdmin, async (req, res) =>{
     res.render("software/edit", {software})
 })
 
-router.post('/software/new', upload.single('cover'), isAdmin, (req, res)=>{
+router.post('/software/new', upload.single('cover'), isAdmin, async (req, res)=>{
     let platforms = []
     if (req.body.platforms) {
         platforms = req.body.platforms.split(',');
@@ -692,12 +678,8 @@ router.post('/software/new', upload.single('cover'), isAdmin, (req, res)=>{
         itemType:     "software"
     }
 
-    if(req.file !== undefined) {
-        data.cover = {
-            img_data: fs.readFileSync(req.file.path),
-            contentType: String
-        }
-    }
+    const cover = await resolveCover(req.file, req.body.name);
+    if (cover) data.cover = cover;
 
     Software.create(data)
     .then((software) => {
