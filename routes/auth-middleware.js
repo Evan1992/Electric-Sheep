@@ -1,21 +1,14 @@
 const jwt = require('jsonwebtoken');
 
 const isAdmin = (req, res, next) => {
-    if (typeof req.cookies !== 'undefined') {
-        const token = req.cookies.auth_token;
-
-        if (!token) {
-            return res.status(403).json({ error: 'Access denied. No token provided.' });
-        }
-
-        try {
-            const decoded = jwt.verify(token, process.env.ADMIN_SECURITY_KEY);
-            req.user = decoded; // Attach user data to the request object
-        } catch (err) {
-            res.status(401).json({ error: 'Invalid or expired token' });
-        }
+    const token = req.cookies?.auth_token;
+    if (!token) return res.redirect('/');
+    try {
+        req.user = jwt.verify(token, process.env.ADMIN_SECURITY_KEY);
+        next();
+    } catch (err) {
+        res.redirect('/');
     }
-    next();
 };
 
 const isAdminRedirect = (req, res, next) => {
