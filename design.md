@@ -61,7 +61,7 @@ Electric-Sheep/
 │   └── logs.js             # IP-based visitor tracking
 ├── routes/
 │   ├── index.js            # Auth routes + home/admin pages
-│   ├── item.js             # Generic CRUD for all item types (~730 lines)
+│   ├── item.js             # Generic CRUD for all item types via registerItemRoutes factory (~230 lines)
 │   ├── bucket-list.js      # Bucket list page
 │   └── auth-middleware.js  # JWT verification middleware
 ├── services/
@@ -137,6 +137,21 @@ Electric-Sheep/
 
 Note: PUT/DELETE are tunneled through POST via `method-override` since HTML forms only support GET/POST.
 
+### Item Route Config (`registerItemRoutes`)
+
+Each item type is registered via a config object passed to `registerItemRoutes`. Flags that differ per type:
+
+| Type | arrayFields | inlineArrayField | statusField | setsRecurrence | toggleField | hasCommentaries | adminDelete |
+|------|-------------|-----------------|-------------|:--------------:|-------------|:---------------:|:-----------:|
+| book | — | excerpts (add_excerpt / delete_excerpt) | haveRead | ✓ | — | ✓ | ✓ |
+| drama | genres | lines (add_line / delete_line) | haveWatched | ✓ | — | ✓ | ✓ |
+| record | — | — | — | — | owned / already_owned | — | — |
+| game | — | — | havePlayed | — | — | — | ✓ |
+| channel | platforms, genres | — | haveWatched | — | — | ✓ | — |
+| software | platforms | — | — | — | — | — | — |
+
+Commentary routes are registered separately via `registerCommentaryRoutes`. Channel uses `fullCrud: true`, which adds edit/update/delete commentary routes and gates the "new commentary" form behind `isAdmin`.
+
 ---
 
 ## Image Handling
@@ -211,7 +226,6 @@ AWS Certificate Manager (ACM) does **not** issue certificates for default `*.ela
 2. **No HTTPS** — weather API and geolocation broken in production until a custom domain + ACM cert is set up
 3. **Admin seeding** — prod database requires manual admin user creation; there is no seed script
 4. **Single admin account** — no multi-user or role hierarchy support
-5. **Large route file** — `routes/item.js` is ~730 lines handling all item types; could be split per type
 
 ---
 
