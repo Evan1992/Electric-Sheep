@@ -117,15 +117,21 @@ body {
 
 .subscription_actions {
     display: flex;
+    align-items: center;
     gap: 4px;
 }
 
 .subscription_delete_form {
+    display: flex;
     margin: 0;
 }
 
 .subscription_action_btn {
+    box-sizing: border-box;
+    height: 20px;
+    margin: 0;
     font-size: 11px;
+    line-height: 18px;
     padding: 0 6px;
     border: 1px solid #ccc;
     border-radius: 4px;
