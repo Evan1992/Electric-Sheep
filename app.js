@@ -74,9 +74,11 @@ app.use(cookieParser());
 const indexRoutes = require("./routes/index");
 const itemRoutes  = require("./routes/item");
 const bucketListRoutes = require("./routes/bucket-list");
+const subscriptionRoutes = require("./routes/subscription");
 app.use(indexRoutes);
 app.use(itemRoutes);
 app.use(bucketListRoutes);
+app.use(subscriptionRoutes);
 
 const dbUrl = `mongodb+srv://longyi:824219@freecluster.tby7p.mongodb.net/${process.env.DATABASE_NAME}?retryWrites=true&w=majority&appName=FreeCluster`
 

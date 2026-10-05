@@ -72,6 +72,67 @@ body {
     padding: 0 0 8px 0;
 }
 
+.subscription_head {
+    display: flex;
+    justify-content: space-between;
+}
+
+.subscription_add_btn {
+    font-size: 12px;
+    padding: 0 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.subscriptions {
+    width: 100%;
+}
+
+.subscription_empty {
+    font-size: 13px;
+    color: #999;
+}
+
+.subscription_form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.subscription_form[hidden] {
+    display: none;
+}
+
+.subscription_edit_form {
+    margin-top: 6px;
+}
+
+.subscription_title_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.subscription_actions {
+    display: flex;
+    gap: 4px;
+}
+
+.subscription_delete_form {
+    margin: 0;
+}
+
+.subscription_action_btn {
+    font-size: 11px;
+    padding: 0 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+}
+
 .tool_wrapper {
     display: grid;
     grid-template-columns: 1fr 5fr;

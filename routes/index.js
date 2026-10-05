@@ -14,6 +14,7 @@ const express   = require("express"),
       Channel   = require("../models/channel"),
       Software  = require("../models/software"),
       Podcast   = require("../models/podcast"),
+      Subscription = require("../models/subscription"),
       Log       = require("../models/logs"),
       requestIP = require("request-ip"),
       request   = require("request")
@@ -121,6 +122,7 @@ router.get("/", isAdminRedirect, async (req, res) => {
     const channels = await Channel.find({})
     const softwares = await Software.find({})
     const podcasts = await Podcast.find({})
+    const subscriptions = await Subscription.find({})
     res.render("index", {
         isAdmin: false,
         books: books,
@@ -130,6 +132,7 @@ router.get("/", isAdminRedirect, async (req, res) => {
         channels: channels,
         softwares: softwares,
         podcasts: podcasts,
+        subscriptions: subscriptions,
         num_visitors: num_visitors
     })
 })
@@ -179,6 +182,7 @@ router.get("/admin", isAdmin, async (req, res) => {
     const channels = await Channel.find({})
     const softwares = await Software.find({})
     const podcasts = await Podcast.find({})
+    const subscriptions = await Subscription.find({})
     res.render("index", {
         isAdmin: true,
         books: books,
@@ -188,6 +192,7 @@ router.get("/admin", isAdmin, async (req, res) => {
         channels: channels,
         softwares: softwares,
         podcasts: podcasts,
+        subscriptions: subscriptions,
         num_visitors: num_visitors
     })
 })

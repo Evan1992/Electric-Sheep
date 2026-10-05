@@ -139,6 +139,57 @@
                         </div>
                     </div>
 
+                    <!-- card of subscriptions -->
+                    <div class="card">
+                        <div class="card_head">
+                            <div class="card_head_wrapper subscription_head">
+                                <div class="card_head_title">Subscriptions</div>
+                                <% if (isAdmin) { %>
+                                    <button type="button" class="subscription_add_btn" id="addSubscriptionBtn">Add</button>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="card_body">
+                            <div class="card_body_wrapper">
+                                <div class="subscriptions">
+                                    <% if (subscriptions.length === 0) { %>
+                                        <div class="subscription_empty">No subscriptions yet</div>
+                                    <% } %>
+                                    <% subscriptions.forEach(function(subscription) { %>
+                                        <div class="link_wrapper">
+                                            <div class="subscription_title_row">
+                                                <div class="link_title"><%= subscription.name %></div>
+                                                <% if (isAdmin) { %>
+                                                    <div class="subscription_actions">
+                                                        <button type="button" class="subscription_action_btn subscription_edit_btn">Edit</button>
+                                                        <form action="/subscription/<%= subscription._id %>?_method=DELETE" method="POST" class="subscription_delete_form">
+                                                            <button type="submit" class="subscription_action_btn">Delete</button>
+                                                        </form>
+                                                    </div>
+                                                <% } %>
+                                            </div>
+                                            <a href="<%= subscription.url %>" class="link"><%= subscription.url %></a>
+                                            <% if (isAdmin) { %>
+                                                <form action="/subscription/<%= subscription._id %>?_method=PUT" method="POST" class="subscription_form subscription_edit_form" hidden>
+                                                    <input type="text" name="name" value="<%= subscription.name %>" placeholder="Name" required>
+                                                    <input type="url" name="url" value="<%= subscription.url %>" placeholder="https://..." pattern="https?://.+" required>
+                                                    <button type="submit">Save</button>
+                                                </form>
+                                            <% } %>
+                                        </div>
+                                    <% }) %>
+                                    <% if (isAdmin) { %>
+                                        <form action="/subscription" method="POST" class="subscription_form" id="subscriptionForm" hidden>
+                                            <input type="text" name="name" placeholder="Name" required>
+                                            <input type="url" name="url" placeholder="https://..." pattern="https?://.+" required>
+                                            <button type="submit">Save</button>
+                                        </form>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- card of useful tools -->
                     <div class="card">
                         <div class="card_head">
@@ -510,6 +561,7 @@
 
         <% if (isAdmin) { %>
             <script src="adminLogout.js"></script>
+            <script src="subscriptionForm.js"></script>
         <% } else { %>
             <script src="adminLogin.js"></script>
         <% } %>
